@@ -45,7 +45,7 @@ public class ControladorCarteira {
                 // conta.debitar(precoAtivo * qtd);
 
                 // Adiciona o ativo e sua quantidade à carteira.
-                carteira.adicionarAtivo(ativo, qtd,_repositorioAtivos);
+                carteira.adicionarAtivo(ativo, qtd);
 
                 // Atualiza a quantidade global do ativo (se aplicável ao sistema).
                 ativo.setQuantidade(qtd);

@@ -14,6 +14,7 @@ public class Carteira {
     public int ID;
     private double ValorCarteira;
     private Map<Ativo, Double> ativos; // Mapeia cada Ativo para sua quantidade.
+    private static iRepositorioAtivos repositorioAtivos;
 
     public Carteira(int ID) {
         Ncarteiras++;
@@ -34,10 +35,10 @@ public class Carteira {
         return ativos;
     }
 
-    public void adicionarAtivo(Ativo ativo, double quantidade, iRepositorioAtivos repositorio) throws Exist {
+    public void adicionarAtivo(Ativo ativo, double quantidade) throws Exist {
         try {
             // Tenta buscar o ativo no repositório
-            if (repositorio.buscarAtivo(ativo.getNome()) == null) {
+            if (repositorioAtivos.buscarAtivo(ativo.getNome()) == null) {
                 throw new Exist("O ativo não existe no sistema.");
             }
             // Adiciona o ativo à carteira
