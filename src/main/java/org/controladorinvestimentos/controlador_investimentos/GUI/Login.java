@@ -10,8 +10,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioUsers;
 
 public class Login extends Application {
+
+    RepositorioUsers repositorio = new RepositorioUsers();
 
     @Override
     public void start(Stage primaryStage) {
@@ -39,6 +42,7 @@ public class Login extends Application {
 
             String user = userField.getText();
             String password = passwordField.getText();
+            repositorio.buscarUsuario(user);
 
 
         });

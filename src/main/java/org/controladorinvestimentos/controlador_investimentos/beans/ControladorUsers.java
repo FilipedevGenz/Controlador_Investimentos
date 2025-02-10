@@ -1,14 +1,22 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
+import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.emailStrategy;
+import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.nomeStrategy;
+import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.senhaStrategy;
+import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.updateStrategy;
+
+import java.util.Map;
 import java.util.Scanner;
 
+import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Email;
+import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Nome;
 
-import Exceptions.Exist;
-import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioUsers;
 
 public class ControladorUsers {
-    private static iRepositorioUsers repositorioUsuario;
 
+    private static iRepositorioUsers repositorioUsuario;
     //verificações por email e prints no console serão corrigidas na fase de produção da gui
 
     public void CadastrarUsuario(Usuario usuario) {
@@ -21,6 +29,19 @@ public class ControladorUsers {
             repositorioUsuario.adicionarUsuario(usuario);
         }
     }
+    public void CadastrarAdm(Usuario usuario) {
+        try {
+            Usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);
+            if (usuarioEncontrado != null) {
+                throw new Exist("Usuário já existe no sistema.");
+            }
+        } catch (Exception e) {
+            repositorioUsuario.adicionarADM(usuario);
+        }
+
+    }
+
+
 
     public void RemoverUsuario(Usuario usuario) {
         try {
@@ -35,39 +56,20 @@ public class ControladorUsers {
 
     public void AlterarUsuario(Usuario usuario,UpdateOptions option) throws Exist{
 
-        if (option == UpdateOptions.Email){
-            try {
-                System.out.println("Digite o novo email:");
-                Scanner ler = new Scanner(System.in);
-                String NewInfo = ler.nextLine();
-                repositorioUsuario.AlterarEmail(NewInfo);
-            }catch (Exist e){
-                throw new Exist("Erro ao alterar Email, tente novamente.");
-            }
-        }
-        else if (option == UpdateOptions.Nome){
-            try {
-                System.out.println("Digite o novo nome:");
-                Scanner ler = new Scanner(System.in);
-                String NewInfo = ler.nextLine();
-                repositorioUsuario.AlterarNome(NewInfo);
-            }catch (Exist e){
-                throw new Exist("Erro ao alterar Nome, tente novamente.");
-            }
-        }
-        else if (option == UpdateOptions.Senha){
-            Scanner ler = new Scanner(System.in);
-            System.out.println("Digite a nova senha:");
-            String NewInfo = ler.nextLine();
-            System.out.println("Digite novamente a nova senha:");
-            String NewInfo2 = ler.nextLine();
+        //strategy
+        UpdateOptions Senha;
+        final Map<UpdateOptions, updateStrategy> mapStrategy = Map.of(
+                Nome, new nomeStrategy(),
+                Senha, new senhaStrategy(),
+                Email, new emailStrategy()
+        );
 
-            try {
-                    repositorioUsuario.AlterarSenha(NewInfo);
-            } catch (Exist e){
-                throw new Exist("Erro ao alterar senha, tente novamente.");
-            }
-        }
+        try {
+            Usuario usuarioAtual = repositorioUsuario.buscarUsuario(usuario);
+
+            mapStrategy.get(option).updateInfo(usuarioAtual);
+
+        } catch (Exception e) {throw new Exist("Usuario não existe no sistema");}
     }
 
 

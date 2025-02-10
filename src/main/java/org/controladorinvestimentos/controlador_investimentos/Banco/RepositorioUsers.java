@@ -1,6 +1,8 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 
-import Exceptions.Exist;
+
+import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controlador_investimentos.beans.Adm;
 import org.controladorinvestimentos.controlador_investimentos.beans.Usuario;
 
 import java.util.ArrayList;
@@ -9,7 +11,10 @@ public class RepositorioUsers implements iRepositorioUsers {
 
     private static final ArrayList<Usuario> Usuarios = new ArrayList<>();
 
-
+    public void adicionarADM(Usuario usuario){
+        Adm NewAdm = new Adm();
+        Usuarios.add(NewAdm);
+    }
     public void adicionarUsuario(Usuario usuario){
          Usuarios.add(usuario);
     }
@@ -27,13 +32,13 @@ public class RepositorioUsers implements iRepositorioUsers {
         throw new Exist("usuario nao encontrado");
     }
 
-    public void AlterarEmail(String email){
-
+    public void AlterarEmail(String email,Usuario usuario){
+        usuario.setEmail(email);
     }
-    public void AlterarSenha(String senha){
-
+    public void AlterarSenha(String senha,Usuario usuario){
+        usuario.setSenha(senha);
     }
-    public void AlterarNome(String nome){
-
+    public void AlterarNome(String nome,Usuario usuario){
+        usuario.setNome(nome);
     }
 }
