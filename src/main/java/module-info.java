@@ -15,4 +15,8 @@ module org.controladorinvestimentos.demo1 {
     exports org.controladorinvestimentos.demo1;
     opens org.controladorinvestimentos.demo1.GUI to javafx.graphics;
 
+    requires javafx.base;
+    requires javafx.graphics;
+    exports org.controladorinvestimentos.controlador_investimentos.GUI to javafx.graphics;
 }
+

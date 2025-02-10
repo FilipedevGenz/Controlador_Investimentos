@@ -15,6 +15,12 @@ public class RepositorioUsers implements iRepositorioUsers {
         Adm NewAdm = new Adm();
         Usuarios.add(NewAdm);
     }
+
+    public void construtorUsuario(int cpf, String nome, String email, String senha) {
+            Usuario user = new Usuario(cpf, nome, senha, email);
+            adicionarUsuario(user);
+    }
+
     public void adicionarUsuario(Usuario usuario){
          Usuarios.add(usuario);
     }
@@ -38,7 +44,16 @@ public class RepositorioUsers implements iRepositorioUsers {
     public void AlterarSenha(String senha,Usuario usuario){
         usuario.setSenha(senha);
     }
-    public void AlterarNome(String nome,Usuario usuario){
-        usuario.setNome(nome);
+    public void AlterarNome(String nome,Usuario usuario){usuario.setNome(nome);}
+
+    @Override
+    public boolean buscarCPF(Integer cpf) {
+        for(Usuario u : Usuarios){
+            if(u.getCpf() == cpf){
+                return true;
+            }
+        }
+        return false;
     }
+
 }

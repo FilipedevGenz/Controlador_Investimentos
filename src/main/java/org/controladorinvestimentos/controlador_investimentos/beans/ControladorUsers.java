@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Email;
 import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Nome;
+import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Senha;
 
 
 public class ControladorUsers {
@@ -60,7 +61,7 @@ public class ControladorUsers {
         UpdateOptions Senha;
         final Map<UpdateOptions, updateStrategy> mapStrategy = Map.of(
                 Nome, new nomeStrategy(),
-                Senha, new senhaStrategy(),
+                UpdateOptions.Senha, new senhaStrategy(),
                 Email, new emailStrategy()
         );
 

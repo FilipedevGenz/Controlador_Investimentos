@@ -25,7 +25,7 @@ public class Login extends Application {
         loginLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
 
         TextField userField = new TextField();
-        userField.setPromptText("Usuário");
+        userField.setPromptText("digite seu cpf");
         userField.setStyle("-fx-background-color: #E0E0E0; -fx-background-radius: 20px; -fx-padding: 10px; -fx-font-weight:" +
                 " bold; -fx-alignment: center;");
 
@@ -39,18 +39,43 @@ public class Login extends Application {
                 "20px; -fx-padding: 10px 20px;");
 
         loginButton.setOnAction(e -> {
-
+            //falta implementar a mudança de tela, caso o login seja bem sucedido
             String user = userField.getText();
             String password = passwordField.getText();
-            repositorio.buscarUsuario(user);
+            try {
+                Integer cpf = Integer.parseInt(user);
+                if (!repositorio.buscarCPF(cpf)){
 
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Não existe esse usuario");
+                    alert.setHeaderText("CPF Inválido");
+                    alert.setContentText("O CPF informado não é válido. Por favor, insira um CPF válido.");
+
+                    alert.showAndWait();
+                }
+
+            } catch (NumberFormatException ex) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro de Formato");
+                alert.setHeaderText("CPF Inválido");
+                alert.setContentText("O CPF informado não é válido. Por favor, insira um CPF válido.");
+
+                alert.showAndWait();
+            }
 
         });
 
         Label registerLabel = new Label("Não tem conta?\nclique aqui para criar uma conta");
-        registerLabel.setStyle("-fx-font-size: 10px; -fx-text-fill: gray; -fx-text-alignment: center;");
+        registerLabel.setStyle("-fx-font-size: 10px; -fx-text-fill: gray; -fx-text-alignment: center; -fx-underline: true;");
+
         registerLabel.setOnMouseClicked(event -> {
-            System.out.println("Redirecionando para página de cadastro...");
+
+            newUser next = new newUser();
+            Stage newUser = new Stage();
+            next.start(newUser);
+            primaryStage.close();
+
         });
 
         //estutura do layout
