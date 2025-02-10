@@ -1,8 +1,10 @@
-package beans;
+package org.controladorinvestimentos.controlador_investimentos.beans;
 
 import java.util.Scanner;
-import Banco.iRepositorioUsers;
+
+
 import Exceptions.Exist;
+import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioUsers;
 
 public class ControladorUsers {
     private static iRepositorioUsers repositorioUsuario;

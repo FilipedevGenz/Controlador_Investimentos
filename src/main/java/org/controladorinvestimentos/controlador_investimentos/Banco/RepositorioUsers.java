@@ -1,8 +1,8 @@
-package Banco;
+package org.controladorinvestimentos.controlador_investimentos.Banco;
 
 import Exceptions.Exist;
-import beans.UpdateOptions;
-import beans.Usuario;
+import org.controladorinvestimentos.controlador_investimentos.beans.Usuario;
+
 import java.util.ArrayList;
 
 public class RepositorioUsers implements iRepositorioUsers {

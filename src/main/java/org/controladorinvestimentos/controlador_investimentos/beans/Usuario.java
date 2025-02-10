@@ -1,6 +1,6 @@
-package beans;
+package org.controladorinvestimentos.controlador_investimentos.beans;
 
-import Banco.iRepositorioUsers;
+
 public class Usuario {
 
     private int cpf;

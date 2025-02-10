@@ -1,4 +1,4 @@
-package org.controladorinvestimentos.demo1.GUI;
+package org.controladorinvestimentos.controlador_investimentos.GUI;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -34,10 +34,12 @@ public class Login extends Application {
         Button loginButton = new Button("Entrar");
         loginButton.setStyle("-fx-background-color: #555; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: " +
                 "20px; -fx-padding: 10px 20px;");
+
         loginButton.setOnAction(e -> {
 
             String user = userField.getText();
             String password = passwordField.getText();
+
 
         });
 

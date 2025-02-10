@@ -1,4 +1,4 @@
-package beans;
+package org.controladorinvestimentos.controlador_investimentos.beans;
 
 public class Conta extends Usuario{
 

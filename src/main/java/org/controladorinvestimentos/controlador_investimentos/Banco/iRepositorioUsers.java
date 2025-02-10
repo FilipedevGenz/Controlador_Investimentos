@@ -1,7 +1,7 @@
-package Banco;
+package org.controladorinvestimentos.controlador_investimentos.Banco;
 
-import beans.UpdateOptions;
-import beans.Usuario;
+
+import org.controladorinvestimentos.controlador_investimentos.beans.Usuario;
 
 public interface iRepositorioUsers {
 
