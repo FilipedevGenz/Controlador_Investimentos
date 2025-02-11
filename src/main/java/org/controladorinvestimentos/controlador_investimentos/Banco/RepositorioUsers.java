@@ -11,6 +11,25 @@ public class RepositorioUsers implements iRepositorioUsers {
 
     private static final ArrayList<Usuario> Usuarios = new ArrayList<>();
 
+    private static RepositorioUsers instance;
+
+
+    private RepositorioUsers(){}
+
+
+    public static synchronized RepositorioUsers getInstance(){
+
+        if(instance == null){
+            synchronized (RepositorioUsers.class){
+                if(instance == null){
+                    instance = new RepositorioUsers();
+                }
+            }
+        }
+        return instance;
+    }
+
+
     public void adicionarADM(Usuario usuario){
         Adm NewAdm = new Adm();
         Usuarios.add(NewAdm);

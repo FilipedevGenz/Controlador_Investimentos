@@ -1,5 +1,6 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.emailStrategy;
@@ -8,11 +9,9 @@ import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.sen
 import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.updateStrategy;
 
 import java.util.Map;
-import java.util.Scanner;
 
 import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Email;
 import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Nome;
-import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Senha;
 
 
 public class ControladorUsers {
@@ -20,16 +19,30 @@ public class ControladorUsers {
     private static iRepositorioUsers repositorioUsuario;
     //verificações por email e prints no console serão corrigidas na fase de produção da gui
 
-    public void CadastrarUsuario(Usuario usuario) {
-        try {
-            Usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);
-            if (usuarioEncontrado != null) {
-                throw new Exist("Usuário já existe no sistema.");
-            }
-        } catch (Exception e) {
-            repositorioUsuario.adicionarUsuario(usuario);
-        }
+    public ControladorUsers(){
+        repositorioUsuario = RepositorioUsers.getInstance();
     }
+    public void cadastrarNovoUsuario(int cpf, String nome, String email, String senha) throws Exist {
+        if (repositorioUsuario.buscarCPF(cpf)) {
+            throw new Exist("Usuário já existe no sistema.");
+        }
+
+        Usuario novoUsuario = new Usuario(cpf, nome, senha, email);
+        repositorioUsuario.adicionarUsuario(novoUsuario);
+    }
+
+//não sei se esse codigo pode ser necessario mais pra frente, por isso esta em comentado
+    //public void enviarParaBD(Usuario usuario) {
+      //  try {
+       //     Usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);
+       //     if (usuarioEncontrado != null) {
+        //        throw new Exist("Usuário já existe no sistema.");
+//          }
+       // } catch (Exception e) {
+        //    repositorioUsuario.adicionarUsuario(usuario);
+      //  }
+   //}
+
     public void CadastrarAdm(Usuario usuario) {
         try {
             Usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);

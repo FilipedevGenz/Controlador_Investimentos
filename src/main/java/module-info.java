@@ -1,4 +1,4 @@
-module org.controladorinvestimentos.demo1 {
+module org.controladorinvestimentos.controlador_investimentos {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -11,12 +11,12 @@ module org.controladorinvestimentos.demo1 {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens org.controladorinvestimentos.demo1 to javafx.fxml;
-    exports org.controladorinvestimentos.demo1;
-    opens org.controladorinvestimentos.demo1.GUI to javafx.graphics;
+    opens org.controladorinvestimentos.controlador_investimentos.GUI to javafx.fxml;
 
     requires javafx.base;
     requires javafx.graphics;
-    exports org.controladorinvestimentos.controlador_investimentos.GUI to javafx.graphics;
+    exports org.controladorinvestimentos.controlador_investimentos.GUI;
+
+
 }
 

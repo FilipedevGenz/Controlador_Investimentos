@@ -10,7 +10,7 @@ import java.util.List;
 // A classe repositorioCarteira tem forte relação com conta.
 public class RepositorioCarteira implements iRepositorioCarteira {
 
-    static final ArrayList<Carteira> carteiras = new ArrayList<>();
+    static ArrayList<Carteira> carteiras = new ArrayList<>();
 
     public void adicionarCarteira(Carteira carteira){
         //na fase de gui, receber o nome como parametro e alterar

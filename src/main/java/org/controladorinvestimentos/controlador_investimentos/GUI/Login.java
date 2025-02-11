@@ -1,5 +1,6 @@
 package org.controladorinvestimentos.controlador_investimentos.GUI;
 
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,12 +13,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioUsers;
 
+
 public class Login extends Application {
 
-    RepositorioUsers repositorio = new RepositorioUsers();
+    RepositorioUsers repositorio;
 
     @Override
     public void start(Stage primaryStage) {
+        repositorio = RepositorioUsers.getInstance();
         primaryStage.setTitle("Controlador de Investimentos");
 
 
@@ -69,6 +72,7 @@ public class Login extends Application {
         Label registerLabel = new Label("Não tem conta?\nclique aqui para criar uma conta");
         registerLabel.setStyle("-fx-font-size: 10px; -fx-text-fill: gray; -fx-text-alignment: center; -fx-underline: true;");
 
+        //logica para alternar de tela
         registerLabel.setOnMouseClicked(event -> {
 
             newUser next = new newUser();

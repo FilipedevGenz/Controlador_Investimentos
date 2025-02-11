@@ -7,7 +7,23 @@ import java.util.ArrayList;
 
 public class RepositorioAtivos implements iRepositorioAtivos{
 
-         static final ArrayList<Ativo> Ativos = new ArrayList<>();
+        private static final ArrayList<Ativo> Ativos = new ArrayList<>();
+
+        private static RepositorioAtivos instance;
+
+        private RepositorioAtivos() {}
+
+    public static synchronized RepositorioAtivos getInstance(){
+
+        if(instance == null){
+            synchronized (RepositorioUsers.class){
+                if(instance == null){
+                    instance = new RepositorioAtivos();
+                }
+            }
+        }
+        return instance;
+    }
 
         public void adicionarAtivo(String nome,double preco){
             Ativo _NewAtv = new Ativo(nome,preco);
