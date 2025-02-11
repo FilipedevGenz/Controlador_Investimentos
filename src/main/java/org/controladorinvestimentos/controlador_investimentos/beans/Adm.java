@@ -1,19 +1,22 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 
 public class Adm extends Usuario{
 
-    private iRepositorioAtivos repositorioAtivos;
+    private static iRepositorioAtivos repositorioAtivos;
+
 
     private void CriarAtivo(int idAtv, double ValorAtv, String nome){
+            repositorioAtivos = RepositorioAtivos.getInstance();
         try {
             Ativo _AtivoEncontrado = repositorioAtivos.buscarAtivo(nome);
             if (_AtivoEncontrado != null){
                 throw new Exist("esse ativo já existe no sistema.");
-
+            
             }
         } catch (Exception e) {
             repositorioAtivos.adicionarAtivo(nome,ValorAtv);

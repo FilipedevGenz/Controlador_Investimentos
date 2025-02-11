@@ -1,5 +1,6 @@
 package org.controladorinvestimentos.controlador_investimentos.GUI;
 
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controlador_investimentos.beans.ControladorUsers;
 
 public class newUser extends Application {
 
@@ -53,26 +56,34 @@ public class newUser extends Application {
 
             try {
                 Integer cpf = Integer.parseInt(userCPF);
-                if (repositorio.buscarCPF(cpf)){
+                ControladorUsers controlador = new ControladorUsers(); // Criando o controlador
 
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("ja existe esse usuario");
-                    alert.setHeaderText("esse CPF ja pertence a um usuario");
-                    alert.setContentText("O CPF informado não é válido. Por favor, insira um CPF válido.");
+                controlador.cadastrarNovoUsuario(cpf, nome, email, password);
 
-                    alert.showAndWait();
-                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Cadastro realizado");
+                alert.setHeaderText("Sucesso!");
+                alert.setContentText("Usuário cadastrado com sucesso.");
+                alert.showAndWait();
 
-                repositorio.construtorUsuario(cpf,nome,email,password);
+                // Retorna para a tela de login após o cadastro
+                Login login = new Login();
+                Stage loginStage = new Stage();
+                login.start(loginStage);
+                primaryStage.close();
 
-
-        }catch (NumberFormatException ex) {
-
+            } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erro de Formato");
                 alert.setHeaderText("CPF Inválido");
                 alert.setContentText("O CPF informado não é válido. Por favor, insira um CPF válido.");
+                alert.showAndWait();
 
+            } catch (Exist ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro de Cadastro");
+                alert.setHeaderText("Usuário já cadastrado");
+                alert.setContentText(ex.getMessage());
                 alert.showAndWait();
             }
         });
