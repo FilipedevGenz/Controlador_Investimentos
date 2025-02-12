@@ -1,10 +1,16 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
+import java.io.IOException;
+
 
 import java.util.ArrayList;
-
 public class RepositorioAtivos implements iRepositorioAtivos{
 
         private static final ArrayList<Ativo> Ativos = new ArrayList<>();
