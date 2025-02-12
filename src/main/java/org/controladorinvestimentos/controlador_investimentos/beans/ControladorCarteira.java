@@ -1,20 +1,15 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
 
-import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioCarteira;
 import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioCarteira;
+import org.controladorinvestimentos.controlador_investimentos.Banco.irepositorioRelatorio;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 public class ControladorCarteira {
 
+    private irepositorioRelatorio IrepositorioRelatorio;
     private static iRepositorioCarteira _repositorioCarteira;
-    
-    public ControladorCarteira () {
-
-        _repositorioCarteira = RepositorioCarteira.getInstance();
-    }
-   
     private iRepositorioAtivos _repositorioAtivos;
 
     public void NovaCarteira(Carteira carteira,Conta conta) {
@@ -42,7 +37,7 @@ public class ControladorCarteira {
     }
 
     void comprarAtivo(int ID, String nomeAtivo, double qtd, Carteira carteira, Conta conta) {
-        try {
+        try { 
             double saldo = conta.getSaldo();
             Ativo ativo = _repositorioAtivos.buscarAtivo(nomeAtivo);
             double precoAtivo = ativo.getPreco();
