@@ -18,6 +18,14 @@ public class Conta extends Usuario{
         saldo = 0.0;
     }
 
+    public void debitar(double valor){
+        saldo -= valor;
+    }
+
+    public void creditar(double valor){
+        saldo += valor;
+    }
+
     public  ArrayList<Carteira> getCarteiras(){return carteiras;}
 
     public double getSaldo() {return saldo;}

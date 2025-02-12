@@ -52,13 +52,5 @@ public class RepositorioCarteira implements iRepositorioCarteira {
         throw new Exist("carteira nao encontrada");
     }
 
-    public List<Carteira> buscarCarteirasComAtivo(String nomeAtivo, List<Carteira> todasCarteiras) {
-        List<Carteira> carteirasComAtivo = new ArrayList<>();
-        for (Carteira carteira : todasCarteiras) {
-            if (carteira.getAtivos().keySet().stream().anyMatch(a -> a.getNome().equals(nomeAtivo))) {
-                carteirasComAtivo.add(carteira);
-            }
-        }
-        return carteirasComAtivo;
-    }
+   
 }
