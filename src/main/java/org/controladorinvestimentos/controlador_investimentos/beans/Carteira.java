@@ -6,14 +6,13 @@ import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.*;
 
 public class Carteira {
 
     private static int Ncarteiras = 0;
     public int ID;
     private double ValorCarteira;
-    private static Map<Ativo, Double> ativos = new HashMap<>(); // Alterado para HashMap
+    private Map<Ativo, Double> ativos = new HashMap<>(); // Alterado para HashMap
 
     public Carteira(int ID) {
         Ncarteiras++;
