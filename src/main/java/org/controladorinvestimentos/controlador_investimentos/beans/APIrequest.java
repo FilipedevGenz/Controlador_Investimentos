@@ -14,44 +14,61 @@ import java.util.ArrayList;
 
 public class APIrequest {
 
-    public static double buscarPrecoAtivoEmTempoReal(String simbolo) throws IOException {
-        String apiKey = "7kfUNQUQm5GxWV6GXAf3ig";
-        String url = "https://brapi.dev/api/quote/" + simbolo + "?token=" + apiKey;
-        //Simbolo = nome/codigo do ativo em questao.
-        //Token = codigo de acesso retirado pela criacao de conta no side da Brapi api usada no codigo
+    private static final String API_KEY = "7kfUNQUQm5GxWV6GXAf3ig";
+    private static final String BASE_URL = "https://brapi.dev/api/quote/";
 
+    //codigo api feito pra retornar :  Nome do ativo (shortName)
+    // Moeda (currency)
+    // Preço atual (regularMarketPrice)
+    // Preço máximo do dia (regularMarketDayHigh)
+    // Preço mínimo do dia (regularMarketDayLow)
+    // Volume negociado (regularMarketVolume)
+    private static JsonObject getAtivoData(String simbolo) throws IOException {
+        String url = BASE_URL + simbolo + "?token=" + API_KEY;
 
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url) //URL de requisicao
-                .build(); //constroi a ponte para o http
+        Request request = new Request.Builder().url(url).build();
 
-        //jsonresponse armazena a resposta capturada pela api
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) {
                 throw new IOException("Erro na requisição: " + response.code());
             }
 
-            //converte o dado retirado na api e transforma em String
             String jsonResponse = response.body().string();
-
-
             JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-            JsonObject results = jsonObject.getAsJsonArray("results").get(0).getAsJsonObject();
-            double preco = results.get("regularMarketPrice").getAsDouble();
-
-            return preco;
+            return jsonObject.getAsJsonArray("results").get(0).getAsJsonObject();
         }
     }
 
-    public void BuscarPreco(String simbolo, Ativo ativo) {
-        try {
-            double preco = buscarPrecoAtivoEmTempoReal(simbolo);
-            ativo.setPreco(preco);
-            System.out.println("Preço atualizado para o ativo " + ativo.getNome() + ": " + preco);
-        } catch (IOException e) {
-            System.err.println("Erro ao buscar o preço do ativo: " + e.getMessage());
-        }
+    public static double buscarPrecoAtivoEmTempoReal(String simbolo) throws IOException {
+        JsonObject results = getAtivoData(simbolo);
+        return results.get("regularMarketPrice").getAsDouble();
     }
 
-}
+    public static String buscarNomeAtivo(String simbolo) throws IOException {
+        JsonObject results = getAtivoData(simbolo);
+        return results.get("shortName").getAsString();
+    }
+
+    public static String buscarMoedaAtivo(String simbolo) throws IOException {
+        JsonObject results = getAtivoData(simbolo);
+        return results.get("currency").getAsString();
+    }
+
+    public static double buscarPrecoMaximoDia(String simbolo) throws IOException {
+        JsonObject results = getAtivoData(simbolo);
+        return results.get("regularMarketDayHigh").getAsDouble();
+    }
+
+    public static double buscarPrecoMinimoDia(String simbolo) throws IOException {
+        JsonObject results = getAtivoData(simbolo);
+        return results.get("regularMarketDayLow").getAsDouble();
+    }
+
+    public static long buscarVolumeNegociado(String simbolo) throws IOException {
+        JsonObject results = getAtivoData(simbolo);
+        return results.get("regularMarketVolume").getAsLong();
+    }
+
+    }
+
