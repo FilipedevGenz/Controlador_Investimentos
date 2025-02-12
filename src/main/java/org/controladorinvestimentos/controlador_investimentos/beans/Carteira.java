@@ -7,6 +7,7 @@ import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.*;
 
 public class Carteira {
 
