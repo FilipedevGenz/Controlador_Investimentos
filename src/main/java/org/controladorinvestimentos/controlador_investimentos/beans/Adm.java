@@ -9,7 +9,7 @@ import java.io.IOException;
 
 
 public class Adm extends Usuario{
-
+    public static boolean isADM = true;
     private static iRepositorioAtivos repositorioAtivos;
     public controladorAtivos controladorAtivos;
 
