@@ -1,18 +1,21 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
+
+
 import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Carteira {
 
+    //CORRIGIR FUNÇÃO LISTAR ATIVOS!!!
+
     private static int Ncarteiras = 0;
     public int ID;
     private double ValorCarteira;
-    private Map<Ativo, Double> ativos = new HashMap<>(); // Alterado para HashMap
+    private static ArrayList<Ativo> ativos = new ArrayList<Ativo>();
 
     public Carteira(int ID) {
         Ncarteiras++;
@@ -28,16 +31,20 @@ public class Carteira {
         return ValorCarteira;
     }
 
+
     public void adicionarAtivoNaCarteira(Ativo ativo, double quantidade) throws Exist {
-        ativos.put(ativo, ativos.getOrDefault(ativo, 0.0) + quantidade);
-        atualizarValorCarteira();
+
+        ativos.add(ativo);
+
     }
+
+
 
     public void removerAtivo(Ativo ativo, double quantidade) {
         if (ativos.containsKey(ativo)) {
             double qtdAtual = ativos.get(ativo);
             if (qtdAtual <= quantidade) {
-                ativos.remove(ativo);
+                ativos.remove(ativo); // Remove completamente se a quantidade for zero ou menor.
             } else {
                 ativos.put(ativo, qtdAtual - quantidade);
             }
@@ -52,6 +59,7 @@ public class Carteira {
         }
     }
 
+    //CORRIGIR FUNÇÃO LISTAR ATIVOS!!!
     public String listarAtivos() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Ativo, Double> entry : ativos.entrySet()) {
