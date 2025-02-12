@@ -1,39 +1,32 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
+import com.dlsc.formsfx.model.structure.StringField;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
+import java.io.IOException;
+
 
 public class Adm extends Usuario{
-
+    public static boolean isADM = true;
     private static iRepositorioAtivos repositorioAtivos;
+    public controladorAtivos controladorAtivos;
 
 
     private void CriarAtivo(int idAtv, double ValorAtv, String nome){
             repositorioAtivos = RepositorioAtivos.getInstance();
         try {
-            Ativo _AtivoEncontrado = repositorioAtivos.buscarAtivo(nome);
-            if (_AtivoEncontrado != null){
-                throw new Exist("esse ativo já existe no sistema.");
-            
-            }
-        } catch (Exception e) {
-            repositorioAtivos.adicionarAtivo(nome,ValorAtv);
+            controladorAtivos.CriarAtivo(nome);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private void RemoverAtivo(int idAtv, double ValorAtv, String nome){
-        try {
-           Ativo _AtivoEncontrado = repositorioAtivos.buscarAtivo(nome);
-            if (_AtivoEncontrado != null) {
-                repositorioAtivos.removerAtivo(_AtivoEncontrado);
-            }
-        }catch (Exception e) {
-            throw new Exist("Esse ativo não existe no sistema.");
-        }
-
+    private void RemoverAtivo(String nome){
+        controladorAtivos.RemoverAtivo(nome);
     }
+
     private void AlterarPreco(String nome,double preco){
         try {
             Ativo _AtivoEncontrado = repositorioAtivos.buscarAtivo(nome);

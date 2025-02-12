@@ -4,7 +4,6 @@ public class Ativo {
 
     public String nome;
     private double preco;
-    private double quantidade;
 
    public Ativo(String nome, double preco){
         this.nome = nome;
@@ -26,8 +25,4 @@ public class Ativo {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public double getQuantidade() {return quantidade;}
-
-    public void setQuantidade(double quantidade) {this.quantidade += quantidade;}
 }

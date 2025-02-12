@@ -7,6 +7,7 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
+    public static boolean isADM = false;
 
 
     public Usuario(int cpf, String nome, String senha, String email) {

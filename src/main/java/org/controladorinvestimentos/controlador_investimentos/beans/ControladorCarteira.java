@@ -3,12 +3,20 @@ package org.controladorinvestimentos.controlador_investimentos.beans;
 
 import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioCarteira;
+import org.controladorinvestimentos.controlador_investimentos.Banco.irepositorioRelatorio;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
+
+import java.time.LocalDate;
+
+import static org.controladorinvestimentos.controlador_investimentos.beans.ControladorRelatorio.criarRelatorio;
 
 public class ControladorCarteira {
 
+    private irepositorioRelatorio IrepositorioRelatorio;
     private static iRepositorioCarteira _repositorioCarteira;
     private iRepositorioAtivos _repositorioAtivos;
+    public ControladorRelatorio controladorRelatorio;
+    public irepositorioRelatorio repositorioRelatorio;
 
     public void NovaCarteira(Carteira carteira,Conta conta) {
         try {
@@ -34,21 +42,26 @@ public class ControladorCarteira {
         }
     }
 
-    void comprarAtivo(int ID, String nomeAtivo, double qtd, Carteira carteira, Conta conta) {
+    void comprarAtivo(int ID, String nomeAtivo, double qtd, Carteira carteira, Conta conta) throws Exist{
         try {
+
             double saldo = conta.getSaldo();
             Ativo ativo = _repositorioAtivos.buscarAtivo(nomeAtivo);
+            if (ativo == null) {
+                //adicionar chamada de popUP na gui
+
+            }
             double precoAtivo = ativo.getPreco();
 
             if (saldo >= (precoAtivo * qtd)) {
-                // Atualiza o saldo da conta (se necessário).
-                // conta.debitar(precoAtivo * qtd);
 
+                conta.debitar(precoAtivo * qtd);
                 // Adiciona o ativo e sua quantidade à carteira.
-                carteira.adicionarAtivo(ativo, qtd);
 
-                // Atualiza a quantidade global do ativo (se aplicável ao sistema).
-                ativo.setQuantidade(qtd);
+                carteira.adicionarAtivoNaCarteira(ativo, qtd);
+                relatorio newRelatorio = criarRelatorio(nomeAtivo, precoAtivo, LocalDate.now(), qtd);
+                repositorioRelatorio.addRelatorio(newRelatorio);
+
             } else {
                 throw new Exist("Saldo insuficiente para a compra.");
             }

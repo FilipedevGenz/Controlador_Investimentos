@@ -2,6 +2,7 @@ package org.controladorinvestimentos.controlador_investimentos.Banco;
 
 
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
 import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 
 import java.util.ArrayList;
@@ -10,7 +11,25 @@ import java.util.List;
 // A classe repositorioCarteira tem forte relação com conta.
 public class RepositorioCarteira implements iRepositorioCarteira {
 
-    static ArrayList<Carteira> carteiras = new ArrayList<>();
+    static final ArrayList<Carteira> carteiras = new ArrayList<>();
+
+     private static final ArrayList<Ativo> Carteira = new ArrayList<>();
+
+        private static RepositorioCarteira instance;
+
+        private RepositorioCarteira() {}
+
+    public static synchronized RepositorioCarteira getInstance(){
+
+        if(instance == null){
+            synchronized (RepositorioUsers.class){
+                if(instance == null){
+                    instance = new RepositorioCarteira();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void adicionarCarteira(Carteira carteira){
         //na fase de gui, receber o nome como parametro e alterar
@@ -33,13 +52,5 @@ public class RepositorioCarteira implements iRepositorioCarteira {
         throw new Exist("carteira nao encontrada");
     }
 
-    public List<Carteira> buscarCarteirasComAtivo(String nomeAtivo, List<Carteira> todasCarteiras) {
-        List<Carteira> carteirasComAtivo = new ArrayList<>();
-        for (Carteira carteira : todasCarteiras) {
-            if (carteira.getAtivos().keySet().stream().anyMatch(a -> a.getNome().equals(nomeAtivo))) {
-                carteirasComAtivo.add(carteira);
-            }
-        }
-        return carteirasComAtivo;
-    }
+   
 }

@@ -15,6 +15,8 @@ module org.controladorinvestimentos.controlador_investimentos {
 
     requires javafx.base;
     requires javafx.graphics;
+    requires com.google.gson;
+    requires okhttp3;
     exports org.controladorinvestimentos.controlador_investimentos.GUI;
 
 
