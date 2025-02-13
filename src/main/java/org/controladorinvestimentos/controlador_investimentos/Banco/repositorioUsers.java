@@ -3,6 +3,7 @@ package org.controladorinvestimentos.controlador_investimentos.Banco;
 
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 import org.controladorinvestimentos.controlador_investimentos.beans.adm;
+import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
 
 import java.util.ArrayList;
@@ -81,6 +82,20 @@ public class repositorioUsers implements IrepositorioUsers {
             }
         }
         return null;
+    }
+
+    public conta buscarCPFreturnConta(Integer cpf) {
+        for (usuario u : USUARIOS) {  // Percorre a lista de usuários
+            if (u.getCpf() == cpf) {  // Verifica se o CPF é igual
+                if (u instanceof conta) {  // Verifica se o usuário é uma instância de conta
+                    return (conta) u;  // Faz o casting seguro para conta
+                } else {
+                    System.out.println("Usuário encontrado, mas não é uma conta.");
+                    return null;  // Retorna null se o usuário não for do tipo conta
+                }
+            }
+        }
+        return null;  // Retorna null se o usuário não for encontrado
     }
 
 

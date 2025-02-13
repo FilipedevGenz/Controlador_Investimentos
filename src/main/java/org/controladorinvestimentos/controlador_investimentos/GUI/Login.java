@@ -29,11 +29,13 @@ public class Login extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+
         repositorioatv = repositorioAtivos.getInstance();
         repositorio = repositorioUsers.getInstance();
         usuario conta = new usuario(1234,"teste","123","emailAdm");
         adm admTeste = new adm(conta);
         conta contaTeste = new conta(12345,"contaTeste","123","emailConta");
+
         try {
             controladorAtivos.CriarAtivo("VALE3");
         } catch (IOException e) {

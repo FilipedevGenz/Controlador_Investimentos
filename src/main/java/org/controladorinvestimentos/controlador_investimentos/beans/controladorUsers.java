@@ -86,5 +86,8 @@ public class controladorUsers {
         } catch (Exception e) {throw new Exist("Usuario não existe no sistema");}
     }
 
+    public conta buscarUsuario(int cpf) {
+        return repositorioUsuario.buscarCPFreturnConta(cpf);
+    }
 
 }

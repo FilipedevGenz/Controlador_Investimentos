@@ -9,7 +9,7 @@ import static org.controladorinvestimentos.controlador_investimentos.beans.carte
 
 public class conta extends usuario {
 
-    private double saldo;
+    private double saldo = 20000.0;
     public repositorioCarteira repositorioCarteira;
     private controladorCarteira controladorCarteira;
 

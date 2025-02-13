@@ -1,5 +1,6 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 
+import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
 
 public interface IrepositorioUsers {
@@ -13,4 +14,5 @@ public interface IrepositorioUsers {
     public void AlterarNome(String nome, usuario usuario);
     public boolean buscarCPF(Integer cpf);
     public void construtorUsuario(int cpf,String nome, String email, String senha);
+    public conta buscarCPFreturnConta(Integer cpf);
 }
