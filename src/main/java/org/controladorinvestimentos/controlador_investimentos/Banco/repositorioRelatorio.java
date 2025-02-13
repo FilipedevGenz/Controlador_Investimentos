@@ -6,7 +6,7 @@ import org.controladorinvestimentos.controlador_investimentos.beans.relatorio;
 
 public class repositorioRelatorio implements IrepositorioRelatorio {
 
-     private ArrayList <relatorio> relatorios = new ArrayList<>();
+     private final ArrayList <relatorio> relatorios = new ArrayList<>();
 
      public boolean existe = false; 
 

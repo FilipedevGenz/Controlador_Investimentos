@@ -26,8 +26,8 @@ public class repositorioAtivos implements IrepositorioAtivos {
     }
 
         public void adicionarAtivo(String nome,double preco){
-            ativo _NewAtv = new ativo(nome,preco);
-            ATIVOS.add(_NewAtv);
+            ativo newAtv = new ativo(nome,preco);
+            ATIVOS.add(newAtv);
         }
 
         public void removerAtivo(ativo ativo){
@@ -44,4 +44,8 @@ public class repositorioAtivos implements IrepositorioAtivos {
         }
 
         public void AlterarPreco(double preco, ativo ativo) {ativo.setPreco(preco);}
+
+        public ArrayList<ativo> getAtivos() {
+            return ATIVOS;
+        }
     }

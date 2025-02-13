@@ -1,14 +1,15 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivosCarteira;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 public class carteira {
 
-    private static int Ncarteiras = 0;
+    public static int Ncarteiras = 0;
     public int ID;
     private double ValorCarteira;
-    private repositorioAtivosCarteira repositorioAtvCarteira;
+    public repositorioAtivosCarteira repositorioAtvCarteira;
     private org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio repositorioRelatorio;
 
     public carteira(int ID) {
@@ -17,9 +18,6 @@ public class carteira {
         this.ValorCarteira = 0.0;
     }
 
-    public int getID() {
-        return ID;
-    }
 
     public double getValorCarteira() {
         return ValorCarteira;
@@ -54,7 +52,11 @@ public class carteira {
         }
     }
 
-    private void atualizarValorCarteira() {
+    public org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio getRepositorioRelatorio() {
+        return repositorioRelatorio;
+    }
+
+    public void atualizarValorCarteira() {
         ValorCarteira = repositorioRelatorio.calcularValorAtual();
     }
 }

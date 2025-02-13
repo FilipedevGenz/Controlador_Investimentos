@@ -74,5 +74,14 @@ public class repositorioUsers implements IrepositorioUsers {
         }
         return false;
     }
+    public usuario buscarCPFreturnUser(Integer cpf) {
+        for(usuario u : USUARIOS){
+            if(u.getCpf() == cpf){
+                return u;
+            }
+        }
+        return null;
+    }
+
 
 }

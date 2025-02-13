@@ -2,53 +2,48 @@ package org.controladorinvestimentos.controlador_investimentos.Banco;
 
 
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controlador_investimentos.beans.ativo;
 import org.controladorinvestimentos.controlador_investimentos.beans.carteira;
+import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 
 import java.util.ArrayList;
 
 // A classe repositorioCarteira tem forte relação com conta.
 public class repositorioCarteira implements IrepositorioCarteira {
 //remover o singleton
-    static final ArrayList<org.controladorinvestimentos.controlador_investimentos.beans.carteira> CARTEIRAS = new ArrayList<>();
+     conta dono;
+     private final ArrayList<carteira> carteiras = new ArrayList<>();
 
-     private static final ArrayList<ativo> carteira = new ArrayList<>();
+        private repositorioCarteira instance;
 
-        private static repositorioCarteira instance;
-
-        private repositorioCarteira() {}
-
-    public static synchronized repositorioCarteira getInstance(){
-
-        if(instance == null){
-            synchronized (repositorioUsers.class){
-                if(instance == null){
-                    instance = new repositorioCarteira();
-                }
-            }
+        public repositorioCarteira(conta dono) {
+            this.dono = dono;
         }
-        return instance;
-    }
 
-    public void adicionarCarteira(org.controladorinvestimentos.controlador_investimentos.beans.carteira carteira){
+    public void adicionarCarteira(carteira carteira){
         //na fase de gui, receber o nome como parametro e alterar
         // para atribuiur o nome da carteira recebida com parametro
 
-        org.controladorinvestimentos.controlador_investimentos.beans.carteira _NewCarteira = new carteira(carteira.ID);
-        CARTEIRAS.add(_NewCarteira);
+        carteira newCarteira = new carteira(carteira.Ncarteiras);
+        carteiras.add(newCarteira);
+        newCarteira.repositorioAtvCarteira = new repositorioAtivosCarteira();
+        repositorioRelatorio carteiraRelatorio = new repositorioRelatorio();
     }
 
-    public void removerCarteira(org.controladorinvestimentos.controlador_investimentos.beans.carteira _carteira){
-        CARTEIRAS.remove(_carteira);
+    public void removerCarteira(carteira carteira){
+        carteiras.remove(carteira);
     }
 
-    public org.controladorinvestimentos.controlador_investimentos.beans.carteira buscarCarteira(org.controladorinvestimentos.controlador_investimentos.beans.carteira carteira) throws Exist {
-        for(org.controladorinvestimentos.controlador_investimentos.beans.carteira u : CARTEIRAS){
+    public carteira buscarCarteira(carteira carteira) throws Exist {
+        for(carteira u : carteiras){
             if(u.ID == carteira.ID){
                 return u;
             }
         }
         throw new Exist("carteira nao encontrada");
+    }
+
+    public ArrayList<carteira> getCarteiras(){
+            return carteiras;
     }
 
    

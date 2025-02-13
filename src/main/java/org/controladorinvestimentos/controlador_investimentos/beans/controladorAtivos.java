@@ -11,8 +11,8 @@ public class controladorAtivos {
     public static void CriarAtivo(String nome) throws IOException {
         repositorioAtivos = org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos.getInstance();
         try {
-            ativo _ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
-            if (_ativoEncontrado != null){
+            ativo ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
+            if (ativoEncontrado != null){
                 throw new Exist("esse ativo já existe no sistema.");
 
             }
