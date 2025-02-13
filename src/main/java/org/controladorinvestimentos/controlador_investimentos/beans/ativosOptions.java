@@ -1,5 +1,5 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-public enum AtivosOptions {
+public enum ativosOptions {
     Remover,Adicionar,Buscar;
 }

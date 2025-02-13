@@ -1,7 +1,7 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioUsers;
-import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.emailStrategy;
 import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.nomeStrategy;
@@ -10,24 +10,24 @@ import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.upd
 
 import java.util.Map;
 
-import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Email;
-import static org.controladorinvestimentos.controlador_investimentos.beans.UpdateOptions.Nome;
+import static org.controladorinvestimentos.controlador_investimentos.beans.updateOptions.Email;
+import static org.controladorinvestimentos.controlador_investimentos.beans.updateOptions.Nome;
 
 
-public class ControladorUsers {
+public class controladorUsers {
 
-    private static iRepositorioUsers repositorioUsuario;
+    private static IrepositorioUsers repositorioUsuario;
     //verificações por email e prints no console serão corrigidas na fase de produção da gui
 
-    public ControladorUsers(){
-        repositorioUsuario = RepositorioUsers.getInstance();
+    public controladorUsers(){
+        repositorioUsuario = repositorioUsers.getInstance();
     }
     public void cadastrarNovoUsuario(int cpf, String nome, String email, String senha) throws Exist {
         if (repositorioUsuario.buscarCPF(cpf)) {
             throw new Exist("Usuário já existe no sistema.");
         }
 
-        Usuario novoUsuario = new Usuario(cpf, nome, senha, email);
+        usuario novoUsuario = new usuario(cpf, nome, senha, email);
         repositorioUsuario.adicionarUsuario(novoUsuario);
     }
 
@@ -43,9 +43,9 @@ public class ControladorUsers {
       //  }
    //}
 
-    public void CadastrarAdm(Usuario usuario) {
+    public void CadastrarAdm(usuario usuario) {
         try {
-            Usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);
+            org.controladorinvestimentos.controlador_investimentos.beans.usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);
             if (usuarioEncontrado != null) {
                 throw new Exist("Usuário já existe no sistema.");
             }
@@ -57,9 +57,9 @@ public class ControladorUsers {
 
 
 
-    public void RemoverUsuario(Usuario usuario) {
+    public void RemoverUsuario(usuario usuario) {
         try {
-            Usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);
+            org.controladorinvestimentos.controlador_investimentos.beans.usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);
             if (usuarioEncontrado != null) {
                 repositorioUsuario.removerUsuario(usuario);
             }
@@ -68,18 +68,18 @@ public class ControladorUsers {
         }
     }
 
-    public void AlterarUsuario(Usuario usuario,UpdateOptions option) throws Exist{
+    public void AlterarUsuario(usuario usuario, updateOptions option) throws Exist{
 
         //strategy
-        UpdateOptions Senha;
-        final Map<UpdateOptions, updateStrategy> mapStrategy = Map.of(
+        updateOptions Senha;
+        final Map<updateOptions, updateStrategy> mapStrategy = Map.of(
                 Nome, new nomeStrategy(),
-                UpdateOptions.Senha, new senhaStrategy(),
+                updateOptions.Senha, new senhaStrategy(),
                 Email, new emailStrategy()
         );
 
         try {
-            Usuario usuarioAtual = repositorioUsuario.buscarUsuario(usuario);
+            org.controladorinvestimentos.controlador_investimentos.beans.usuario usuarioAtual = repositorioUsuario.buscarUsuario(usuario);
 
             mapStrategy.get(option).updateInfo(usuarioAtual);
 

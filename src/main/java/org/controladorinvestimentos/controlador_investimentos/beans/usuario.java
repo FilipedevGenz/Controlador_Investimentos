@@ -1,7 +1,7 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
 
-public class Usuario {
+public class usuario {
 
     private int cpf;
     private String nome;
@@ -10,14 +10,14 @@ public class Usuario {
     public static boolean isADM = false;
 
 
-    public Usuario(int cpf, String nome, String senha, String email) {
+    public usuario(int cpf, String nome, String senha, String email) {
         this.cpf = cpf;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
     }
 
-    public Usuario(){}
+    public usuario(){}
 
     public int getCpf() {return cpf;}
 

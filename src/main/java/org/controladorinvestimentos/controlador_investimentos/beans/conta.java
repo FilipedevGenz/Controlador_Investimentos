@@ -2,15 +2,15 @@ package org.controladorinvestimentos.controlador_investimentos.beans;
 
 import java.util.ArrayList;
 
-public class Conta extends Usuario{
+public class conta extends usuario {
 
     private double saldo;
-    private ArrayList<Carteira> carteiras;
-    private ControladorCarteira _controladorCarteira;
+    private ArrayList<carteira> carteiras;
+    private controladorCarteira _controladorCarteira;
 
-    Conta(){}
+    conta(){}
 
-    Conta(int cpf, String nome, String senha, String email){
+    conta(int cpf, String nome, String senha, String email){
         setCpf(cpf);
         setNome(nome);
         setSenha(senha);
@@ -26,7 +26,7 @@ public class Conta extends Usuario{
         saldo += valor;
     }
 
-    public  ArrayList<Carteira> getCarteiras(){return carteiras;}
+    public  ArrayList<carteira> getCarteiras(){return carteiras;}
 
     public double getSaldo() {return saldo;}
 }

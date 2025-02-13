@@ -7,20 +7,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
 
 
 public class Login extends Application {
 
-    RepositorioUsers repositorio;
+    repositorioUsers repositorio;
 
     @Override
     public void start(Stage primaryStage) {
-        repositorio = RepositorioUsers.getInstance();
+        repositorio = repositorioUsers.getInstance();
         primaryStage.setTitle("Controlador de Investimentos");
 
 

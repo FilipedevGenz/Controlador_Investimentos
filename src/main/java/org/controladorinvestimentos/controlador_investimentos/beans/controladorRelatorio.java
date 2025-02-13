@@ -1,9 +1,8 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-import java.util.List;
 import java.time.LocalDate;
 
-public class ControladorRelatorio {
+public class controladorRelatorio {
 
     public static relatorio criarRelatorio(String nomeAtivo,double valorCompra, LocalDate data, double quantidade) {
         LocalDate dataAtual = LocalDate.now();

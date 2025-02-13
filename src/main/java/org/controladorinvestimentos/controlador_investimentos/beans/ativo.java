@@ -1,11 +1,11 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-public class Ativo {
+public class ativo {
 
     public String nome;
     private double preco;
 
-   public Ativo(String nome, double preco){
+   public ativo(String nome, double preco){
         this.nome = nome;
         this.preco = preco;
     }

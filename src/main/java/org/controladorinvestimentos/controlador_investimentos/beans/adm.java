@@ -1,21 +1,19 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-import com.dlsc.formsfx.model.structure.StringField;
-import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
-import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioAtivos;
+import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 import java.io.IOException;
 
 
-public class Adm extends Usuario{
+public class adm extends usuario {
     public static boolean isADM = true;
-    private static iRepositorioAtivos repositorioAtivos;
+    private static IrepositorioAtivos repositorioAtivos;
     public controladorAtivos controladorAtivos;
 
 
     private void CriarAtivo(int idAtv, double ValorAtv, String nome){
-            repositorioAtivos = RepositorioAtivos.getInstance();
+            repositorioAtivos = org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos.getInstance();
         try {
             controladorAtivos.CriarAtivo(nome);
         } catch (IOException e) {
@@ -29,10 +27,10 @@ public class Adm extends Usuario{
 
     private void AlterarPreco(String nome,double preco){
         try {
-            Ativo _AtivoEncontrado = repositorioAtivos.buscarAtivo(nome);
+            ativo _ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
 
-            if (_AtivoEncontrado != null) {
-                repositorioAtivos.AlterarPreco(preco,_AtivoEncontrado);
+            if (_ativoEncontrado != null) {
+                repositorioAtivos.AlterarPreco(preco, _ativoEncontrado);
             }
         }catch (Exception e) {
             throw new Exist("Ativo não existe no sistema.");

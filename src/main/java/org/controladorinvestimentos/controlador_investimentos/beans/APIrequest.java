@@ -1,15 +1,11 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
-import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
-import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioAtivos;
-import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
+
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 public class APIrequest {
@@ -55,6 +51,8 @@ public class APIrequest {
         return results.get("currency").getAsString();
     }
 
+
+    //daqui pra baixo sai
     public static double buscarPrecoMaximoDia(String simbolo) throws IOException {
         JsonObject results = getAtivoData(simbolo);
         return results.get("regularMarketDayHigh").getAsDouble();

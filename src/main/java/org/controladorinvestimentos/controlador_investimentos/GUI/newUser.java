@@ -15,14 +15,13 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
-import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioUsers;
-import org.controladorinvestimentos.controlador_investimentos.Banco.iRepositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controlador_investimentos.beans.ControladorUsers;
+import org.controladorinvestimentos.controlador_investimentos.beans.controladorUsers;
 
 public class newUser extends Application {
 
-    private static iRepositorioUsers repositorio;
+    private static IrepositorioUsers repositorio;
 
     @Override
     public void start(Stage primaryStage) {
@@ -56,7 +55,7 @@ public class newUser extends Application {
 
             try {
                 Integer cpf = Integer.parseInt(userCPF);
-                ControladorUsers controlador = new ControladorUsers(); // Criando o controlador
+                controladorUsers controlador = new controladorUsers(); // Criando o controlador
 
                 controlador.cadastrarNovoUsuario(cpf, nome, email, password);
 

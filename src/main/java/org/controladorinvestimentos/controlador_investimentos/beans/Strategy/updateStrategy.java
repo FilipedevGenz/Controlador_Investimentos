@@ -1,10 +1,10 @@
 package org.controladorinvestimentos.controlador_investimentos.beans.Strategy;
 
-import org.controladorinvestimentos.controlador_investimentos.beans.Usuario;
+import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
 
 
 public interface updateStrategy {
 
-    void updateInfo(Usuario usuario);
+    void updateInfo(usuario usuario);
 
 }

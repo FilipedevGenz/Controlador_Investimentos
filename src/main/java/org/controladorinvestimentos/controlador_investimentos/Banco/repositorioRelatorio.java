@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import org.controladorinvestimentos.controlador_investimentos.beans.relatorio;
 
-public class RepositorioRelatorio implements irepositorioRelatorio {
+public class repositorioRelatorio implements IrepositorioRelatorio {
 
      private ArrayList <relatorio> relatorios = new ArrayList<>();
 
      public boolean existe = false; 
 
-     RepositorioRelatorio () {
+     repositorioRelatorio() {
 
         existe = true;
      }
@@ -18,6 +18,16 @@ public class RepositorioRelatorio implements irepositorioRelatorio {
      public void addRelatorio (relatorio relatorio) {
 
         relatorios.add(relatorio);
+     }
+
+     public Double getQuantidadeAtivo(String nameAtv) {
+         Double qntProcurado = null;
+         for (relatorio relatorio1 : relatorios) {
+             if(relatorio1.getNomeAtivo().equals(nameAtv)) {
+                 qntProcurado += relatorio1.getQuantidade();
+             }
+         }
+         return qntProcurado;
      }
 
      public Double calcularValorAtual() {
