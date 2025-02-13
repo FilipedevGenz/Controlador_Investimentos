@@ -59,7 +59,7 @@ public class TelaAtivosCarteiras extends Application {
         buyAssetsButton.setStyle("-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #A9A9A9;");
         buyAssetsButton.setOnAction(e -> {
 
-            ComprarAtivos next = new ComprarAtivos();
+            ComprarAtivos next = new ComprarAtivos(carteira, user);
             Stage newUser = new Stage();
             next.start(newUser);
             primaryStage.close();
@@ -98,7 +98,7 @@ public class TelaAtivosCarteiras extends Application {
         backButton.setStyle("-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #A9A9A9;");
         backButton.setOnAction(e -> {
 
-            telaCarteiras next = new telaCarteiras();
+            telaCarteiras next = new telaCarteiras(user);
             Stage newUser = new Stage();
             next.start(newUser);
             primaryStage.close();

@@ -16,8 +16,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
 import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 import org.controladorinvestimentos.controlador_investimentos.beans.controladorUsers;
+import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
 
 public class newUser extends Application {
 
@@ -57,7 +60,14 @@ public class newUser extends Application {
                 Integer cpf = Integer.parseInt(userCPF);
                 controladorUsers controlador = new controladorUsers(); // Criando o controlador
 
-                controlador.cadastrarNovoUsuario(cpf, nome, email, password);
+                //add saldo para o user
+
+                repositorioUsers.getInstance();
+
+                //controlador.cadastrarNovoUsuario(cpf, nome, email, password);
+                //controladorUsers controlador2 = new controladorUsers();
+                //conta toAddsaldo = controlador2.buscarUsuario(cpf);
+                //toAddsaldo.creditar(100000.00);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Cadastro realizado");

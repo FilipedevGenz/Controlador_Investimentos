@@ -14,24 +14,37 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioCarteira;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 import org.controladorinvestimentos.controlador_investimentos.beans.carteira;
 
 public class telaCarteiras extends Application {
 
-    conta user;
+    private conta user;
 
-    public telaCarteiras() {
+    telaCarteiras(){
         this(null);
     }
 
-
+    // Construtor da telaCarteiras
     public telaCarteiras(conta conta) {
-        user = conta;
+        this.user = conta;
+        // Certificando que o repositorioCarteira foi inicializado na conta
+        if (user.repositorioCarteira == null) {
+            user.repositorioCarteira = new repositorioCarteira(user); // Inicializa o repositorio se for nulo
+        }
     }
 
     @Override
     public void start(Stage primaryStage) {
+
+        repositorioAtivos repositorioatv = repositorioAtivos.getInstance();  // Esta linha inicializa o repositorio de ativos
+        repositorioUsers repositorio = repositorioUsers.getInstance();  // Inicializa o repositório de usuários
+
+// Verifica se a variável carteira está nula e a inicializa antes de usá-la
+
         primaryStage.setTitle("Carteiras");
 
         // Criando o título com fundo verde arredondado e menor
@@ -53,36 +66,39 @@ public class telaCarteiras extends Application {
         walletContainer.setStyle("-fx-padding: 10; -fx-background-color: #d3d3d3;");
         walletContainer.setAlignment(Pos.TOP_CENTER);
 
-        // Criando botões de carteiras arredondados
-        user.repositorioCarteira.getCarteiras().forEach(carteira -> {
+        // Acessando diretamente o repositorioCarteira da conta do usuário
+        if (user.repositorioCarteira != null) {
+            // Criando botões de carteiras arredondados
+            user.repositorioCarteira.getCarteiras().forEach(carteira -> {
 
-            int i = carteira.ID; // Pegando o ID da carteira
-            Button walletButton = new Button("Carteira " + i);
-            walletButton.setMinWidth(250);
-            walletButton.setMinHeight(50);
-            walletButton.setStyle("-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 25; -fx-background-radius: 25; -fx-border-color: #A9A9A9;");
+                int i = carteira.ID; // Pegando o ID da carteira
+                Button walletButton = new Button("Carteira " + i);
+                walletButton.setMinWidth(250);
+                walletButton.setMinHeight(50);
+                walletButton.setStyle("-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 25; -fx-background-radius: 25; -fx-border-color: #A9A9A9;");
 
-            walletButton.setOnAction(e -> {
-                // Procurando a carteira com o ID igual a 'i'
-                carteira selectedCarteira = user.repositorioCarteira.getCarteiras().stream()
-                        .filter(c -> c.ID == i) // Filtrando pelo ID da carteira
-                        .findFirst() // Encontrando a primeira carteira que atende à condição
-                        .orElse(null); // Retorna null se não encontrar
+                walletButton.setOnAction(e -> {
+                    // Procurando a carteira com o ID igual a 'i'
+                    carteira selectedCarteira = user.repositorioCarteira.getCarteiras().stream()
+                            .filter(c -> c.ID == i) // Filtrando pelo ID da carteira
+                            .findFirst() // Encontrando a primeira carteira que atende à condição
+                            .orElse(null); // Retorna null se não encontrar
 
-                if (selectedCarteira != null) {
+                    if (selectedCarteira != null) {
+                        // Passando a instância da carteira selecionada e o usuário para TelaAtivosCarteiras
+                        Stage ativosStage = new Stage();
+                        TelaAtivosCarteiras ativosCarteiraScreen = new TelaAtivosCarteiras(selectedCarteira, user);
+                        ativosCarteiraScreen.start(ativosStage);
+                        primaryStage.close(); // Fecha a tela atual
+                    } else {
+                        System.out.println("Carteira com ID " + i + " não encontrada");
+                    }
+                });
 
-                    Stage ativosStage = new Stage();
-                    TelaAtivosCarteiras ativosCarteiraScreen = new TelaAtivosCarteiras(selectedCarteira,user); // Passando a carteira selecionada
-                    ativosCarteiraScreen.start(ativosStage);
-                    primaryStage.close();
-                } else {
-                    System.out.println("Carteira com ID " + i + " não encontrada");
-                }
+
+                walletContainer.getChildren().add(walletButton);
             });
-
-            walletContainer.getChildren().add(walletButton);
-        });
-
+        }
 
         // Área rolável para exibir as carteiras
         ScrollPane scrollPane = new ScrollPane(walletContainer);
