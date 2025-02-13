@@ -44,4 +44,8 @@ public class repositorioAtivos implements IrepositorioAtivos {
         }
 
         public void AlterarPreco(double preco, ativo ativo) {ativo.setPreco(preco);}
+
+        public ArrayList<ativo> getAtivos() {
+            return ATIVOS;
+        }
     }

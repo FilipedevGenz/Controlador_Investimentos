@@ -1,12 +1,14 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioCarteira;
+
 import java.util.ArrayList;
 
 public class conta extends usuario {
 
     private double saldo;
-    private ArrayList<carteira> carteiras;
-    private controladorCarteira _controladorCarteira;
+    public repositorioCarteira repositorioCarteira;
+    private controladorCarteira controladorCarteira;
 
     conta(){}
 
@@ -25,8 +27,6 @@ public class conta extends usuario {
     public void creditar(double valor){
         saldo += valor;
     }
-
-    public  ArrayList<carteira> getCarteiras(){return carteiras;}
 
     public double getSaldo() {return saldo;}
 }

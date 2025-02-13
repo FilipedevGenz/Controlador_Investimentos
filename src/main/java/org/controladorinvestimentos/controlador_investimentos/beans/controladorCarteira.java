@@ -13,7 +13,7 @@ public class controladorCarteira {
 
     private org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioRelatorio IrepositorioRelatorio;
     private static IrepositorioCarteira _repositorioCarteira;
-    private IrepositorioAtivos _repositorioAtivos;
+    private IrepositorioAtivos IrepositorioAtivos;
     public org.controladorinvestimentos.controlador_investimentos.beans.controladorRelatorio controladorRelatorio;
     public org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioRelatorio repositorioRelatorio;
 
@@ -25,7 +25,7 @@ public class controladorCarteira {
             }
         } catch (Exception e) {
             _repositorioCarteira.adicionarCarteira(carteira);
-            conta.getCarteiras().add(carteira);
+            conta.repositorioCarteira.getCarteiras().add(carteira);
         }
     }
 
@@ -41,11 +41,11 @@ public class controladorCarteira {
         }
     }
 
-    void comprarAtivo(int ID, String nomeAtivo, double qtd, carteira carteira, conta conta) throws Exist{
+    public void comprarAtivo(int ID, String nomeAtivo, double qtd, carteira carteira, conta conta) throws Exist{
         try {
 
             double saldo = conta.getSaldo();
-            ativo ativo = _repositorioAtivos.buscarAtivo(nomeAtivo);
+            ativo ativo = IrepositorioAtivos.buscarAtivo(nomeAtivo);
             if (ativo == null) {
                 //adicionar chamada de popUP na gui
 

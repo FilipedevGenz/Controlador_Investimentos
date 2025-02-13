@@ -41,9 +41,36 @@ public class Login extends Application {
                 "20px; -fx-padding: 10px 20px;");
 
         loginButton.setOnAction(e -> {
-            //falta implementar a mudança de tela, caso o login seja bem sucedido
+
+
+
+
+
             String user = userField.getText();
             String password = passwordField.getText();
+
+            try {
+                Integer cpf = Integer.parseInt(user);
+                if (repositorio.buscarCPF(cpf) && repositorio.buscarCPFreturnUser(cpf).equals(user)) {
+
+                    menuUser next = new menuUser();
+                    Stage menu = new Stage();
+                    next.start(menu);
+                    primaryStage.close();
+
+                }
+            }catch (NumberFormatException ex) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Senha incorreta");
+                alert.setHeaderText("senha incorreta");
+                alert.setContentText("senha incorreta");
+
+                alert.showAndWait();
+
+            }
+
+
             try {
                 Integer cpf = Integer.parseInt(user);
                 if (!repositorio.buscarCPF(cpf)){
