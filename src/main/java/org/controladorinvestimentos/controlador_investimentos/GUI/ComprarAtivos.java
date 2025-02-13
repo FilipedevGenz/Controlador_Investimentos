@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivosCarteira;
 import org.controladorinvestimentos.controlador_investimentos.beans.*;
 
 import java.time.LocalDate;
@@ -37,6 +38,8 @@ public class ComprarAtivos extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        carteira.repositorioAtvCarteira = new repositorioAtivosCarteira();
+
         VBox container = new VBox(10);
         container.setPadding(new Insets(20));
         container.setStyle("-fx-background-color: #999; -fx-alignment: center;");
