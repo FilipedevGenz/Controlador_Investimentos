@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -12,6 +13,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.beans.adm;
+import org.controladorinvestimentos.controlador_investimentos.beans.conta;
+import org.controladorinvestimentos.controlador_investimentos.beans.controladorAtivos;
+import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
+
+import java.io.IOException;
 
 
 public class Login extends Application {
@@ -24,7 +31,20 @@ public class Login extends Application {
 
         repositorioatv = repositorioAtivos.getInstance();
         repositorio = repositorioUsers.getInstance();
-        
+        usuario conta = new usuario(1234,"teste","123","emailAdm");
+        adm admTeste = new adm(conta);
+        conta contaTeste = new conta(12345,"contaTeste","123","emailConta");
+        try {
+            controladorAtivos.CriarAtivo("VALE3");
+        } catch (IOException e) {
+            System.err.println("Erro ao criar o ativo: " + e.getMessage());
+        }
+        try {
+            controladorAtivos.CriarAtivo("PETR4");
+        } catch (IOException e) {
+            System.err.println("Erro ao criar o ativo: " + e.getMessage());
+        }
+
         primaryStage.setTitle("Controlador de Investimentos");
 
 
@@ -46,59 +66,55 @@ public class Login extends Application {
                 "20px; -fx-padding: 10px 20px;");
 
         loginButton.setOnAction(e -> {
-
-
-
-
-
             String user = userField.getText();
             String password = passwordField.getText();
 
             try {
                 Integer cpf = Integer.parseInt(user);
-                if (repositorio.buscarCPF(cpf) && repositorio.buscarCPFreturnUser(cpf).equals(user)) {
 
-                    menuUser next = new menuUser();
-                    Stage menu = new Stage();
-                    next.start(menu);
-                    primaryStage.close();
+                // Verifica se o CPF existe no repositório
+                if (repositorio.buscarCPF(cpf)) {
+                    usuario usuarioEncontrado = repositorio.buscarCPFreturnUser(cpf);
 
-                }
-            }catch (NumberFormatException ex) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Senha incorreta");
-                alert.setHeaderText("senha incorreta");
-                alert.setContentText("senha incorreta");
-
-                alert.showAndWait();
-
-            }
-
-
-            try {
-                Integer cpf = Integer.parseInt(user);
-                if (!repositorio.buscarCPF(cpf)){
-
+                    // Verifica se a senha está correta
+                    if (usuarioEncontrado.getSenha().equals(password)) {
+                        // Verifica se o usuário é administrador
+                        if (usuarioEncontrado.isADM) {  // Verificação correta para ADM
+                            AdicionarAtivo next = new AdicionarAtivo(usuarioEncontrado);
+                            Stage menu = new Stage();
+                            next.start(menu);
+                        } else {
+                            conta conta1 = new conta(usuarioEncontrado.getCpf(), usuarioEncontrado.getNome(), usuarioEncontrado.getSenha(), usuarioEncontrado.getEmail());
+                            menuUser next = new menuUser(conta1);  // Passando diretamente uma instância de 'conta'
+                            Stage menu = new Stage();
+                            next.start(menu);
+                        }
+                        primaryStage.close();  // Fecha a tela de login
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Senha incorreta");
+                        alert.setHeaderText("Senha incorreta");
+                        alert.setContentText("A senha informada está errada. Tente novamente.");
+                        alert.showAndWait();
+                    }
+                } else {
+                    // CPF não encontrado
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Não existe esse usuario");
+                    alert.setTitle("Usuário não encontrado");
                     alert.setHeaderText("CPF Inválido");
-                    alert.setContentText("O CPF informado não é válido. Por favor, insira um CPF válido.");
-
+                    alert.setContentText("O CPF informado não está cadastrado.");
                     alert.showAndWait();
                 }
-
             } catch (NumberFormatException ex) {
-
+                // CPF inválido (não é um número)
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erro de Formato");
                 alert.setHeaderText("CPF Inválido");
-                alert.setContentText("O CPF informado não é válido. Por favor, insira um CPF válido.");
-
+                alert.setContentText("O CPF informado deve conter apenas números.");
                 alert.showAndWait();
             }
-
         });
+
 
         Label registerLabel = new Label("Não tem conta?\nclique aqui para criar uma conta");
         registerLabel.setStyle("-fx-font-size: 10px; -fx-text-fill: gray; -fx-text-alignment: center; -fx-underline: true;");

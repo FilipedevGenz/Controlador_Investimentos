@@ -15,7 +15,7 @@ public class repositorioCarteira implements IrepositorioCarteira {
 
         private repositorioCarteira instance;
 
-        private repositorioCarteira(conta dono) {
+        public repositorioCarteira(conta dono) {
             this.dono = dono;
         }
 
@@ -25,6 +25,8 @@ public class repositorioCarteira implements IrepositorioCarteira {
 
         carteira newCarteira = new carteira(carteira.Ncarteiras);
         carteiras.add(newCarteira);
+        newCarteira.repositorioAtvCarteira = new repositorioAtivosCarteira();
+        repositorioRelatorio carteiraRelatorio = new repositorioRelatorio();
     }
 
     public void removerCarteira(carteira carteira){

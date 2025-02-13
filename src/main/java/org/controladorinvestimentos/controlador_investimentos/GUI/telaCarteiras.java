@@ -94,7 +94,12 @@ public class telaCarteiras extends Application {
         backButton.setMinWidth(100);
         backButton.setMinHeight(40);
         backButton.setStyle("-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #A9A9A9;");
-        backButton.setOnAction(e -> System.out.println("Clicou no botão Voltar"));
+        backButton.setOnAction(e -> {
+            conta conta1 = new conta(user.getCpf(), user.getNome(), user.getSenha(), user.getEmail());  // Usando a instância 'user'
+            menuUser next = new menuUser(conta1);  // Passando diretamente uma instância de 'conta'
+            Stage menu = new Stage();
+            next.start(menu);
+        });
 
         StackPane bottomPane = new StackPane(backButton);
         bottomPane.setAlignment(Pos.CENTER);
