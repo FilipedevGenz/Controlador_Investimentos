@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivosCarteira;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivosCarteira;
 import org.controladorinvestimentos.controlador_investimentos.beans.*;
 
 import java.time.LocalDate;
@@ -35,7 +35,7 @@ public class ComprarAtivos extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        carteira.repositorioAtvCarteira = new repositorioAtivosCarteira();
+        carteira.repositorioAtvCarteira = new RepositorioAtivosCarteira();
 
         VBox container = new VBox(10);
         container.setPadding(new Insets(20));

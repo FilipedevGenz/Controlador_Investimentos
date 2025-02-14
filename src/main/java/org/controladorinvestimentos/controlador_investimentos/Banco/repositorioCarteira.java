@@ -25,7 +25,7 @@ public class repositorioCarteira implements IrepositorioCarteira {
 
         carteira newCarteira = new carteira(carteira.Ncarteiras);
         carteiras.add(newCarteira);
-        newCarteira.repositorioAtvCarteira = new repositorioAtivosCarteira();
+        newCarteira.repositorioAtvCarteira = new RepositorioAtivosCarteira();
         repositorioRelatorio carteiraRelatorio = new repositorioRelatorio();
     }
 

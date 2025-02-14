@@ -1,7 +1,6 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivosCarteira;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivosCarteira;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 public class carteira {
@@ -9,7 +8,7 @@ public class carteira {
     public static int Ncarteiras = 0;
     public int ID;
     private double ValorCarteira;
-    public repositorioAtivosCarteira repositorioAtvCarteira;
+    public RepositorioAtivosCarteira repositorioAtvCarteira;
     private org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio repositorioRelatorio;
 
     public carteira(int ID) {
