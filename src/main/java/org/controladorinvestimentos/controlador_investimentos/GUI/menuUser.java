@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controlador_investimentos.beans.carteira;
+import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class menuUser extends Application {
 
         btnCarteiras.setOnAction(e -> {
             if (user != null) {  // Verifica se o usuário está inicializado
-                ArrayList<carteira> userCarteira = user.repositorioCarteira.getCarteiras();
+                ArrayList<Carteira> userCarteira = user.repositorioCarteira.getCarteiras();
                 telaCarteiras next = new telaCarteiras(user);  // Passa o 'user' para a telaCarteiras
                 Stage carteiras = new Stage();
                 next.start(carteiras);

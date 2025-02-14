@@ -1,17 +1,18 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivosCarteira;
+import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioRelatorio;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioMovimentacoes;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioRelatorio;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
-public class carteira {
+public class Carteira {
 
-    public static int Ncarteiras = 0;
-    public int ID;
+    private final int ID;
     private double ValorCarteira;
-    public RepositorioAtivosCarteira repositorioAtvCarteira;
-    private org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio repositorioRelatorio;
+    public RepositorioMovimentacoes RepositorioMovimentacoes;
+    public IrepositorioRelatorio;
 
-    public carteira(int ID) {
+    public Carteira(int ID) {
         Ncarteiras++;
         this.ID = ID;
         this.ValorCarteira = 0.0;
@@ -51,7 +52,7 @@ public class carteira {
         }
     }
 
-    public org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio getRepositorioRelatorio() {
+    public RepositorioRelatorio getRepositorioRelatorio() {
         return repositorioRelatorio;
     }
 

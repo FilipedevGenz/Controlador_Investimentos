@@ -1,9 +1,9 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 import org.controladorinvestimentos.controlador_investimentos.beans.ativo;
-import org.controladorinvestimentos.controlador_investimentos.beans.carteira;
+import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 
 public interface IrepositorioCarteira {
-    public void AddToRepository(carteira carteira);
-    public void RemoveFromRepository(carteira carteira);
-    public carteira GetFromRepository(carteira carteira);
+    public void AddToRepository(Carteira carteira);
+    public void RemoveFromRepository(Carteira carteira);
+    public Carteira GetFromRepository(Carteira carteira);
 }

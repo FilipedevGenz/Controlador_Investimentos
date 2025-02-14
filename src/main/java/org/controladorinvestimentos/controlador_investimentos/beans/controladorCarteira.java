@@ -17,9 +17,9 @@ public class controladorCarteira {
     public org.controladorinvestimentos.controlador_investimentos.beans.controladorRelatorio controladorRelatorio;
     public org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioRelatorio repositorioRelatorio;
 
-    public void NovaCarteira(carteira carteira, conta conta) {
+    public void NovaCarteira(Carteira carteira, conta conta) {
         try {
-            org.controladorinvestimentos.controlador_investimentos.beans.carteira _carteira = _repositorioCarteira.buscarCarteira(carteira);
+            Carteira _carteira = _repositorioCarteira.buscarCarteira(carteira);
             if (_carteira != null) {
                 throw new Exist("Essa carteira já existe no sistema.");
             }
@@ -29,10 +29,10 @@ public class controladorCarteira {
         }
     }
 
-    public void RemoverCarteira(carteira carteira) {
+    public void RemoverCarteira(Carteira carteira) {
 
         try {
-            org.controladorinvestimentos.controlador_investimentos.beans.carteira _carteira = _repositorioCarteira.buscarCarteira(carteira);
+            Carteira _carteira = _repositorioCarteira.buscarCarteira(carteira);
             if (_carteira != null) {
                 _repositorioCarteira.removerCarteira(carteira);
             }
@@ -41,7 +41,7 @@ public class controladorCarteira {
         }
     }
 
-    public void comprarAtivo(int ID, String nomeAtivo, double qtd, carteira carteira, conta conta) throws Exist{
+    public void comprarAtivo(int ID, String nomeAtivo, double qtd, Carteira carteira, conta conta) throws Exist{
         try {
 
             double saldo = conta.getSaldo();
@@ -58,7 +58,7 @@ public class controladorCarteira {
                 // Adiciona o ativo e sua quantidade à carteira.
 
                 carteira.adicionarAtivoNaCarteira(ativo, qtd);
-                relatorio newRelatorio = criarRelatorio(nomeAtivo, precoAtivo, LocalDate.now(), qtd);
+                Relatorio newRelatorio = criarRelatorio(nomeAtivo, precoAtivo, LocalDate.now(), qtd);
                 repositorioRelatorio.addRelatorio(newRelatorio);
 
             } else {

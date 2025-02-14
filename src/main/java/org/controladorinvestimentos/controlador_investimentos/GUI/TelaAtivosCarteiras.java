@@ -1,8 +1,7 @@
 package org.controladorinvestimentos.controlador_investimentos.GUI;
 
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio;
 import org.controladorinvestimentos.controlador_investimentos.beans.ativo;
-import    org. controladorinvestimentos. controlador_investimentos.beans.carteira;
+import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,15 +16,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import org.controladorinvestimentos.controlador_investimentos.beans.conta;
-import org.controladorinvestimentos.controlador_investimentos.beans.controladorCarteira;
 
 import java.util.ArrayList;
 
 public class TelaAtivosCarteiras extends Application {
 
-        carteira carteira;
+        Carteira carteira;
         conta user;
-        TelaAtivosCarteiras(carteira carteira, conta user){
+        TelaAtivosCarteiras(Carteira carteira, conta user){
             this.carteira = carteira;
             this.user = user;
         }

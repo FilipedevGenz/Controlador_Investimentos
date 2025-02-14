@@ -2,7 +2,7 @@ package org.controladorinvestimentos.controlador_investimentos.Banco;
 
 
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controlador_investimentos.beans.carteira;
+import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class repositorioCarteira implements IrepositorioCarteira {
 //remover o singleton
      conta dono;
-     private final ArrayList<carteira> carteiras = new ArrayList<>();
+     private final ArrayList<Carteira> Carteiras = new ArrayList<>();
 
         private repositorioCarteira instance;
 
@@ -19,22 +19,22 @@ public class repositorioCarteira implements IrepositorioCarteira {
             this.dono = dono;
         }
 
-    public void adicionarCarteira(carteira carteira){
+    public void adicionarCarteira(Carteira carteira){
         //na fase de gui, receber o nome como parametro e alterar
         // para atribuiur o nome da carteira recebida com parametro
 
-        carteira newCarteira = new carteira(carteira.Ncarteiras);
-        carteiras.add(newCarteira);
-        newCarteira.repositorioAtvCarteira = new RepositorioAtivosCarteira();
-        repositorioRelatorio carteiraRelatorio = new repositorioRelatorio();
+        Carteira newCarteira = new Carteira(carteira.Ncarteiras);
+        Carteiras.add(newCarteira);
+        newCarteira.repositorioAtvCarteira = new RepositorioMovimetacoes();
+        RepositorioRelatorio carteiraRelatorio = new RepositorioRelatorio();
     }
 
-    public void removerCarteira(carteira carteira){
-        carteiras.remove(carteira);
+    public void removerCarteira(Carteira carteira){
+        Carteiras.remove(carteira);
     }
 
-    public carteira buscarCarteira(carteira carteira) throws Exist {
-        for(carteira u : carteiras){
+    public Carteira buscarCarteira(Carteira carteira) throws Exist {
+        for(Carteira u : Carteiras){
             if(u.ID == carteira.ID){
                 return u;
             }
@@ -42,8 +42,8 @@ public class repositorioCarteira implements IrepositorioCarteira {
         throw new Exist("carteira nao encontrada");
     }
 
-    public ArrayList<carteira> getCarteiras(){
-            return carteiras;
+    public ArrayList<Carteira> getCarteiras(){
+            return Carteiras;
     }
 
    
