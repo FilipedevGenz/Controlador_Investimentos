@@ -1,5 +1,5 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
-import org.controladorinvestimentos.controlador_investimentos.beans.ativo;
+import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
 import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 
 public interface IrepositorioCarteira {
