@@ -7,7 +7,7 @@ import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
 import java.util.ArrayList;
 public class repositorioAtivos implements IrepositorioAtivos {
 
-        private static final ArrayList<ativo> ATIVOS = new ArrayList<>();
+        private static final ArrayList<Ativo> ATIVOS = new ArrayList<>();
 
         private static repositorioAtivos instance;
 
@@ -26,16 +26,16 @@ public class repositorioAtivos implements IrepositorioAtivos {
     }
 
         public void adicionarAtivo(String nome,double preco){
-            ativo newAtv = new ativo(nome,preco);
+            Ativo newAtv = new Ativo(nome,preco);
             ATIVOS.add(newAtv);
         }
 
-        public void removerAtivo(ativo ativo){
+        public void removerAtivo(Ativo ativo){
             ATIVOS.remove(ativo);
         }
 
-        public ativo buscarAtivo(String nome) throws Exist {
-            for(ativo u : ATIVOS){
+        public Ativo buscarAtivo(String nome) throws Exist {
+            for(Ativo u : ATIVOS){
                 if(u.getNome().equals(nome)){
                     return u;
                 }
@@ -43,9 +43,14 @@ public class repositorioAtivos implements IrepositorioAtivos {
             throw new Exist("ativo nao encontrado");
         }
 
-        public void AlterarPreco(double preco, ativo ativo) {ativo.setPreco(preco);}
+    @Override
+    public void adicionarAtivo(String nome) {
+        Ativo newAtv = new Ativo(nome);
+        ATIVOS.add(newAtv);
+    }
 
-        public ArrayList<ativo> getAtivos() {
+
+    public ArrayList<Ativo> getAtivos() {
             return ATIVOS;
         }
     }

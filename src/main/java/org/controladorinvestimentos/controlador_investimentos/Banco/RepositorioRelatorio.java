@@ -25,6 +25,11 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
          return Relatorios.stream().mapToDouble(org.controladorinvestimentos.controlador_investimentos.beans.Relatorio::getValorTotal).sum();
          }
 
+    @Override
+    public double calcularValorAtual() {
+        return 2;
+    }
 
-         //implementaro metodo de valorizaca
+
+    //implementaro metodo de valorizaca
      }

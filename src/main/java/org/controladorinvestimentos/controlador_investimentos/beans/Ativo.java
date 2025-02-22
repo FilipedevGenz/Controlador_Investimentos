@@ -8,7 +8,13 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class Ativo {
 
-    @NonNull private String nome;
-    @NonNull private String code;
+    @NonNull public String nome;
+    @NonNull public String code;
+
+    public Ativo(String nome, double preco) {
     }
+
+    public Ativo(String nome) {
+    }
+}
 

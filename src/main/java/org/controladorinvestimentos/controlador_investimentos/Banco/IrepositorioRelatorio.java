@@ -7,4 +7,5 @@ public interface IrepositorioRelatorio {
     public Double getQuantidadeAtivo(String nameAtv);
     public Double valorDeCompraCarteira();
 
+    public double calcularValorAtual();
 }

@@ -34,17 +34,4 @@ public class adm extends usuario {
         controladorAtivos.RemoverAtivo(nome);
     }
 
-    private void AlterarPreco(String nome,double preco){
-        try {
-            ativo _ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
-
-            if (_ativoEncontrado != null) {
-                repositorioAtivos.AlterarPreco(preco, _ativoEncontrado);
-            }
-        }catch (Exception e) {
-            throw new Exist("Ativo não existe no sistema.");
-        }
-
-    }
-
 }

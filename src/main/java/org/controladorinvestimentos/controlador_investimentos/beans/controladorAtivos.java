@@ -11,20 +11,20 @@ public class controladorAtivos {
     public static void CriarAtivo(String nome) throws IOException {
         repositorioAtivos = org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos.getInstance();
         try {
-            ativo ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
+            Ativo ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
             if (ativoEncontrado != null){
                 throw new Exist("esse ativo já existe no sistema.");
 
             }
         } catch (Exception e) {
             double ValorAtualAtivo = APIrequest.buscarPrecoAtivoEmTempoReal(nome);
-            repositorioAtivos.adicionarAtivo(nome,ValorAtualAtivo);
+            repositorioAtivos.adicionarAtivo(nome);
         }
     }
 
     public static void RemoverAtivo(String nome){
         try {
-            ativo _ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
+            Ativo _ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
             if (_ativoEncontrado != null) {
                 repositorioAtivos.removerAtivo(_ativoEncontrado);
             }
