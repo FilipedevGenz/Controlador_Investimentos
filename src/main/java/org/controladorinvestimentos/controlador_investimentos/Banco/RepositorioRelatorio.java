@@ -1,22 +1,26 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 import java.util.ArrayList;
 import lombok.Data;
+import lombok.Getter;
 import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 import org.controladorinvestimentos.controlador_investimentos.beans.Relatorio;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Data
 public class RepositorioRelatorio implements IrepositorioRelatorio {
 
      private Carteira dono;
+     @Getter
      private final ArrayList <Relatorio> Relatorios = new ArrayList<>();
 
      public void addRelatorio (Relatorio relatorio){
         Relatorios.add(relatorio);
      }
 
-     public Double getQuantidadeAtivo(String nameAtv) {
-         return Relatorios.stream().filter(relatorio -> relatorio.getNomeAtivo().
-                         equals(nameAtv)).mapToDouble(Relatorio::getQuantidade).
+     public Double getQuantidadeAtivo(String codigo) {
+         return Relatorios.stream().filter(relatorio -> relatorio.getCodigo().
+                         equals(codigo)).mapToDouble(Relatorio::getQuantidade).
                  sum();
      }
 
@@ -25,11 +29,20 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
          return Relatorios.stream().mapToDouble(org.controladorinvestimentos.controlador_investimentos.beans.Relatorio::getValorTotal).sum();
          }
 
-    @Override
-    public double calcularValorAtual() {
-        return 2;
-    }
 
+         public Double valorMedioDeCompra(String codigo){
+             Double valorDeCompra = Relatorios.stream().filter(relatorio -> relatorio.getCodigo().
+                             equals(codigo)).mapToDouble(Relatorio::getQuantidade).sum();
 
-    //implementaro metodo de valorizaca
+             Double qnt = getQuantidadeAtivo(codigo);
+
+             if (qnt == 0) return 0.0;
+
+             BigDecimal resultado = BigDecimal.valueOf(valorDeCompra / qnt)
+                     .setScale(2, RoundingMode.HALF_UP);
+             String toReturn = String.format("%.2f", valorDeCompra / qnt);
+
+             return resultado.doubleValue();
+         }
+
      }

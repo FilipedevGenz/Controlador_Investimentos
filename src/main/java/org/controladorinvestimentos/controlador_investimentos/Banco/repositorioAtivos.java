@@ -1,9 +1,11 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controlador_investimentos.beans.APIrequest;
 import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 public class repositorioAtivos implements IrepositorioAtivos {
 
@@ -25,8 +27,11 @@ public class repositorioAtivos implements IrepositorioAtivos {
         return instance;
     }
 
-        public void adicionarAtivo(String nome,double preco){
-            Ativo newAtv = new Ativo(nome,preco);
+
+        public void adicionarAtivo(String code) throws IOException {
+            String name = APIrequest.buscarNomeAtivo(code);
+            Ativo newAtv = new Ativo(name,code);
+
             ATIVOS.add(newAtv);
         }
 
@@ -43,14 +48,9 @@ public class repositorioAtivos implements IrepositorioAtivos {
             throw new Exist("ativo nao encontrado");
         }
 
-    @Override
-    public void adicionarAtivo(String nome) {
-        Ativo newAtv = new Ativo(nome);
-        ATIVOS.add(newAtv);
-    }
 
+        public ArrayList<Ativo> getAtivos() {
 
-    public ArrayList<Ativo> getAtivos() {
             return ATIVOS;
         }
     }

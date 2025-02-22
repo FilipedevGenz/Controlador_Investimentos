@@ -39,8 +39,9 @@ public class RepositorioMovimentacoes {
         return listaAtivos.remove(relatorioCarteira);
     }
 
-    // Retorna a lista de relatórios associados a uma carteira específica
-    public ArrayList<Relatorio> getRelatorios(Relatorio relatorio, Carteira carteira) {
+
+    public static ArrayList<Relatorio> getRelatorio(String ativo, Carteira carteira){
+
         ArrayList<Relatorio> toReturn = new ArrayList<>();
 
         for (Map<Relatorio, Carteira> map : listaAtivos) {
@@ -48,55 +49,25 @@ public class RepositorioMovimentacoes {
                 Relatorio relatorio2 = entry.getKey();
                 Carteira carteira2 = entry.getValue();
 
-                // Verifica se o nome do ativo do relatório é igual e a carteira também corresponde
-                if (relatorio2.getNomeAtivo().equals(relatorio.getNomeAtivo()) && carteira2.equals(carteira)) {
+                // Verifica se o nomeAtivo do Relatorio é igual e a carteira também é a mesma
+                if (relatorio2.getNomeAtivo().equals(ativo) && carteira2.equals(carteira)) {
+
                     toReturn.add(relatorio2);
                 }
             }
         }
         return toReturn;
+
     }
 
-    // Adiciona um ativo à carteira
-    public void addToAtivosCarteira(Ativo ativo, double quantidade) {
-        if (ativosCarteira.containsKey(ativo)) {
-            ativosCarteira.put(ativo, ativosCarteira.get(ativo) + quantidade);
-        } else {
-            ativosCarteira.put(ativo, quantidade);
-        }
-    }
+    public static ArrayList<Relatorio> RelatoriosCarteira(Carteira carteira){
+        ArrayList<Relatorio> toReturn = new ArrayList<>();
+        for (Map<Relatorio, Carteira> map : listaAtivos) {
+            for (Map.Entry<Relatorio, Carteira> entry : map.entrySet()) {
+                Relatorio relatorio2 = entry.getKey();
 
-    // Remove um ativo da carteira
-    public Ativo removeFromAtivosCarteira(Ativo ativo, double quantidade) throws Exist {
-        if (!ativosCarteira.containsKey(ativo)) {
-            throw new Exist("Ativo não encontrado na carteira.");
-        }
-
-        double qtdAtual = ativosCarteira.get(ativo);
-        if (qtdAtual < quantidade) {
-            throw new Exist("Quantidade insuficiente para remover.");
-        }
-
-        if (qtdAtual == quantidade) {
-            ativosCarteira.remove(ativo);
-        } else {
-            ativosCarteira.put(ativo, qtdAtual - quantidade);
-        }
-        return ativo;
-    }
-
-    // Retorna todos os ativos da carteira
-    public Set<Ativo> getListaAtivos() {
-        return ativosCarteira.keySet();
-    }
-
-    // Busca um ativo na carteira pelo nome
-    public Ativo buscarAtivo(String nome) throws Exist {
-        for (Ativo a : ativosCarteira.keySet()) {
-            if (a.getNome().equals(nome)) {
-                return a;
             }
         }
-        throw new Exist("Ativo não encontrado.");
+
     }
 }

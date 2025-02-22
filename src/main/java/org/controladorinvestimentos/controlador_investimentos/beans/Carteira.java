@@ -9,8 +9,10 @@ public class Carteira {
 
     public final String ID;
     private double ValorCarteira;
-    private final RepositorioMovimentacoes repositorioMovimentacoes;
-    private final IrepositorioRelatorio repositorioRelatorio;
+
+    public RepositorioMovimentacoes repositorioMovimentacoes;
+    public IrepositorioRelatorio repositorioRelatorio;
+
 
     public Carteira(String ID) {
         this.ID = ID;
