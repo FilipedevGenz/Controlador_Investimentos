@@ -21,15 +21,30 @@ public class RepositorioMovimentacoes {
     private static final ArrayList<Map<Relatorio, Carteira>> listaAtivos = new ArrayList<>();
     private final Map<Ativo, Double> ativosCarteira;
 
-    public RepositorioMovimentacoes() {
-        this.ativosCarteira = new HashMap<>();
+    private static volatile RepositorioMovimentacoes instance;
+
+    private RepositorioMovimentacoes() {
+        ativosCarteira = new HashMap<>();
     }
 
+    public static RepositorioMovimentacoes getInstance() {
+        if (instance == null) {
+            synchronized(RepositorioMovimentacoes.class) {
+                if (instance == null) {
+                    instance = new RepositorioMovimentacoes();
+                }
+            }
+        }
+        return instance;
+    }
+
+
     // Adiciona um relatório a uma carteira
-    public void AddRelatorio(Relatorio relatorio, Carteira carteira) {
-        Map<Relatorio, Carteira> relatorioCarteira = new HashMap<>();
-        relatorioCarteira.put(relatorio, carteira);
-        listaAtivos.add(relatorioCarteira);
+    public void addRelatorio(Relatorio relatorio, Carteira carteira) {
+            getInstance(); //inicializa o repositorio
+            Map<Relatorio, Carteira> relatorioCarteira = new HashMap<>();
+            relatorioCarteira.put(relatorio, carteira);
+            listaAtivos.add(relatorioCarteira);
     }
 
     // Remove um relatório de uma carteira

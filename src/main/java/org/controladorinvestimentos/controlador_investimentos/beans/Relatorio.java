@@ -17,10 +17,10 @@ public class Relatorio {
             final double quantidade;
             final int id;
 
-        public Relatorio(String codigo, double valorCompra, double quantidade) throws IOException {
+        public Relatorio(String codigo, double quantidade) throws IOException {
         this.id = ++contadorId;
         this.nomeAtivo = APIrequest.buscarNomeAtivo(codigo);
-        this.valorCompra = valorCompra;
+        this.valorCompra = APIrequest.buscarPrecoAtivoEmTempoReal(codigo);
         this.quantidade = quantidade;
         this.codigo = codigo;
     }

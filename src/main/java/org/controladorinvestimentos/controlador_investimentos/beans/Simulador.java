@@ -5,6 +5,8 @@ import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioM
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Simulador {
 
@@ -40,25 +42,25 @@ public class Simulador {
 
 
     public static Double atualizarValorCarteira(Carteira carteira) throws IOException {
+
+        // Agrupa os relatórios pelo código do ativo e soma as quantidades de cada grupo
+        Map<String, Double> totalPorAtivo = carteira.repositorioRelatorio.getRelatorios().stream()
+                .collect(Collectors.groupingBy(Relatorio::getCodigo, Collectors.summingDouble(Relatorio::getQuantidade)));
+
         Double valorAtualizado = 0.0;
 
-        List<String> ativos = carteira.repositorioRelatorio.getAtivos();
+        // Para cada ativo (código), busca o preço atual e multiplica pela quantidade total
+        for (Map.Entry<String, Double> entry : totalPorAtivo.entrySet()) {
+            String codigoAtivo = entry.getKey();
+            Double quantidadeTotal = entry.getValue();
 
-        for (String ativo : ativos) {
-            // Obtém a quantidade do ativo na carteira
-            Double quantidade = carteira.repositorioRelatorio.getQuantidadeAtivo(ativo);
+            // Busca o preço atual do ativo
+            Double precoAtual = APIrequest.buscarPrecoAtivoEmTempoReal(codigoAtivo);
 
-            // Busca o preço atual do ativo em tempo real
-            Double precoAtual = APIrequest.buscarPrecoAtivoEmTempoReal(ativo);
-
-            // Atualiza o valor acumulado da carteira
-            valorAtualizado += quantidade * precoAtual;
+            // Acumula o valor do ativo na carteira
+            valorAtualizado += quantidadeTotal * precoAtual;
         }
 
         return valorAtualizado;
     }
-
-
-
-
 }

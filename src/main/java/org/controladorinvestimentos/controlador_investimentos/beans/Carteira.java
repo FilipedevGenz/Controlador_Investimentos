@@ -1,34 +1,39 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
+import lombok.Getter;
 import lombok.Setter;
 import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioRelatorio;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioMovimentacoes;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioRelatorio;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
+import java.io.IOException;
+
+import static org.controladorinvestimentos.controlador_investimentos.beans.Simulador.atualizarValorCarteira;
+
 public class Carteira {
 
     public final String ID;
+    @Getter
     @Setter
     private double ValorCarteira;
     public RepositorioMovimentacoes repositorioMovimentacoes;
     public IrepositorioRelatorio repositorioRelatorio;
+    //repositorioRelatorio é responsavel pelas relatorios da carteira,
+    // RepositorioMovimentacoes é responsável pelas movimentações globais de todas as carteiras
 
 
     public Carteira(String ID) {
         this.ID = ID;
         this.ValorCarteira = 0.0;
-        this.repositorioMovimentacoes = new RepositorioMovimentacoes();
         this.repositorioRelatorio = new RepositorioRelatorio();
     }
 
-    public double getValorCarteira() {
-        return ValorCarteira;
-    }
 
-
-    public void adicionarAtivoNaCarteira(Ativo ativo, double quantidade) throws Exist {
-        repositorioMovimentacoes.addToAtivosCarteira(ativo, quantidade);
+    public void adicionarAtivoNaCarteira(String codeAtv, double quantidade) throws IOException {
+        Relatorio relatorio = new Relatorio(codeAtv,quantidade);
+        repositorioRelatorio.addRelatorio(relatorio);
+        repositorioMovimentacoes.addRelatorio(relatorio, this);
         atualizarValorCarteira();
     }
 
@@ -51,15 +56,8 @@ public class Carteira {
         }
     }
 
-    public IrepositorioRelatorio getRepositorioRelatorio() {
-        return repositorioRelatorio;
-    }
-
     public void atualizarValorCarteira() {
         ValorCarteira = repositorioRelatorio.calcularValorAtual();
     }
 
-    public String getID() {
-        return ID;
-    }
 }
