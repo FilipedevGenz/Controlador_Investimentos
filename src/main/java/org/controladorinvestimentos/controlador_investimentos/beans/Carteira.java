@@ -1,5 +1,6 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
+import lombok.Setter;
 import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioRelatorio;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioMovimentacoes;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioRelatorio;
@@ -8,8 +9,8 @@ import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 public class Carteira {
 
     public final String ID;
+    @Setter
     private double ValorCarteira;
-
     public RepositorioMovimentacoes repositorioMovimentacoes;
     public IrepositorioRelatorio repositorioRelatorio;
 
@@ -24,6 +25,7 @@ public class Carteira {
     public double getValorCarteira() {
         return ValorCarteira;
     }
+
 
     public void adicionarAtivoNaCarteira(Ativo ativo, double quantidade) throws Exist {
         repositorioMovimentacoes.addToAtivosCarteira(ativo, quantidade);
@@ -56,8 +58,6 @@ public class Carteira {
     public void atualizarValorCarteira() {
         ValorCarteira = repositorioRelatorio.calcularValorAtual();
     }
-
-
 
     public String getID() {
         return ID;

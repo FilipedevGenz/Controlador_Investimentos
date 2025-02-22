@@ -4,6 +4,7 @@ import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioM
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Simulador {
 
@@ -15,7 +16,6 @@ public class Simulador {
     }
 
     public static Double influenciaNaCarteira(Carteira carteira, String ativo) throws IOException {
-        
         Double quantidade = carteira.repositorioRelatorio.getQuantidadeAtivo(ativo);
 
         if (quantidade == 0) {
@@ -23,19 +23,41 @@ public class Simulador {
         }
 
         Double variacaoPreco = simularVariacao(carteira, ativo);
-
+        carteira.setValorCarteira(variacaoPreco);
         Double impactoFinanceiro = quantidade * variacaoPreco;
 
-        Double valorTotalCarteira = carteira.repositorioRelatorio.valorDeCompraCarteira();
+        // Obtém o valor atual da carteira, considerando os preços em tempo real de cada ativo
+        Double valorAtualCarteira = atualizarValorCarteira(carteira);
 
-        if (valorTotalCarteira == 0) {
+
+        if (valorAtualCarteira == 0) {
             return 0.0;
         }
 
-        Double impactoPercentual = (impactoFinanceiro / valorTotalCarteira) * 100;
-
+        Double impactoPercentual = (impactoFinanceiro / valorAtualCarteira) * 100;
         return impactoPercentual;
     }
+
+
+    public static Double atualizarValorCarteira(Carteira carteira) throws IOException {
+        Double valorAtualizado = 0.0;
+
+        List<String> ativos = carteira.repositorioRelatorio.getAtivos();
+
+        for (String ativo : ativos) {
+            // Obtém a quantidade do ativo na carteira
+            Double quantidade = carteira.repositorioRelatorio.getQuantidadeAtivo(ativo);
+
+            // Busca o preço atual do ativo em tempo real
+            Double precoAtual = APIrequest.buscarPrecoAtivoEmTempoReal(ativo);
+
+            // Atualiza o valor acumulado da carteira
+            valorAtualizado += quantidade * precoAtual;
+        }
+
+        return valorAtualizado;
+    }
+
 
 
 
