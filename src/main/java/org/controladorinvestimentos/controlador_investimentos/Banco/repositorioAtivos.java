@@ -27,9 +27,11 @@ public class repositorioAtivos implements IrepositorioAtivos {
         return instance;
     }
 
+
         public void adicionarAtivo(String code) throws IOException {
             String name = APIrequest.buscarNomeAtivo(code);
             Ativo newAtv = new Ativo(name,code);
+
             ATIVOS.add(newAtv);
         }
 
@@ -46,7 +48,9 @@ public class repositorioAtivos implements IrepositorioAtivos {
             throw new Exist("ativo nao encontrado");
         }
 
+
         public ArrayList<Ativo> getAtivos() {
+
             return ATIVOS;
         }
     }

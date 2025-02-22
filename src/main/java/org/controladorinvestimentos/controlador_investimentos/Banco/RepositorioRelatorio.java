@@ -29,6 +29,7 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
          return Relatorios.stream().mapToDouble(org.controladorinvestimentos.controlador_investimentos.beans.Relatorio::getValorTotal).sum();
          }
 
+
          public Double valorMedioDeCompra(String codigo){
              Double valorDeCompra = Relatorios.stream().filter(relatorio -> relatorio.getCodigo().
                              equals(codigo)).mapToDouble(Relatorio::getQuantidade).sum();
@@ -43,4 +44,5 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
 
              return resultado.doubleValue();
          }
+
      }

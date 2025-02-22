@@ -11,4 +11,5 @@ public interface IrepositorioRelatorio {
     public ArrayList<Relatorio> getRelatorios();
     public Double valorMedioDeCompra(String nomeAtivo);
 
+    public double calcularValorAtual();
 }

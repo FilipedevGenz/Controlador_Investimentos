@@ -7,56 +7,59 @@ import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 public class Carteira {
 
-    private final int ID;
+    public final String ID;
     private double ValorCarteira;
+
     public RepositorioMovimentacoes repositorioMovimentacoes;
     public IrepositorioRelatorio repositorioRelatorio;
 
-    public Carteira(int ID) {
-        Ncarteiras++;
+
+    public Carteira(String ID) {
         this.ID = ID;
         this.ValorCarteira = 0.0;
+        this.repositorioMovimentacoes = new RepositorioMovimentacoes();
+        this.repositorioRelatorio = new RepositorioRelatorio();
     }
-
 
     public double getValorCarteira() {
         return ValorCarteira;
     }
 
-    public void adicionarAtivoNaCarteira(ativo ativo, double quantidade) throws Exist {
-        repositorioAtvCarteira.addToAtivosCarteira(ativo, quantidade);
+    public void adicionarAtivoNaCarteira(Ativo ativo, double quantidade) throws Exist {
+        repositorioMovimentacoes.addToAtivosCarteira(ativo, quantidade);
         atualizarValorCarteira();
     }
 
-    public void removerAtivo(ativo ativo, double quantidade) throws RuntimeException {
-        if (repositorioAtvCarteira.getListaAtivos().contains(ativo)) {
-
-            org.controladorinvestimentos.controlador_investimentos.beans.ativo ativoToremove = repositorioAtvCarteira.buscarAtivo(ativo);
-
-            String nome = ativoToremove.getNome();
-
+    public void removerAtivo(Ativo ativo, double quantidade) throws RuntimeException {
+        if (repositorioMovimentacoes.getListaAtivos().contains(ativo)) {
+            Ativo ativoToRemove = repositorioMovimentacoes.removeFromAtivosCarteira(ativo, quantidade);
+            String nome = ativoToRemove.getNome();
             double qtdAtual = repositorioRelatorio.getQuantidadeAtivo(nome);
+
             if (qtdAtual <= quantidade) {
-                throw new RuntimeException();
-            }
-            else {
+                throw new RuntimeException("Quantidade insuficiente para remover.");
+            } else {
                 try {
-                    repositorioAtvCarteira.removeFromAtivosCarteira(ativo,quantidade);
+                    repositorioMovimentacoes.removeFromAtivosCarteira(ativo, quantidade);
                 } catch (Exception e) {
-                    //popUp de não existe esse ativo. NUNCA VAI CHEGAR AQUI
-                    throw new RuntimeException(e);
+                    throw new RuntimeException("Erro ao remover ativo.", e);
                 }
             }
-
             atualizarValorCarteira();
         }
     }
 
-    public RepositorioRelatorio getRepositorioRelatorio() {
+    public IrepositorioRelatorio getRepositorioRelatorio() {
         return repositorioRelatorio;
     }
 
     public void atualizarValorCarteira() {
         ValorCarteira = repositorioRelatorio.calcularValorAtual();
+    }
+
+
+
+    public String getID() {
+        return ID;
     }
 }

@@ -1,50 +1,39 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 
-
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
-import org.controladorinvestimentos.controlador_investimentos.beans.conta;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import java.util.ArrayList;
-
-// A classe repositorioCarteira tem forte relação com conta.
 public class repositorioCarteira implements IrepositorioCarteira {
-//remover o singleton
-     conta dono;
-     private final ArrayList<Carteira> Carteiras = new ArrayList<>();
 
-        private repositorioCarteira instance;
+    private final Map<Integer, Carteira> carteiras = new HashMap<>();
 
-        public repositorioCarteira(conta dono) {
-            this.dono = dono;
+    @Override
+    public void adicionarCarteira(Carteira carteira) {
+        carteiras.put(Integer.valueOf(carteira.getID()), carteira);
+    }
+
+    @Override
+    public void removerCarteira(int carteiraID) throws Exist {
+        if (!carteiras.containsKey(carteiraID)) {
+            throw new Exist("Carteira não encontrada para remoção.");
         }
-
-    public void adicionarCarteira(Carteira carteira){
-        //na fase de gui, receber o nome como parametro e alterar
-        // para atribuiur o nome da carteira recebida com parametro
-
-        Carteira newCarteira = new Carteira(carteira.Ncarteiras);
-        Carteiras.add(newCarteira);
-        newCarteira.repositorioAtvCarteira = new RepositorioMovimetacoes();
-        RepositorioRelatorio carteiraRelatorio = new RepositorioRelatorio();
+        carteiras.remove(carteiraID);
     }
 
-    public void removerCarteira(Carteira carteira){
-        Carteiras.remove(carteira);
-    }
-
-    public Carteira buscarCarteira(Carteira carteira) throws Exist {
-        for(Carteira u : Carteiras){
-            if(u.ID == carteira.ID){
-                return u;
-            }
+    @Override
+    public Carteira buscarCarteira(int carteiraID) throws Exist {
+        if (!carteiras.containsKey(carteiraID)) {
+            throw new Exist("Carteira não encontrada.");
         }
-        throw new Exist("carteira nao encontrada");
+        return carteiras.get(carteiraID);
     }
 
-    public ArrayList<Carteira> getCarteiras(){
-            return Carteiras;
+    @Override
+    public List<Carteira> listarCarteiras() {
+        return carteiras.values().stream().collect(Collectors.toList());
     }
-
-   
 }
