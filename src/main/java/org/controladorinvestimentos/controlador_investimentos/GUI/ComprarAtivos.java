@@ -49,10 +49,10 @@ public class ComprarAtivos extends Application {
         header.getChildren().addAll(new Text("Ativo"), new Text("Valor"), new Text("Quantidade"));
 
         repositorioAtivos ativo = repositorioAtivos.getInstance();
-        ArrayList<ativo> listAtivos = ativo.getAtivos();
+      //  ArrayList<ativo> listAtivos = ativo.getAtivos();
 
         VBox itemList = new VBox(10);
-        for (ativo atv : listAtivos) {
+        for (Ativo atv : listAtivos) {
             itemList.getChildren().add(createItemRow(atv.nome, String.valueOf(atv.getPreco()), "1"));
         }
 
@@ -98,17 +98,17 @@ public class ComprarAtivos extends Application {
                 double quantidadeCompra = Double.parseDouble(quantidade.getText());
                 double valorAtv = Double.parseDouble(valor1);
 
-                if (user.getSaldo() >= quantidadeCompra * valorAtv) {
-                    user.debitar(quantidadeCompra * valorAtv);
+              //  if (user.getSaldo() >= quantidadeCompra * valorAtv) {
+               //     user.debitar(quantidadeCompra * valorAtv);
 
                     repositorioAtivos ativo = repositorioAtivos.getInstance();
-                    ArrayList<ativo> listAtivos = ativo.getAtivos();
-                    ativo ativoadd = listAtivos.stream().filter(ativo1 -> ativo1.nome.equals(nome1)).findFirst().orElse(null);
+                  //  ArrayList<ativo> listAtivos = ativo.getAtivos();
+                   // ativo ativoadd = listAtivos.stream().filter(ativo1 -> ativo1.nome.equals(nome1)).findFirst().orElse(null);
 
-                    carteira.adicionarAtivoNaCarteira(ativoadd, quantidadeCompra);
-                    Relatorio newRelatorio = criarRelatorio(nome1, valorAtv, LocalDate.now(), quantidadeCompra);
-                    carteira.getRepositorioRelatorio().addRelatorio(newRelatorio);
-                    carteira.atualizarValorCarteira();
+                    //carteira.adicionarAtivoNaCarteira(ativoadd, quantidadeCompra);
+                  //  Relatorio newRelatorio = criarRelatorio(nome1, valorAtv, LocalDate.now(), quantidadeCompra);
+                   // carteira.getRepositorioRelatorio().addRelatorio(newRelatorio);
+                    //carteira.atualizarValorCarteira();
 
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                     successAlert.setTitle("Compra Realizada");

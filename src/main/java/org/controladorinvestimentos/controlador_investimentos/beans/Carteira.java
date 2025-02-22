@@ -8,6 +8,7 @@ import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioR
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.controladorinvestimentos.controlador_investimentos.beans.Simulador.atualizarValorCarteira;
 
@@ -33,31 +34,32 @@ public class Carteira {
     public void adicionarAtivoNaCarteira(String codeAtv, double quantidade) throws IOException {
         Relatorio relatorio = new Relatorio(codeAtv,quantidade);
         repositorioRelatorio.addRelatorio(relatorio);
-        repositorioMovimentacoes.addRelatorio(relatorio, this);
+        RepositorioMovimentacoes.getInstance().addRelatorio(relatorio, this);
         atualizarValorCarteira();
     }
 
-    public void removerAtivo(Ativo ativo, double quantidade) throws RuntimeException {
-        if (repositorioMovimentacoes.getListaAtivos().contains(ativo)) {
-            Ativo ativoToRemove = repositorioMovimentacoes.removeFromAtivosCarteira(ativo, quantidade);
-            String nome = ativoToRemove.getNome();
-            double qtdAtual = repositorioRelatorio.getQuantidadeAtivo(nome);
+    public void removerAtivo(String codeAtv, double quantidade) throws RuntimeException {
+            RepositorioMovimentacoes.getInstance();
 
-            if (qtdAtual <= quantidade) {
-                throw new RuntimeException("Quantidade insuficiente para remover.");
-            } else {
-                try {
-                    repositorioMovimentacoes.removeFromAtivosCarteira(ativo, quantidade);
-                } catch (Exception e) {
-                    throw new RuntimeException("Erro ao remover ativo.", e);
+            try {
+                Relatorio toRemove = RepositorioMovimentacoes.searchRelatorio(codeAtv, quantidade, this);
+
+                if (toRemove != null) {
+                    if(RepositorioMovimentacoes.removeRelatorio(toRemove, this)){
+                        repositorioRelatorio.removerRelatorio(toRemove);
+                        atualizarValorCarteira();
+                    }
                 }
+            }catch (RuntimeException e) {
+                throw new RuntimeException();
             }
-            atualizarValorCarteira();
+
         }
-    }
 
     public void atualizarValorCarteira() {
         ValorCarteira = repositorioRelatorio.calcularValorAtual();
     }
-
 }
+
+
+

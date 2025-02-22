@@ -24,7 +24,7 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
         return relatorios;
     }
 
-     public void addRelatorio (Relatorio relatorio){
+    public void addRelatorio (Relatorio relatorio){
         relatorios.add(relatorio);
      }
 
@@ -66,5 +66,9 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
                     }
                 })
                 .sum();
+    }
+
+    public void removerRelatorio(Relatorio relatorio){
+        relatorios.remove(relatorio);
     }
 }

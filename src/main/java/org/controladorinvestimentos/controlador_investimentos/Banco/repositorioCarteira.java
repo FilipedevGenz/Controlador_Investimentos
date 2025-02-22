@@ -13,7 +13,7 @@ public class repositorioCarteira implements IrepositorioCarteira {
 
     @Override
     public void adicionarCarteira(Carteira carteira) {
-        carteiras.put(Integer.valueOf(carteira.getID()), carteira);
+        carteiras.put(Integer.valueOf(carteira.ID), carteira);
     }
 
     @Override

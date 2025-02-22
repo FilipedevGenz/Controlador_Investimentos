@@ -6,6 +6,7 @@ import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
 import org.controladorinvestimentos.controlador_investimentos.beans.Relatorio;
 import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,13 +20,12 @@ public class RepositorioMovimentacoes {
     // Criar um IrepositorioMovimentacoes
 
     private static final ArrayList<Map<Relatorio, Carteira>> listaAtivos = new ArrayList<>();
-    private final Map<Ativo, Double> ativosCarteira;
+
+
 
     private static volatile RepositorioMovimentacoes instance;
 
-    private RepositorioMovimentacoes() {
-        ativosCarteira = new HashMap<>();
-    }
+    private RepositorioMovimentacoes() {}
 
     public static RepositorioMovimentacoes getInstance() {
         if (instance == null) {
@@ -38,7 +38,6 @@ public class RepositorioMovimentacoes {
         return instance;
     }
 
-
     // Adiciona um relatório a uma carteira
     public void addRelatorio(Relatorio relatorio, Carteira carteira) {
             getInstance(); //inicializa o repositorio
@@ -48,9 +47,10 @@ public class RepositorioMovimentacoes {
     }
 
     // Remove um relatório de uma carteira
-    public boolean RemoveRelatorio(Relatorio relatorio, Carteira carteira) {
+    public static boolean removeRelatorio(Relatorio relatorio, Carteira carteira) {
         Map<Relatorio, Carteira> relatorioCarteira = new HashMap<>();
         relatorioCarteira.put(relatorio, carteira);
+        getInstance();
         return listaAtivos.remove(relatorioCarteira);
     }
 
@@ -65,24 +65,52 @@ public class RepositorioMovimentacoes {
                 Carteira carteira2 = entry.getValue();
 
                 // Verifica se o nomeAtivo do Relatorio é igual e a carteira também é a mesma
-                if (relatorio2.getNomeAtivo().equals(ativo) && carteira2.equals(carteira)) {
+                if (relatorio2.getCodigo().equals(ativo) && carteira2.equals(carteira)) {
 
                     toReturn.add(relatorio2);
                 }
             }
         }
         return toReturn;
-
     }
 
-    public static ArrayList<Relatorio> RelatoriosCarteira(Carteira carteira){
-        ArrayList<Relatorio> toReturn = new ArrayList<>();
+    public static Relatorio searchRelatorio(String code, Double qnt, Carteira carteira ){
+
+        Relatorio relatorio = null;
+
         for (Map<Relatorio, Carteira> map : listaAtivos) {
             for (Map.Entry<Relatorio, Carteira> entry : map.entrySet()) {
                 Relatorio relatorio2 = entry.getKey();
+                Carteira carteira2 = entry.getValue();
 
+                // Verifica se o nomeAtivo do Relatorio é igual e a carteira também é a mesma
+                if (relatorio2.getCodigo().equals(code) && carteira2.equals(carteira) && relatorio2.getQuantidade() == qnt) {
+
+                    relatorio = relatorio2;
+                }
+            }
+        }
+                return relatorio;
+    }
+
+            @NotNull
+            public static ArrayList<Relatorio> RelatoriosCarteira (Carteira carteira){
+                ArrayList<Relatorio> toReturn = new ArrayList<>();
+                for (Map<Relatorio, Carteira> map : listaAtivos) {
+                    for (Map.Entry<Relatorio, Carteira> entry : map.entrySet()) {
+                        Relatorio relatorio2 = entry.getKey();
+
+                        if (entry.getValue().equals(carteira)) {
+                            toReturn.add(entry.getKey());
+                        }
+                    }
+                }
+                return toReturn;
+            }
+
+            public static boolean containsRelatorio (String ativo, Carteira carteira){
+                ArrayList<Relatorio> toCompare = getRelatorio(ativo, carteira);
+                return !toCompare.isEmpty();
             }
         }
 
-    }
-}

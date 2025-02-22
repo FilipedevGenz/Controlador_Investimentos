@@ -11,10 +11,5 @@ public class Ativo {
     @NonNull public String nome;
     @NonNull public String code;
 
-    public Ativo(String nome, double preco) {
-    }
-
-    public Ativo(String nome) {
-    }
 }
 
