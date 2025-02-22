@@ -29,7 +29,7 @@ public class RepositorioMovimentacoes {
         return listaAtivos.remove(relatorioCarteira);
     }
 
-    public ArrayList<Relatorio> getRelatorios(Relatorio relatorio, Carteira carteira){
+    public static ArrayList<Relatorio> getRelatorio(String ativo, Carteira carteira){
         ArrayList<Relatorio> toReturn = new ArrayList<>();
 
         for (Map<Relatorio, Carteira> map : listaAtivos) {
@@ -38,13 +38,21 @@ public class RepositorioMovimentacoes {
                 Carteira carteira2 = entry.getValue();
 
                 // Verifica se o nomeAtivo do Relatorio é igual e a carteira também é a mesma
-                if (relatorio2.getNomeAtivo().equals(relatorio.getNomeAtivo()) && carteira2.equals(carteira)) {
+                if (relatorio2.getNomeAtivo().equals(ativo) && carteira2.equals(carteira)) {
                     toReturn.add(relatorio2);
                 }
             }
         }
         return toReturn;
-
     }
 
+    public static ArrayList<Relatorio> RelatoriosCarteira(Carteira carteira){
+        ArrayList<Relatorio> toReturn = new ArrayList<>();
+        for (Map<Relatorio, Carteira> map : listaAtivos) {
+            for (Map.Entry<Relatorio, Carteira> entry : map.entrySet()) {
+                Relatorio relatorio2 = entry.getKey();
+
+            }
+        }
+    }
 }

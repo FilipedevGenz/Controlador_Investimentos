@@ -9,8 +9,8 @@ public class Carteira {
 
     private final int ID;
     private double ValorCarteira;
-    public RepositorioMovimentacoes RepositorioMovimentacoes;
-    public IrepositorioRelatorio;
+    public RepositorioMovimentacoes repositorioMovimentacoes;
+    public IrepositorioRelatorio repositorioRelatorio;
 
     public Carteira(int ID) {
         Ncarteiras++;

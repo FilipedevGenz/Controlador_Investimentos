@@ -1,13 +1,15 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controlador_investimentos.beans.APIrequest;
 import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 public class repositorioAtivos implements IrepositorioAtivos {
 
-        private static final ArrayList<ativo> ATIVOS = new ArrayList<>();
+        private static final ArrayList<Ativo> ATIVOS = new ArrayList<>();
 
         private static repositorioAtivos instance;
 
@@ -25,17 +27,18 @@ public class repositorioAtivos implements IrepositorioAtivos {
         return instance;
     }
 
-        public void adicionarAtivo(String nome,double preco){
-            ativo newAtv = new ativo(nome,preco);
+        public void adicionarAtivo(String code) throws IOException {
+            String name = APIrequest.buscarNomeAtivo(code);
+            Ativo newAtv = new Ativo(name,code);
             ATIVOS.add(newAtv);
         }
 
-        public void removerAtivo(ativo ativo){
+        public void removerAtivo(Ativo ativo){
             ATIVOS.remove(ativo);
         }
 
-        public ativo buscarAtivo(String nome) throws Exist {
-            for(ativo u : ATIVOS){
+        public Ativo buscarAtivo(String nome) throws Exist {
+            for(Ativo u : ATIVOS){
                 if(u.getNome().equals(nome)){
                     return u;
                 }
@@ -43,9 +46,7 @@ public class repositorioAtivos implements IrepositorioAtivos {
             throw new Exist("ativo nao encontrado");
         }
 
-        public void AlterarPreco(double preco, ativo ativo) {ativo.setPreco(preco);}
-
-        public ArrayList<ativo> getAtivos() {
+        public ArrayList<Ativo> getAtivos() {
             return ATIVOS;
         }
     }
