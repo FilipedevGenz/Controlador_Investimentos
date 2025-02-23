@@ -18,8 +18,7 @@ module org.controladorinvestimentos.controlador_investimentos {
     requires com.google.gson;
     requires okhttp3;
     requires static lombok;
-    requires annotations;
-    exports org.controladorinvestimentos.controlador_investimentos.GUI;
+
 
 
 }
