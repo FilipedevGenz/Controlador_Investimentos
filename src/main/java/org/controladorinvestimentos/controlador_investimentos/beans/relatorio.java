@@ -1,50 +1,32 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.IOException;
 import java.time.LocalDate;
+@Getter
 
-public class relatorio {
-    private final String nomeAtivo;
-    private final double valorCompra;
-    private final LocalDate data;
-    private final double quantidade;
-    private final double valorTotal;
+public class Relatorio {
 
-    // Construtor da classe Registro
-    public relatorio(String nomeAtivo, double valorCompra, LocalDate data, double quantidade) {
-        this.nomeAtivo = nomeAtivo;
-        this.valorCompra = valorCompra;
-        this.data = data;
+    private static int contadorId = 0;
+
+            final String nomeAtivo;
+            final String codigo;
+    @Setter double valorCompra;
+            final LocalDate data = LocalDate.now();
+            final double quantidade;
+            final int id;
+
+        public Relatorio(String codigo, double quantidade) throws IOException {
+        this.id = ++contadorId;
+        this.nomeAtivo = APIrequest.buscarNomeAtivo(codigo);
+        this.valorCompra = APIrequest.buscarPrecoAtivoEmTempoReal(codigo);
         this.quantidade = quantidade;
-        valorTotal = quantidade * valorCompra;
+        this.codigo = codigo;
     }
 
-    // Getters para acessar os dados do registro
-    public String getNomeAtivo() {
-        return nomeAtivo;
-    }
-
-    public double getValorCompra() {
-        return valorCompra;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public double getQuantidade() {
-        return quantidade;
-    }
-
-    public double getvalorTotal(){
-        return valorTotal;
-    }
-
-    @Override
-    public String toString() {
-        return "Ativo: " + nomeAtivo + "\n" +
-               "Quantidade: " + quantidade + "\n" +
-               "Valor de Compra: " + valorCompra + "\n" +
-               "Data: " + data;
+        public double getValorTotal() {
+        return valorCompra * quantidade;
     }
 }
 

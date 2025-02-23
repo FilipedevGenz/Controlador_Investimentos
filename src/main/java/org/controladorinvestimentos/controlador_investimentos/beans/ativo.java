@@ -1,28 +1,20 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-public class ativo {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NonNull;
 
-    public String nome;
-    private double preco;
+@Getter
+@AllArgsConstructor
+public class Ativo {
 
-   public ativo(String nome, double preco){
-        this.nome = nome;
-        this.preco = preco;
+    @NonNull public String nome;
+    @NonNull public String code;
+
+    public Ativo(String nome, double preco) {
     }
 
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public Ativo(String nome) {
     }
 }
+

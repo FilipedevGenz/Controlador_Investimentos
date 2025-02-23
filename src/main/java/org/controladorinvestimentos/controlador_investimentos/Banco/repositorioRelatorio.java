@@ -1,53 +1,70 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
-
+import java.io.IOException;
 import java.util.ArrayList;
+import lombok.Data;
+import org.controladorinvestimentos.controlador_investimentos.beans.APIrequest;
+import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
+import org.controladorinvestimentos.controlador_investimentos.beans.Relatorio;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-import org.controladorinvestimentos.controlador_investimentos.beans.relatorio;
+@Data
+public class RepositorioRelatorio implements IrepositorioRelatorio {
 
-public class repositorioRelatorio implements IrepositorioRelatorio {
 
-     private final ArrayList <relatorio> relatorios = new ArrayList<>();
+     private Carteira dono;
 
-     public boolean existe = false; 
+     private final ArrayList <Relatorio> relatorios = new ArrayList<>();
 
-     repositorioRelatorio() {
+    public Carteira getDono() {
+        return dono;
+    }
 
-        existe = true;
-     }
+    public ArrayList <Relatorio> getRelatorios() {
+        return relatorios;
+    }
 
-     public void addRelatorio (relatorio relatorio) {
-
+     public void addRelatorio (Relatorio relatorio){
         relatorios.add(relatorio);
      }
 
-     public Double getQuantidadeAtivo(String nameAtv) {
-         Double qntProcurado = null;
-         for (relatorio relatorio1 : relatorios) {
-             if(relatorio1.getNomeAtivo().equals(nameAtv)) {
-                 qntProcurado += relatorio1.getQuantidade();
-             }
+     public Double getQuantidadeAtivo(String codigo) {
+         return relatorios.stream().filter(relatorio -> relatorio.getCodigo().
+                         equals(codigo)).mapToDouble(Relatorio::getQuantidade).
+                 sum();
+     }
+
+     public Double valorDeCompraCarteira(){
+         //sera usado para comparar com o valor atual e obter a valorizacao
+         return relatorios.stream().mapToDouble(org.controladorinvestimentos.controlador_investimentos.beans.Relatorio::getValorTotal).sum();
          }
-         return qntProcurado;
-     }
 
-     public Double calcularValorAtual() {
+    public Double valorMedioDeCompra(String codigo){
+        Double valorDeCompra = relatorios.stream().filter(relatorio -> relatorio.getCodigo().
+                equals(codigo)).mapToDouble(Relatorio::getQuantidade).sum();
 
-    double valorAtual = 0;
+        Double qnt = getQuantidadeAtivo(codigo);
 
-        if (relatorios == null) {
-            return valorAtual;
-        }
+        if (qnt == 0) return 0.0;
 
-        for (relatorio i: relatorios) {
+        BigDecimal resultado = BigDecimal.valueOf(valorDeCompra / qnt)
+                .setScale(2, RoundingMode.HALF_UP);
+        String toReturn = String.format("%.2f", valorDeCompra / qnt);
 
-         valorAtual = valorAtual + i.getvalorTotal();   
+        return resultado.doubleValue();
+    }
 
-        }
-
-        return valorAtual;
-
-     }
-     
-
-    
+    @Override
+    public Double calcularValorAtual() {
+        return relatorios.stream()
+                .mapToDouble(relatorio -> {
+                    try {
+                        double preco = APIrequest.buscarPrecoAtivoEmTempoReal(relatorio.getCodigo());
+                        return relatorio.getQuantidade() * preco;
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .sum();
+    }
 }

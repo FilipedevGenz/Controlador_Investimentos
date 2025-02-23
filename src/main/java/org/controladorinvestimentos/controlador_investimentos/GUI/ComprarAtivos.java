@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivosCarteira;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioMovimetacoes;
 import org.controladorinvestimentos.controlador_investimentos.beans.*;
 
 import java.time.LocalDate;
@@ -21,10 +21,10 @@ import static org.controladorinvestimentos.controlador_investimentos.beans.contr
 
 public class ComprarAtivos extends Application {
 
-    carteira carteira;
+    Carteira carteira;
     conta user;
 
-    ComprarAtivos(carteira carteira, conta user) {
+    ComprarAtivos(Carteira carteira, conta user) {
         this.carteira = carteira;
         this.user = user;
     }
@@ -35,7 +35,7 @@ public class ComprarAtivos extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        carteira.repositorioAtvCarteira = new repositorioAtivosCarteira();
+        carteira.repositorioAtvCarteira = new RepositorioMovimetacoes();
 
         VBox container = new VBox(10);
         container.setPadding(new Insets(20));
@@ -106,7 +106,7 @@ public class ComprarAtivos extends Application {
                     ativo ativoadd = listAtivos.stream().filter(ativo1 -> ativo1.nome.equals(nome1)).findFirst().orElse(null);
 
                     carteira.adicionarAtivoNaCarteira(ativoadd, quantidadeCompra);
-                    relatorio newRelatorio = criarRelatorio(nome1, valorAtv, LocalDate.now(), quantidadeCompra);
+                    Relatorio newRelatorio = criarRelatorio(nome1, valorAtv, LocalDate.now(), quantidadeCompra);
                     carteira.getRepositorioRelatorio().addRelatorio(newRelatorio);
                     carteira.atualizarValorCarteira();
 

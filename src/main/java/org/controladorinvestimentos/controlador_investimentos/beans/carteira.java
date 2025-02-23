@@ -1,62 +1,63 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivosCarteira;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio;
+import lombok.Getter;
+import lombok.Setter;
+import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioRelatorio;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioMovimentacoes;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioRelatorio;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
-public class carteira {
+import java.io.IOException;
 
-    public static int Ncarteiras = 0;
-    public int ID;
+import static org.controladorinvestimentos.controlador_investimentos.beans.Simulador.atualizarValorCarteira;
+
+public class Carteira {
+
+    public final String ID;
+    @Getter
+    @Setter
     private double ValorCarteira;
-    public repositorioAtivosCarteira repositorioAtvCarteira;
-    private org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio repositorioRelatorio;
+    public RepositorioMovimentacoes repositorioMovimentacoes;
+    public IrepositorioRelatorio repositorioRelatorio;
+    //repositorioRelatorio é responsavel pelas relatorios da carteira,
+    // RepositorioMovimentacoes é responsável pelas movimentações globais de todas as carteiras
 
-    public carteira(int ID) {
-        Ncarteiras++;
+
+    public Carteira(String ID) {
         this.ID = ID;
         this.ValorCarteira = 0.0;
+        this.repositorioRelatorio = new RepositorioRelatorio();
     }
 
 
-    public double getValorCarteira() {
-        return ValorCarteira;
-    }
-
-    public void adicionarAtivoNaCarteira(ativo ativo, double quantidade) throws Exist {
-        repositorioAtvCarteira.addToAtivosCarteira(ativo, quantidade);
+    public void adicionarAtivoNaCarteira(String codeAtv, double quantidade) throws IOException {
+        Relatorio relatorio = new Relatorio(codeAtv,quantidade);
+        repositorioRelatorio.addRelatorio(relatorio);
+        repositorioMovimentacoes.addRelatorio(relatorio, this);
         atualizarValorCarteira();
     }
 
-    public void removerAtivo(ativo ativo, double quantidade) throws RuntimeException {
-        if (repositorioAtvCarteira.getListaAtivos().contains(ativo)) {
-
-            org.controladorinvestimentos.controlador_investimentos.beans.ativo ativoToremove = repositorioAtvCarteira.buscarAtivo(ativo);
-
-            String nome = ativoToremove.getNome();
-
+    public void removerAtivo(Ativo ativo, double quantidade) throws RuntimeException {
+        if (repositorioMovimentacoes.getListaAtivos().contains(ativo)) {
+            Ativo ativoToRemove = repositorioMovimentacoes.removeFromAtivosCarteira(ativo, quantidade);
+            String nome = ativoToRemove.getNome();
             double qtdAtual = repositorioRelatorio.getQuantidadeAtivo(nome);
+
             if (qtdAtual <= quantidade) {
-                throw new RuntimeException();
-            }
-            else {
+                throw new RuntimeException("Quantidade insuficiente para remover.");
+            } else {
                 try {
-                    repositorioAtvCarteira.removeFromAtivosCarteira(ativo,quantidade);
+                    repositorioMovimentacoes.removeFromAtivosCarteira(ativo, quantidade);
                 } catch (Exception e) {
-                    //popUp de não existe esse ativo. NUNCA VAI CHEGAR AQUI
-                    throw new RuntimeException(e);
+                    throw new RuntimeException("Erro ao remover ativo.", e);
                 }
             }
-
             atualizarValorCarteira();
         }
-    }
-
-    public org.controladorinvestimentos.controlador_investimentos.Banco.repositorioRelatorio getRepositorioRelatorio() {
-        return repositorioRelatorio;
     }
 
     public void atualizarValorCarteira() {
         ValorCarteira = repositorioRelatorio.calcularValorAtual();
     }
+
 }

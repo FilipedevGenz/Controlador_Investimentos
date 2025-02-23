@@ -3,7 +3,6 @@ package org.controladorinvestimentos.controlador_investimentos.GUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
@@ -18,7 +17,7 @@ import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioA
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioCarteira;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.beans.conta;
-import org.controladorinvestimentos.controlador_investimentos.beans.carteira;
+import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 
 public class telaCarteiras extends Application {
 
@@ -79,7 +78,7 @@ public class telaCarteiras extends Application {
 
                 walletButton.setOnAction(e -> {
                     // Procurando a carteira com o ID igual a 'i'
-                    carteira selectedCarteira = user.repositorioCarteira.getCarteiras().stream()
+                    Carteira selectedCarteira = user.repositorioCarteira.getCarteiras().stream()
                             .filter(c -> c.ID == i) // Filtrando pelo ID da carteira
                             .findFirst() // Encontrando a primeira carteira que atende à condição
                             .orElse(null); // Retorna null se não encontrar
