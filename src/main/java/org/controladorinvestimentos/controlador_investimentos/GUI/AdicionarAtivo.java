@@ -12,8 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controlador_investimentos.beans.ControladorAtivos;
-import org.controladorinvestimentos.controlador_investimentos.beans.adm;
-import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
+import org.controladorinvestimentos.controlador_investimentos.beans.Adm;
+import org.controladorinvestimentos.controlador_investimentos.beans.Usuario;
 
 import java.io.IOException;
 
@@ -21,8 +21,8 @@ import java.io.IOException;
 public class AdicionarAtivo extends Application {
     conta user;
 
-    AdicionarAtivo(usuario conta) {
-        adm user = new adm(conta);
+    AdicionarAtivo(Usuario conta) {
+        Adm user = new Adm(conta);
     }
 
     conta adm;

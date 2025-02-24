@@ -4,22 +4,22 @@ import lombok.Getter;
 import lombok.Setter;
 import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAdm;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAdm;
 import java.io.IOException;
 
 @Getter
 @Setter
-public class adm {
+public class Adm {
     public static IrepositorioAtivos repositorioAtivos;
     private int cpf;
     private String senha;
 
-    public adm() {}
+    public Adm() {}
 
-    public adm(int cpf,String senha) {
+    public Adm(int cpf, String senha) {
         this.cpf = cpf;
         this.senha = senha;
-        repositorioAdm.getInstance().cadastrarAdm(this);
+        RepositorioAdm.getInstance().cadastrarAdm(this);
     }
 
     private void CriarAtivo(String nome){

@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioCarteira;
 @Getter
 @Setter
-public class usuario {
+public class Usuario {
 
     private int cpf;
     private String nome;
@@ -15,13 +15,13 @@ public class usuario {
     public IrepositorioCarteira repositorioCarteira;
 
 
-    public usuario(int cpf, String nome, String senha, String email) {
+    public Usuario(int cpf, String nome, String senha, String email) {
         this.cpf = cpf;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
     }
 
-    public usuario(){}
+    public Usuario(){}
 
 }

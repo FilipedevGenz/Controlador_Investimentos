@@ -6,7 +6,7 @@ package org.controladorinvestimentos.controlador_investimentos.beans.Strategy;
 
 import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
+import org.controladorinvestimentos.controlador_investimentos.beans.Usuario;
 
 import java.util.Scanner;
 
@@ -15,7 +15,7 @@ public class senhaStrategy implements updateStrategy{
     private static IrepositorioUsers repositorioUsuario;
 
     @Override
-    public void updateInfo(usuario usuario) {
+    public void updateInfo(Usuario usuario) {
 
         Scanner ler = new Scanner(System.in);
         System.out.println("Digite a nova senha:");

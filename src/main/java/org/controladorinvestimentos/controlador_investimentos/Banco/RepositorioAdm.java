@@ -1,22 +1,22 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controlador_investimentos.beans.adm;
+import org.controladorinvestimentos.controlador_investimentos.beans.Adm;
 
 import java.util.ArrayList;
 
-public class repositorioAdm implements IrepositorioAdm {
+public class RepositorioAdm implements IrepositorioAdm {
 
-    private static final ArrayList<adm> ADMINS = new ArrayList<>();
-    private static repositorioAdm instance;
+    private static final ArrayList<Adm> ADMINS = new ArrayList<>();
+    private static RepositorioAdm instance;
 
-    private repositorioAdm() {}
+    private RepositorioAdm() {}
 
-    public static synchronized repositorioAdm getInstance() {
+    public static synchronized RepositorioAdm getInstance() {
         if (instance == null) {
-            synchronized (repositorioAdm.class) {
+            synchronized (RepositorioAdm.class) {
                 if (instance == null) {
-                    instance = new repositorioAdm();
+                    instance = new RepositorioAdm();
                 }
             }
         }
@@ -24,7 +24,7 @@ public class repositorioAdm implements IrepositorioAdm {
     }
 
 
-    public void cadastrarAdm(adm adm) throws Exist {
+    public void cadastrarAdm(Adm adm) throws Exist {
         // Verifica se já existe um admin com o mesmo CPF
         try {
             buscarAdm(adm.getCpf());
@@ -36,8 +36,8 @@ public class repositorioAdm implements IrepositorioAdm {
     }
 
     @Override
-    public adm buscarAdm(int cpf) throws Exist {
-        for (adm admin : ADMINS) {
+    public Adm buscarAdm(int cpf) throws Exist {
+        for (Adm admin : ADMINS) {
             if (admin.getCpf() == cpf) {
                 return admin;
             }
@@ -46,9 +46,9 @@ public class repositorioAdm implements IrepositorioAdm {
     }
 
     @Override
-    public void removerAdm(adm admin) throws Exist {
-        adm adminEncontrado = null;
-        for (adm a : ADMINS) {
+    public void removerAdm(Adm admin) throws Exist {
+        Adm adminEncontrado = null;
+        for (Adm a : ADMINS) {
             if (a.getCpf() == admin.getCpf()) {
                 adminEncontrado = a;
                 break;

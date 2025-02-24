@@ -10,9 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
-import org.controladorinvestimentos.controlador_investimentos.beans.adm;
+import org.controladorinvestimentos.controlador_investimentos.beans.Adm;
 import org.controladorinvestimentos.controlador_investimentos.beans.ControladorAtivos;
-import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
+import org.controladorinvestimentos.controlador_investimentos.beans.Usuario;
 
 import java.io.IOException;
 
@@ -26,8 +26,8 @@ public class Login extends Application {
     public void start(Stage primaryStage) {
         repositorioatv = RepositorioAtivos.getInstance();
         repositorio = repositorioUsers.getInstance();
-        usuario conta = new usuario(1234,"teste","123","emailAdm");
-        adm admTeste = new adm(conta);
+        Usuario conta = new Usuario(1234,"teste","123","emailAdm");
+        Adm admTeste = new Adm(conta);
         conta contaTeste = new conta(12345,"contaTeste","123","emailConta");
 
         try {
@@ -57,7 +57,7 @@ public class Login extends Application {
             try {
                 Integer cpf = Integer.parseInt(user);
                 if (repositorio.buscarCPF(cpf)) {
-                    usuario usuarioEncontrado = repositorio.buscarCPFreturnUser(cpf);
+                    Usuario usuarioEncontrado = repositorio.buscarCPFreturnUser(cpf);
                     if (usuarioEncontrado.getSenha().equals(password)) {
                         if (usuarioEncontrado.isADM) {
                             AdicionarAtivo next = new AdicionarAtivo(usuarioEncontrado);

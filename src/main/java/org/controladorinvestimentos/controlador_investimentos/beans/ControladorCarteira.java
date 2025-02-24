@@ -6,11 +6,11 @@ import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 import java.util.List;
 
-public class controladorCarteira {
+public class ControladorCarteira {
 
     private final IrepositorioCarteira repositorioCarteira;
 
-    public controladorCarteira() {
+    public ControladorCarteira() {
         this.repositorioCarteira = new RepositorioCarteira();
     }
 

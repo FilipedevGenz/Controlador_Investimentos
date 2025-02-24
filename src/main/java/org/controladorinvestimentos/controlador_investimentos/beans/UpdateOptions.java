@@ -1,6 +1,6 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-public enum updateOptions {
+public enum UpdateOptions {
 
     Nome,Senha,Email;
 }

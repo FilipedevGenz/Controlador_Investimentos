@@ -14,7 +14,7 @@ import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioA
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioMovimetacoes;
 import org.controladorinvestimentos.controlador_investimentos.beans.*;
 
-import static org.controladorinvestimentos.controlador_investimentos.beans.controladorRelatorio.criarRelatorio;
+import static org.controladorinvestimentos.controlador_investimentos.beans.ControladorRelatorio.criarRelatorio;
 
 public class ComprarAtivos extends Application {
 
