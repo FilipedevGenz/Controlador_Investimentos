@@ -18,7 +18,7 @@ public class repositorioAtivos implements IrepositorioAtivos {
     public static synchronized repositorioAtivos getInstance(){
 
         if(instance == null){
-            synchronized (repositorioUsers.class){
+            synchronized (repositorioUsuario.class){
                 if(instance == null){
                     instance = new repositorioAtivos();
                 }

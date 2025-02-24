@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
- class APIRelatorios {
+    public class AtivoNoPassado {
     private static final String API_URL = "https://brapi.dev/api/quote/";
     private static final String API_TOKEN = "7kfUNQUQm5GxWV6GXAf3ig";
     private static final OkHttpClient client = new OkHttpClient();

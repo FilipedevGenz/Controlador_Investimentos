@@ -6,7 +6,6 @@ import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
 import org.controladorinvestimentos.controlador_investimentos.beans.Relatorio;
 import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,7 +92,7 @@ public class RepositorioMovimentacoes {
                 return relatorio;
     }
 
-            @NotNull
+
             public static ArrayList<Relatorio> RelatoriosCarteira (Carteira carteira){
                 ArrayList<Relatorio> toReturn = new ArrayList<>();
                 for (Map<Relatorio, Carteira> map : listaAtivos) {

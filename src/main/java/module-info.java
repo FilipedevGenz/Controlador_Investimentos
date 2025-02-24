@@ -18,7 +18,9 @@ module org.controladorinvestimentos.controlador_investimentos {
     requires com.google.gson;
     requires okhttp3;
     requires static lombok;
-
+    requires java.desktop;
+    requires org.jfree.jfreechart;
+    requires jfreechart.fx;
 
 
 }
