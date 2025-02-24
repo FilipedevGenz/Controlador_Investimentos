@@ -7,15 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.beans.adm;
-import org.controladorinvestimentos.controlador_investimentos.beans.conta;
-import org.controladorinvestimentos.controlador_investimentos.beans.controladorAtivos;
+import org.controladorinvestimentos.controlador_investimentos.beans.ControladorAtivos;
 import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
 
 import java.io.IOException;
@@ -24,19 +20,19 @@ import java.io.IOException;
 public class Login extends Application {
 
     repositorioUsers repositorio;
-    repositorioAtivos repositorioatv;
+    RepositorioAtivos repositorioatv;
 
     @Override
     public void start(Stage primaryStage) {
-        repositorioatv = repositorioAtivos.getInstance();
+        repositorioatv = RepositorioAtivos.getInstance();
         repositorio = repositorioUsers.getInstance();
         usuario conta = new usuario(1234,"teste","123","emailAdm");
         adm admTeste = new adm(conta);
         conta contaTeste = new conta(12345,"contaTeste","123","emailConta");
 
         try {
-            controladorAtivos.CriarAtivo("VALE3");
-            controladorAtivos.CriarAtivo("PETR4");
+            ControladorAtivos.CriarAtivo("VALE3");
+            ControladorAtivos.CriarAtivo("PETR4");
         } catch (IOException e) {
             System.err.println("Erro ao criar o ativo: " + e.getMessage());
         }

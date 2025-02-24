@@ -7,20 +7,20 @@ import org.controladorinvestimentos.controlador_investimentos.beans.Ativo;
 
 import java.io.IOException;
 import java.util.ArrayList;
-public class repositorioAtivos implements IrepositorioAtivos {
+public class RepositorioAtivos implements IrepositorioAtivos {
 
         private static final ArrayList<Ativo> ATIVOS = new ArrayList<>();
 
-        private static repositorioAtivos instance;
+        private static RepositorioAtivos instance;
 
-        private repositorioAtivos() {}
+        private RepositorioAtivos() {}
 
-    public static synchronized repositorioAtivos getInstance(){
+    public static synchronized RepositorioAtivos getInstance(){
 
         if(instance == null){
             synchronized (repositorioUsuario.class){
                 if(instance == null){
-                    instance = new repositorioAtivos();
+                    instance = new RepositorioAtivos();
                 }
             }
         }

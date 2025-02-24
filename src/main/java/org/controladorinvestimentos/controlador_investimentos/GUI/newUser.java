@@ -18,9 +18,7 @@ import javafx.scene.layout.StackPane;
 import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 import org.controladorinvestimentos.controlador_investimentos.beans.controladorUsers;
-import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
 
 public class newUser extends Application {
 

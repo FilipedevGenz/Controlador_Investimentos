@@ -9,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
-import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 
 import java.util.ArrayList;
 

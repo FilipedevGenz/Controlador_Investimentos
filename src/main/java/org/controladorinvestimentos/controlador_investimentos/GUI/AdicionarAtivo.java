@@ -11,8 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controlador_investimentos.beans.conta;
-import org.controladorinvestimentos.controlador_investimentos.beans.controladorAtivos;
+import org.controladorinvestimentos.controlador_investimentos.beans.ControladorAtivos;
 import org.controladorinvestimentos.controlador_investimentos.beans.adm;
 import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
 
@@ -47,7 +46,7 @@ public class AdicionarAtivo extends Application {
         addButton.setOnAction(e -> {
             String nomeAtivo = searchField.getText(); // Obtém o nome do ativo digitado
             try {
-                controladorAtivos.CriarAtivo(nomeAtivo);
+                ControladorAtivos.CriarAtivo(nomeAtivo);
             } catch (IOException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Código inválido");

@@ -1,13 +1,18 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
 
+import lombok.Getter;
+import lombok.Setter;
+import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioCarteira;
+@Getter
+@Setter
 public class usuario {
 
     private int cpf;
     private String nome;
     private String email;
     private String senha;
-    public boolean isADM;
+    public IrepositorioCarteira repositorioCarteira;
 
 
     public usuario(int cpf, String nome, String senha, String email) {
@@ -18,37 +23,5 @@ public class usuario {
     }
 
     public usuario(){}
-
-    public int getCpf() {return cpf;}
-
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-
 
 }

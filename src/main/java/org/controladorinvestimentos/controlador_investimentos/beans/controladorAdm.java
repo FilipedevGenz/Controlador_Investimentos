@@ -1,25 +1,25 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
-import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioAdm;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAdm;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 public class controladorAdm {
 
-    private static IrepositorioUsers repositorioUsuario;
+    private static IrepositorioAdm irepositorioAdm;
 
     public controladorAdm() {
-        repositorioUsuario = repositorioUsers.getInstance();
+        repositorioAdm.getInstance();
     }
 
-    public void CadastrarAdm(usuario usuario) {
+    public void CadastrarAdm(int cpf,String senha) {
         try {
-            usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);
-            if (usuarioEncontrado != null) {
+            adm admEncontrado = irepositorioAdm.buscarAdm(cpf);
+            if (admEncontrado != null) {
                 throw new Exist("Usuário já existe no sistema.");
             }
         } catch (Exception e) {
-            repositorioUsuario.adicionarADM(usuario);
+            adm newAdm = new adm(cpf, senha);
         }
     }
 }

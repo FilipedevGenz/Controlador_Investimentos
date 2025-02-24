@@ -23,15 +23,15 @@ public class repositorioAdm implements IrepositorioAdm {
         return instance;
     }
 
-    @Override
-    public void adicionarAdm(adm admin) throws Exist {
+
+    public void cadastrarAdm(adm adm) throws Exist {
         // Verifica se já existe um admin com o mesmo CPF
         try {
-            buscarAdm(admin.getCpf());
+            buscarAdm(adm.getCpf());
             throw new Exist("Admin já existe no sistema.");
         } catch (Exist e) {
             // Se não encontrado, prossegue com a adição
-            ADMINS.add(admin);
+            ADMINS.add(adm);
         }
     }
 

@@ -1,15 +1,16 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioAtivos;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 import java.io.IOException;
 
-public class controladorAtivos {
+public class ControladorAtivos {
 
     private static IrepositorioAtivos repositorioAtivos;
 
     public static void CriarAtivo(String nome) throws IOException {
-        repositorioAtivos = org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos.getInstance();
+        repositorioAtivos = RepositorioAtivos.getInstance();
         try {
             Ativo ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
             if (ativoEncontrado != null){
@@ -24,6 +25,7 @@ public class controladorAtivos {
 
     public static void RemoverAtivo(String nome){
         try {
+            RepositorioAtivos.getInstance();
             Ativo _ativoEncontrado = repositorioAtivos.buscarAtivo(nome);
             if (_ativoEncontrado != null) {
                 repositorioAtivos.removerAtivo(_ativoEncontrado);

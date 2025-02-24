@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class repositorioCarteira implements IrepositorioCarteira {
+public class RepositorioCarteira implements IrepositorioCarteira {
 
     private final Map<Integer, Carteira> carteiras = new HashMap<>();
 

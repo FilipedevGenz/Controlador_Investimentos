@@ -13,10 +13,9 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioCarteira;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioCarteira;
 import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
-import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 import org.controladorinvestimentos.controlador_investimentos.beans.Carteira;
 
 public class telaCarteiras extends Application {
@@ -32,14 +31,14 @@ public class telaCarteiras extends Application {
         this.user = conta;
         // Certificando que o repositorioCarteira foi inicializado na conta
         if (user.repositorioCarteira == null) {
-            user.repositorioCarteira = new repositorioCarteira(user); // Inicializa o repositorio se for nulo
+            user.repositorioCarteira = new RepositorioCarteira(user); // Inicializa o repositorio se for nulo
         }
     }
 
     @Override
     public void start(Stage primaryStage) {
 
-        repositorioAtivos repositorioatv = repositorioAtivos.getInstance();  // Esta linha inicializa o repositorio de ativos
+        RepositorioAtivos repositorioatv = RepositorioAtivos.getInstance();  // Esta linha inicializa o repositorio de ativos
         repositorioUsers repositorio = repositorioUsers.getInstance();  // Inicializa o repositório de usuários
 
 // Verifica se a variável carteira está nula e a inicializa antes de usá-la

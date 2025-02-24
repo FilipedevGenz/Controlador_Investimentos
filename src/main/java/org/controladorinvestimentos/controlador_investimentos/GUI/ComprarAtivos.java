@@ -10,12 +10,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioMovimetacoes;
 import org.controladorinvestimentos.controlador_investimentos.beans.*;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 import static org.controladorinvestimentos.controlador_investimentos.beans.controladorRelatorio.criarRelatorio;
 
@@ -48,7 +45,7 @@ public class ComprarAtivos extends Application {
         header.setAlignment(Pos.CENTER);
         header.getChildren().addAll(new Text("Ativo"), new Text("Valor"), new Text("Quantidade"));
 
-        repositorioAtivos ativo = repositorioAtivos.getInstance();
+        RepositorioAtivos ativo = RepositorioAtivos.getInstance();
       //  ArrayList<ativo> listAtivos = ativo.getAtivos();
 
         VBox itemList = new VBox(10);
@@ -101,7 +98,7 @@ public class ComprarAtivos extends Application {
               //  if (user.getSaldo() >= quantidadeCompra * valorAtv) {
                //     user.debitar(quantidadeCompra * valorAtv);
 
-                    repositorioAtivos ativo = repositorioAtivos.getInstance();
+                    RepositorioAtivos ativo = RepositorioAtivos.getInstance();
                   //  ArrayList<ativo> listAtivos = ativo.getAtivos();
                    // ativo ativoadd = listAtivos.stream().filter(ativo1 -> ativo1.nome.equals(nome1)).findFirst().orElse(null);
 

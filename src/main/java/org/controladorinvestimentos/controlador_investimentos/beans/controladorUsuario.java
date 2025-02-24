@@ -1,7 +1,7 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsers;
-import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioUsers;
+import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioUsuario;
+import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioUsuario;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.emailStrategy;
 import org.controladorinvestimentos.controlador_investimentos.beans.Strategy.nomeStrategy;
@@ -15,25 +15,25 @@ import static org.controladorinvestimentos.controlador_investimentos.beans.updat
 
 public class controladorUsuario {
 
-    private static IrepositorioUsers repositorioUsuario;
+    private static IrepositorioUsuario IrepositorioUsuario;
 
     public controladorUsuario() {
-        repositorioUsuario = repositorioUsers.getInstance();
+        repositorioUsuario.getInstance();
     }
 
     public void cadastrarNovoUsuario(int cpf, String nome, String email, String senha) throws Exist {
-        if (repositorioUsuario.buscarCPF(cpf)) {
+        if (IrepositorioUsuario.buscarCPF(cpf)) {
             throw new Exist("Usuário já existe no sistema.");
         }
         usuario novoUsuario = new usuario(cpf, nome, senha, email);
-        repositorioUsuario.adicionarUsuario(novoUsuario);
+        IrepositorioUsuario.adicionarUsuario(novoUsuario);
     }
 
     public void RemoverUsuario(usuario usuario) {
         try {
-            usuario usuarioEncontrado = repositorioUsuario.buscarUsuario(usuario);
+            usuario usuarioEncontrado = IrepositorioUsuario.buscarUsuario(usuario);
             if (usuarioEncontrado != null) {
-                repositorioUsuario.removerUsuario(usuario);
+                IrepositorioUsuario.removerUsuario(usuario);
             }
         } catch (Exception e) {
             throw new Exist("Usuario não existe no sistema.");
@@ -47,14 +47,14 @@ public class controladorUsuario {
                 Email, new emailStrategy()
         );
         try {
-            usuario usuarioAtual = repositorioUsuario.buscarUsuario(usuario);
+            usuario usuarioAtual = IrepositorioUsuario.buscarUsuario(usuario);
             mapStrategy.get(option).updateInfo(usuarioAtual);
         } catch (Exception e) {
             throw new Exist("Usuario não existe no sistema");
         }
     }
 
-    public conta buscarUsuario(int cpf) {
-        return repositorioUsuario.buscarCPFreturnConta(cpf);
+    public usuario buscarUsuario(int cpf) {
+        return IrepositorioUsuario.buscarCPFreturnConta(cpf);
     }
 }

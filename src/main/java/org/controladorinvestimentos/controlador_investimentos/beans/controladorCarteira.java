@@ -1,7 +1,7 @@
 package org.controladorinvestimentos.controlador_investimentos.beans;
 
 import org.controladorinvestimentos.controlador_investimentos.Banco.IrepositorioCarteira;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioCarteira;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioCarteira;
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public class controladorCarteira {
     private final IrepositorioCarteira repositorioCarteira;
 
     public controladorCarteira() {
-        this.repositorioCarteira = new repositorioCarteira();
+        this.repositorioCarteira = new RepositorioCarteira();
     }
 
     public void NovaCarteira(String nomeCarteira) {

@@ -7,13 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controlador_investimentos.Banco.repositorioAtivos;
+import org.controladorinvestimentos.controlador_investimentos.Banco.RepositorioAtivos;
 
 public class TelaAdm {
-    private repositorioAtivos repositorio;
+    private RepositorioAtivos repositorio;
 
     public TelaAdm() {
-        this.repositorio = repositorioAtivos.getInstance();
+        this.repositorio = RepositorioAtivos.getInstance();
     }
 
     public void start(Stage primaryStage) {

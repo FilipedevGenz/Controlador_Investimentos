@@ -1,7 +1,6 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
 
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
 
 public interface IrepositorioUsuario {
@@ -14,5 +13,5 @@ public interface IrepositorioUsuario {
     void alterarNome(String nome, usuario usuario) throws Exist;
     boolean buscarCPF(int cpf);
     usuario buscarCPFreturnUser(int cpf);
-    conta buscarCPFreturnConta(int cpf);
+    usuario buscarCPFreturnConta(int cpf);
 }

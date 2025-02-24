@@ -1,7 +1,5 @@
 package org.controladorinvestimentos.controlador_investimentos.Banco;
-
 import org.controladorinvestimentos.controlador_investimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 import org.controladorinvestimentos.controlador_investimentos.beans.usuario;
 
 import java.util.ArrayList;
@@ -91,6 +89,7 @@ public class repositorioUsuario implements IrepositorioUsuario {
 
     @Override
     public usuario buscarCPFreturnUser(int cpf) {
+        repositorioUsuario.getInstance();
         for (usuario u : USUARIOS) {
             if (u.getCpf() == cpf) {
                 return u;

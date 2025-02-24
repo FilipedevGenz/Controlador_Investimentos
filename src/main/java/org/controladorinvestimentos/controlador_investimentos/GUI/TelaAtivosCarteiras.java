@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
-import org.controladorinvestimentos.controlador_investimentos.beans.conta;
 
 import java.util.ArrayList;
 
