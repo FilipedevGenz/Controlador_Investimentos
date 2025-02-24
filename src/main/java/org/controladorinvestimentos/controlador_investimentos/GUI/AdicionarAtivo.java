@@ -1,35 +1,31 @@
 package org.controladorinvestimentos.controlador_investimentos.GUI;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.Parent;
+import org.controladorinvestimentos.controlador_investimentos.GUI.MainApp;
 import org.controladorinvestimentos.controlador_investimentos.beans.ControladorAtivos;
-import org.controladorinvestimentos.controlador_investimentos.beans.Adm;
-import org.controladorinvestimentos.controlador_investimentos.beans.Usuario;
 
 import java.io.IOException;
 
+public class AdicionarAtivo {
 
-public class AdicionarAtivo extends Application {
-    conta user;
+    private MainApp mainApp;
+    private VBox container;
 
-    AdicionarAtivo(Usuario conta) {
-        Adm user = new Adm(conta);
+    public AdicionarAtivo(MainApp mainApp) {
+        this.mainApp = mainApp;
+        createView();
     }
 
-    conta adm;
-
-    @Override
-    public void start(Stage primaryStage) {
-        VBox container = new VBox(20);
+    private void createView() {
+        container = new VBox(20);
         container.setPadding(new Insets(50));
         container.setAlignment(Pos.CENTER);
 
@@ -44,7 +40,7 @@ public class AdicionarAtivo extends Application {
         addButton.setFont(new Font("Arial", 18));
         addButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 15 30;");
         addButton.setOnAction(e -> {
-            String nomeAtivo = searchField.getText(); // Obtém o nome do ativo digitado
+            String nomeAtivo = searchField.getText(); // obtém o nome do ativo digitado
             try {
                 ControladorAtivos.CriarAtivo(nomeAtivo);
             } catch (IOException ex) {
@@ -56,24 +52,18 @@ public class AdicionarAtivo extends Application {
             }
         });
 
-        // Botão Voltar
+        // Botão de voltar: ao clicar, volta para a tela de Login
         Button voltarButton = new Button("Voltar");
         voltarButton.setFont(new Font("Arial", 18));
         voltarButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 15 30;");
         voltarButton.setOnAction(e -> {
-            Login.launch(Login.class);  //
-            primaryStage.close();  //
+            mainApp.showLoginScene();
         });
 
         container.getChildren().addAll(title, searchField, addButton, voltarButton);
-
-        Scene scene = new Scene(container, 500, 400);
-        primaryStage.setTitle("Adicionar Ativo");
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public Parent getView() {
+        return container;
     }
 }
