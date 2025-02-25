@@ -22,7 +22,8 @@ public class MenuInicial extends Application {
         // Menu lateral
         VBox menu = new VBox(10);
         menu.setPadding(new Insets(10));
-        menu.setStyle("-fx-background-color: #f5f7fa; -fx-pref-width: 200px;");
+        menu.setStyle("-fx-background-color: #f5f7fa;");
+        menu.setPrefWidth(200);
 
         Label title = new Label("Análises");
         title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
@@ -39,9 +40,11 @@ public class MenuInicial extends Application {
         lblTitulo.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
         double valorRentabilidade = -36712.47; // Valor de exemplo
-        Label lblValor = new Label(String.format(" %.2f R$", valorRentabilidade));
-        lblValor.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;" +
-                (valorRentabilidade < 0 ? "-fx-text-fill: green;" : "-fx-text-fill: red;"));
+        Label lblValor = new Label(String.format("%.2f R$", valorRentabilidade));
+        String styleValor = "-fx-font-size: 20px; -fx-font-weight: bold; ";
+        // Valores negativos em vermelho e positivos em verde
+        styleValor += (valorRentabilidade < 0 ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
+        lblValor.setStyle(styleValor);
 
         HBox hboxTitulo = new HBox(10, lblTitulo, lblValor);
         hboxTitulo.setPadding(new Insets(10, 0, 10, 10));
