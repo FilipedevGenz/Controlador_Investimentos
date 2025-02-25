@@ -12,6 +12,7 @@ module org.controladorinvestimentos.controladorInvestimentos {
     requires com.almasb.fxgl.all;
 
     opens org.controladorinvestimentos.controladorInvestimentos.GUI to javafx.fxml;
+    opens org.controladorinvestimentos.controladorInvestimentos.NewGUI to javafx.fxml;
 
     requires javafx.base;
     requires javafx.graphics;

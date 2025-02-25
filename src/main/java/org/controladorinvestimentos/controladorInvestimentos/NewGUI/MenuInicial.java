@@ -78,6 +78,15 @@ public class MenuInicial extends Application {
         VBox content = new VBox(10, hboxTitulo, lblResultado, barChart);
         content.setPadding(new Insets(10));
 
+        btnCarteira.setOnAction(e -> {
+            TelaCarteiras telaCarteiras = new TelaCarteiras();
+            try {
+                telaCarteiras.start(primaryStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
         BorderPane root = new BorderPane();
         root.setLeft(menu);
         root.setCenter(content);

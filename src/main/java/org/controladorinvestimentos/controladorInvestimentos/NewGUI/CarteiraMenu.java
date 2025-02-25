@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class CarteiraMenu extends Application {
     @Override
     public void start(Stage primaryStage) {
-        // Título da carteira
+        // Título da carteira (você pode parametrizar para cada carteira)
         Text carteiraTitulo = new Text("Carteira 1");
         carteiraTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
@@ -25,8 +25,20 @@ public class CarteiraMenu extends Application {
         Button btnComprarAtivos = new Button("Comprar Ativos");
         btnComprarAtivos.setStyle("-fx-background-color: #10B981; -fx-text-fill: white; -fx-padding: 10px; -fx-font-size: 14px;");
 
+        // Botão de Voltar para retornar à TelaCarteiras
+        Button btnVoltar = new Button("Voltar");
+        btnVoltar.setStyle("-fx-background-color: #E5E7EB; -fx-text-fill: black; -fx-padding: 10px; -fx-font-size: 14px;");
+        btnVoltar.setOnAction(e -> {
+            TelaCarteiras telaCarteiras = new TelaCarteiras();
+            try {
+                telaCarteiras.start(primaryStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
         // Layout principal
-        VBox layout = new VBox(15, carteiraTitulo, btnProjecoes, btnRentabilidade, btnComprarAtivos);
+        VBox layout = new VBox(15, carteiraTitulo, btnProjecoes, btnRentabilidade, btnComprarAtivos, btnVoltar);
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-background-color: #F3F4F6; -fx-padding: 20px; -fx-border-radius: 10px;");
 
@@ -40,4 +52,3 @@ public class CarteiraMenu extends Application {
         launch(args);
     }
 }
-
