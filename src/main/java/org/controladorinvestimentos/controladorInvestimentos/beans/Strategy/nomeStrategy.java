@@ -16,7 +16,7 @@ public class nomeStrategy implements updateStrategy{
     @Override
     public void updateInfo(Usuario usuario) {
         try {
-            System.out.println("Digite o novo nome:");
+            System.out.println("Digite o novo nomeCarteira:");
             Scanner ler = new Scanner(System.in);
             String NewInfo = ler.nextLine();
             repositorioUsuario.AlterarNome(NewInfo,usuario);

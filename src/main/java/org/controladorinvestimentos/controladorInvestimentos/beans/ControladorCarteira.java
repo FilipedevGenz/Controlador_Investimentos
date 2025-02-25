@@ -8,26 +8,26 @@ import java.util.List;
 
 public class ControladorCarteira {
 
-    private final IrepositorioCarteira repositorioCarteira;
+    private final IrepositorioCarteira repositorioCarteiraAcessoGlobal; // Cria um singleton
 
     public ControladorCarteira() {
-        this.repositorioCarteira = new RepositorioCarteira();
+        this.repositorioCarteiraAcessoGlobal = new RepositorioCarteira();
     }
 
     public void novaCarteira(String nomeCarteira) {
         Carteira novaCarteira = new Carteira(nomeCarteira);
-        repositorioCarteira.adicionarCarteira(novaCarteira);
+        repositorioCarteiraAcessoGlobal.adicionarCarteira(novaCarteira);
     }
 
     public void removerCarteira(int carteiraID) throws Exist {
-        repositorioCarteira.removerCarteira(carteiraID);
+        repositorioCarteiraAcessoGlobal.removerCarteira(carteiraID);
     }
 
     public Carteira getCarteira(int carteiraID) throws Exist {
-        return repositorioCarteira.buscarCarteira(carteiraID);
+        return repositorioCarteiraAcessoGlobal.buscarCarteira(carteiraID);
     }
 
     public List<Carteira> getCarteiras() {
-        return repositorioCarteira.listarCarteiras();
+        return repositorioCarteiraAcessoGlobal.listarCarteiras();
     }
 }

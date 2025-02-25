@@ -40,7 +40,7 @@ public class TelaAdm {
                     mensagem.setText("Preço inválido! Digite um número válido.");
                 }
             } else {
-                mensagem.setText("O nome do ativo e o preço não podem estar vazios.");
+                mensagem.setText("O nomeCarteira do ativo e o preço não podem estar vazios.");
             }
         });
 

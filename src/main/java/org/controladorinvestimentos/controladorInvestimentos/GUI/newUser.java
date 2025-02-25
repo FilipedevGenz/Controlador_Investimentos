@@ -62,7 +62,7 @@ public class newUser extends Application {
 
                 repositorioUsers.getInstance();
 
-                //controlador.cadastrarNovoUsuario(cpf, nome, email, password);
+                //controlador.cadastrarNovoUsuario(cpf, nomeCarteira, email, password);
                 //controladorUsers controlador2 = new controladorUsers();
                 //conta toAddsaldo = controlador2.buscarUsuario(cpf);
                 //toAddsaldo.creditar(100000.00);

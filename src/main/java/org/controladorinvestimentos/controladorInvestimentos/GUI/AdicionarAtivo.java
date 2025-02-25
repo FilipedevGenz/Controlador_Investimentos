@@ -39,7 +39,7 @@ public class AdicionarAtivo {
         addButton.setFont(new Font("Arial", 18));
         addButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 15 30;");
         addButton.setOnAction(e -> {
-            String nomeAtivo = searchField.getText(); // obtém o nome do ativo digitado
+            String nomeAtivo = searchField.getText(); // obtém o nomeCarteira do ativo digitado
             try {
                 ControladorAtivos.criarAtivo(nomeAtivo);
             } catch (IOException ex) {

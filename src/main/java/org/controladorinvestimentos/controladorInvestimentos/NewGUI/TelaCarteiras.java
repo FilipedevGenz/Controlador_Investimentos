@@ -11,6 +11,7 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Ativo;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
+import org.controladorinvestimentos.controladorInvestimentos.NewGUI.MenuInicial;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,20 +21,6 @@ import static org.controladorinvestimentos.controladorInvestimentos.beans.APIreq
 
 public class TelaCarteiras extends Application {
 
-    Ativo ativo1 = new Ativo("PETR4",buscarPrecoAtivoEmTempoReal("PETR4"));
-    Ativo ativo2 = new Ativo("PETR4",buscarPrecoAtivoEmTempoReal("HAPV3"));
-    Ativo ativo3 = new Ativo("CSAN3",buscarPrecoAtivoEmTempoReal("CSAN3"));
-
-    // adicionarAtivoNaCarteira(String codeAtv, double quantidade)
-    Carteira carteira1 = new Carteira("900.309-01", "Carteira1");
-    Carteira carteira2 = new Carteira("900.309-02", "Carteira2");
-
-    List<Carteira> carteiras = new ArrayList<>();
-
-    carteira1.adicionarAtivoNaCarteira("PETR4", 5);
-    carteira1.adicionarAtivoNaCarteira("CSAN3", 3);
-    carteira2.adicionarAtivoNaCarteira("HAPV3", 2);
-
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Menu de Carteiras");
@@ -42,13 +29,13 @@ public class TelaCarteiras extends Application {
         vbox.setPadding(new Insets(20));
         vbox.setAlignment(Pos.CENTER);
 
-        // Criando botões de carteiras
-        for (int i = 1; i <= 5; i++) { // Número de carteiras pode ser ajustado
-            Button carteiraButton = new Button("Carteira " + i);
+        // Cria botões dinamicamente para cada carteira
+        for (Carteira carteira : ListaCarteiras) {
+            Button carteiraButton = new Button(carteira.getNome());
             carteiraButton.setMinWidth(200);
             carteiraButton.setOnAction(e -> {
-                // Ao clicar, abre a CarteiraMenu
-                CarteiraMenu carteiraMenu = new CarteiraMenu();
+                // Exemplo: abre o menu específico da carteira
+                CarteiraMenu carteiraMenu = new CarteiraMenu(carteira);
                 try {
                     carteiraMenu.start(primaryStage);
                 } catch (Exception ex) {

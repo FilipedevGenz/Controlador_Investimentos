@@ -6,14 +6,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 public class RepositorioCarteira implements IrepositorioCarteira {
 
+    private static RepositorioCarteira instance;
     private final Map<Integer, Carteira> carteiras = new HashMap<>();
+
+    private RepositorioCarteira() {}
+
+    public static synchronized RepositorioCarteira getInstance() {
+        if (instance == null) {
+            instance = new RepositorioCarteira();
+        }
+        return instance;
+    }
 
     @Override
     public void adicionarCarteira(Carteira carteira) {
-        carteiras.put(Integer.valueOf(carteira.ID), carteira);
+        carteiras.put(Integer.valueOf(carteira.getIDcarteira()), carteira);
     }
 
     @Override
@@ -34,6 +45,7 @@ public class RepositorioCarteira implements IrepositorioCarteira {
 
     @Override
     public List<Carteira> listarCarteiras() {
-        return carteiras.values().stream().collect(Collectors.toList());
+        return new ArrayList<>(carteiras.values());
     }
 }
+

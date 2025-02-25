@@ -9,6 +9,7 @@ public class ControladorAtivos {
 
     private static IrepositorioAtivos repositorioAtivos;
 
+    // ao criar o ativo aqui, ele é adicionado no repositório !!
     public static void criarAtivo(String nome) throws IOException {
         repositorioAtivos = RepositorioAtivos.getInstance();
         try {
@@ -22,6 +23,7 @@ public class ControladorAtivos {
             repositorioAtivos.adicionarAtivo(nome);
         }
     }
+
 
     public static void removerAtivo(String nome){
         try {

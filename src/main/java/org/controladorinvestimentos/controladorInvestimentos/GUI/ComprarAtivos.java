@@ -100,7 +100,7 @@ public class ComprarAtivos extends Application {
 
                     RepositorioAtivos ativo = RepositorioAtivos.getInstance();
                   //  ArrayList<ativo> listAtivos = ativo.getAtivos();
-                   // ativo ativoadd = listAtivos.stream().filter(ativo1 -> ativo1.nome.equals(nome1)).findFirst().orElse(null);
+                   // ativo ativoadd = listAtivos.stream().filter(ativo1 -> ativo1.nomeCarteira.equals(nome1)).findFirst().orElse(null);
 
                     //carteira.adicionarAtivoNaCarteira(ativoadd, quantidadeCompra);
                   //  Relatorio newRelatorio = criarRelatorio(nome1, valorAtv, LocalDate.now(), quantidadeCompra);
