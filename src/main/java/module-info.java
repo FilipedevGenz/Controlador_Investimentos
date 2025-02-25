@@ -1,4 +1,4 @@
-module org.controladorinvestimentos.controlador_investimentos {
+module org.controladorinvestimentos.controladorInvestimentos {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -11,7 +11,7 @@ module org.controladorinvestimentos.controlador_investimentos {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens org.controladorinvestimentos.controlador_investimentos.GUI to javafx.fxml;
+    opens org.controladorinvestimentos.controladorInvestimentos.GUI to javafx.fxml;
 
     requires javafx.base;
     requires javafx.graphics;
