@@ -7,8 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
 
 public class CarteiraMenu extends Application {
+
+    public CarteiraMenu(Carteira carteira) {
+
+    }
     @Override
     public void start(Stage primaryStage) {
         // Título da carteira (você pode parametrizar para cada carteira)

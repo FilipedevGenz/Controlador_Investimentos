@@ -3,31 +3,39 @@ package org.controladorinvestimentos.controladorInvestimentos.beans;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioCarteira;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioCarteira;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
-
 import java.util.List;
 
 public class ControladorCarteira {
 
-    private final IrepositorioCarteira repositorioCarteiraAcessoGlobal; // Cria um singleton
+    private static ControladorCarteira instance;
+    private final IrepositorioCarteira repositorioCarteira;
 
-    public ControladorCarteira() {
-        this.repositorioCarteiraAcessoGlobal = new RepositorioCarteira();
+    private ControladorCarteira() {
+        // Usa a instância global do repositório
+        this.repositorioCarteira = RepositorioCarteira.getInstance();
     }
 
-    public void novaCarteira(String nomeCarteira) {
-        Carteira novaCarteira = new Carteira(nomeCarteira);
-        repositorioCarteiraAcessoGlobal.adicionarCarteira(novaCarteira);
+    public static synchronized ControladorCarteira getInstance() {
+        if (instance == null) {
+            instance = new ControladorCarteira();
+        }
+        return instance;
+    }
+
+    public void novaCarteira(String carteiraID, String nomeCarteira) {
+        Carteira novaCarteira = new Carteira(carteiraID, nomeCarteira);
+        repositorioCarteira.adicionarCarteira(novaCarteira);
     }
 
     public void removerCarteira(int carteiraID) throws Exist {
-        repositorioCarteiraAcessoGlobal.removerCarteira(carteiraID);
+        repositorioCarteira.removerCarteira(carteiraID);
     }
 
     public Carteira getCarteira(int carteiraID) throws Exist {
-        return repositorioCarteiraAcessoGlobal.buscarCarteira(carteiraID);
+        return repositorioCarteira.buscarCarteira(carteiraID);
     }
 
     public List<Carteira> getCarteiras() {
-        return repositorioCarteiraAcessoGlobal.listarCarteiras();
+        return repositorioCarteira.listarCarteiras();
     }
 }

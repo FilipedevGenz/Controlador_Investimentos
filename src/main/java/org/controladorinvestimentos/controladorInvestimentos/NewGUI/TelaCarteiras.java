@@ -13,6 +13,7 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.Ativo;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
 import org.controladorinvestimentos.controladorInvestimentos.NewGUI.MenuInicial;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,9 @@ public class TelaCarteiras extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        List<Carteira> ListaCarteiras = ControladorCarteira.getInstance().getCarteiras();
+
         primaryStage.setTitle("Menu de Carteiras");
 
         VBox vbox = new VBox(10);
@@ -31,7 +35,7 @@ public class TelaCarteiras extends Application {
 
         // Cria botões dinamicamente para cada carteira
         for (Carteira carteira : ListaCarteiras) {
-            Button carteiraButton = new Button(carteira.getNome());
+            Button carteiraButton = new Button(carteira.getNomeCarteira());
             carteiraButton.setMinWidth(200);
             carteiraButton.setOnAction(e -> {
                 // Exemplo: abre o menu específico da carteira

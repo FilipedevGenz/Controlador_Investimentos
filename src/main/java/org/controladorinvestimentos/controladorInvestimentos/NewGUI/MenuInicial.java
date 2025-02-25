@@ -13,37 +13,38 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Ativo;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
 
 import static org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest.buscarPrecoAtivoEmTempoReal;
+import java.util.List;
 
 public class MenuInicial extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Rentabilidade Geral");
 
-        Ativo ativo1 = new Ativo("PETR4",buscarPrecoAtivoEmTempoReal("PETR4"));
-        Ativo ativo2 = new Ativo("PETR4",buscarPrecoAtivoEmTempoReal("HAPV3"));
-        Ativo ativo3 = new Ativo("CSAN3",buscarPrecoAtivoEmTempoReal("CSAN3"));
+        // Acessa o controlador global de carteiras (padrão singleton que ajuda na inserção das carteiras no banco de dados)
+        ControladorCarteira controladorCarteira = ControladorCarteira.getInstance();
 
-        // adicionarAtivoNaCarteira(String codeAtv, double quantidade)
-        Carteira carteira1 = new Carteira("900.309-01", "Carteira1");
-        Carteira carteira2 = new Carteira("900.309-02", "Carteira2");
+        // Se não houver carteiras, cria as iniciais
+        if (controladorCarteira.getCarteiras().isEmpty()) {
+            controladorCarteira.novaCarteira("900.185-400", "carteira1");
+            controladorCarteira.novaCarteira("900.185-401", "carteira2");
 
-        carteira1.adicionarAtivoNaCarteira("PETR4", 5);
-        carteira1.adicionarAtivoNaCarteira("CSAN3", 3);
-        carteira2.adicionarAtivoNaCarteira("HAPV3", 2);
+            try {
+                List<Carteira> listaCarteiras = controladorCarteira.getCarteiras();
+                // Adiciona ativos à Carteira1
+                listaCarteiras.get(0).adicionarAtivoNaCarteira("PETR4", 5);
+                listaCarteiras.get(0).adicionarAtivoNaCarteira("CSAN3", 3);
+                // Adiciona ativos à Carteira2
+                listaCarteiras.get(1).adicionarAtivoNaCarteira("HAPV3", 2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-        List<Carteira> ListaCarteiras = new ArrayList<>();
-        ListaCarteiras.add(carteira1);
-        ListaCarteiras.add(carteira2);
-
-
-        // Menu lateral
+        // Criação do menu lateral
         VBox menu = new VBox(10);
         menu.setPadding(new Insets(10));
         menu.setStyle("-fx-background-color: #f5f7fa;");
@@ -65,9 +66,8 @@ public class MenuInicial extends Application {
 
         double valorRentabilidade = -36712.47; // Valor de exemplo
         Label lblValor = new Label(String.format("%.2f R$", valorRentabilidade));
-        String styleValor = "-fx-font-size: 20px; -fx-font-weight: bold; ";
-        // Valores negativos em vermelho e positivos em verde
-        styleValor += (valorRentabilidade < 0 ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
+        String styleValor = "-fx-font-size: 20px; -fx-font-weight: bold; " +
+                (valorRentabilidade < 0 ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
         lblValor.setStyle(styleValor);
 
         HBox hboxTitulo = new HBox(10, lblTitulo, lblValor);
