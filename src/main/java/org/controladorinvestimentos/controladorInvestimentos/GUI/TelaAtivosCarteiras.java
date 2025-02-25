@@ -22,6 +22,7 @@ public class TelaAtivosCarteiras extends Application {
 
         Carteira carteira;
         conta user;
+
         TelaAtivosCarteiras(Carteira carteira, conta user){
             this.carteira = carteira;
             this.user = user;

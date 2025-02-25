@@ -9,7 +9,7 @@ import lombok.NonNull;
 public class Ativo {
 
     @NonNull public String nome;
-    @NonNull public String code;
+    @NonNull public double preco;
 
 }
 

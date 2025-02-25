@@ -7,8 +7,33 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorAtivos;
+import org.controladorinvestimentos.controladorInvestimentos.beans.Ativo;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest.buscarPrecoAtivoEmTempoReal;
 
 public class TelaCarteiras extends Application {
+
+    Ativo ativo1 = new Ativo("PETR4",buscarPrecoAtivoEmTempoReal("PETR4"));
+    Ativo ativo2 = new Ativo("PETR4",buscarPrecoAtivoEmTempoReal("HAPV3"));
+    Ativo ativo3 = new Ativo("CSAN3",buscarPrecoAtivoEmTempoReal("CSAN3"));
+
+    // adicionarAtivoNaCarteira(String codeAtv, double quantidade)
+    Carteira carteira1 = new Carteira("900.309-01", "Carteira1");
+    Carteira carteira2 = new Carteira("900.309-02", "Carteira2");
+
+    List<Carteira> carteiras = new ArrayList<>();
+
+    carteira1.adicionarAtivoNaCarteira("PETR4", 5);
+    carteira1.adicionarAtivoNaCarteira("CSAN3", 3);
+    carteira2.adicionarAtivoNaCarteira("HAPV3", 2);
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Menu de Carteiras");

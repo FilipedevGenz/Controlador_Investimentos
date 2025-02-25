@@ -10,7 +10,8 @@ import java.io.IOException;
 
 public class Carteira {
 
-    public final String ID;
+    public final String codeAtv;
+    public final String nome;
     @Getter
     @Setter
     private double valorCarteira;
@@ -20,10 +21,11 @@ public class Carteira {
     // RepositorioMovimentacoes é responsável pelas movimentações globais de todas as carteiras
 
 
-    public Carteira(String ID) {
-        this.ID = ID;
+    public Carteira(String codeAtv, String nome) {
+        this.codeAtv = codeAtv;
         this.valorCarteira = 0.0;
         this.repositorioRelatorio = new RepositorioRelatorio();
+        this.nome = nome;
     }
 
 
