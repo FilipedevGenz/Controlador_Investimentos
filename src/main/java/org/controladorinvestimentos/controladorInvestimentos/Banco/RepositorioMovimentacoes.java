@@ -17,8 +17,7 @@ public class RepositorioMovimentacoes {
 
     private static final ArrayList<Map<Relatorio, Carteira>> listaAtivos = new ArrayList<>();
 
-
-
+    // Aqui em repositórioMovimentações, optou-se por criar um map que associa Relatorio de movimentações a cada carteira.
     private static volatile RepositorioMovimentacoes instance;
 
     private RepositorioMovimentacoes() {}

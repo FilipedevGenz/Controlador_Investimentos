@@ -28,7 +28,7 @@ public class TelaCarteiraMenu extends Application {
         // Botões de navegação
         Button btnComprarAtivos = new Button("Comprar Ativos");
         btnComprarAtivos.setOnAction(e -> {
-            TelaCompraAtivos telaCompraAtivos = new TelaCompraAtivos();
+            TelaCompraAtivos telaCompraAtivos = new TelaCompraAtivos(Carteira carteira);
             try {
                 //telaCompraAtivos.start(primaryStage);
             } catch (Exception ex) {

@@ -30,8 +30,8 @@ public class RepositorioAtivos implements IrepositorioAtivos {
         return instance;
     }
 
+        //CRUD de ativos
 
-        // Operações como essa fazem com que essa quantidade de ativos aumentem
         public void adicionarAtivo(String code, double preco) throws IOException {
             String name = APIrequest.buscarNomeAtivo(code);
             Ativo newAtv = new Ativo(name,preco);
@@ -43,7 +43,7 @@ public class RepositorioAtivos implements IrepositorioAtivos {
             ATIVOS.remove(ativo);
         }
 
-        //Busca dentro do arrayList
+        //Busca dentro do arrayList o ativo desejado. Essa operação garante que busquemos o ativo dentro do repositorio
         public Ativo buscarAtivo(String nome) throws Exist {
             for(Ativo u : ATIVOS){
                 if(u.getNome().equals(nome)){
@@ -53,6 +53,7 @@ public class RepositorioAtivos implements IrepositorioAtivos {
             throw new Exist("ativo nao encontrado");
         }
 
+        // Não entendi esse override
     @Override
     public void adicionarAtivo(String nome) throws IOException {
 

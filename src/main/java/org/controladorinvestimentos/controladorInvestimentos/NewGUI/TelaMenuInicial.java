@@ -13,14 +13,57 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioCarteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
 
+
+import java.io.IOException;
 import java.util.List;
 
 public class TelaMenuInicial extends Application {
+
+    private RepositorioAtivos repositorioAtivos;
+    private RepositorioCarteira repositorioCarteira;
+
     @Override
     public void start(Stage primaryStage) {
+
+        repositorioAtivos = RepositorioAtivos.getInstance();
+        repositorioCarteira = RepositorioCarteira.getInstance();
+
+        // Criar e armazenar ativos no repositório
+        try {
+            repositorioAtivos.adicionarAtivo("VALE3", APIrequest.buscarPrecoAtivoEmTempoReal("VALE3"));
+            repositorioAtivos.adicionarAtivo("ITUB4", APIrequest.buscarPrecoAtivoEmTempoReal("ITUB4"));
+            repositorioAtivos.adicionarAtivo("BBDC4", APIrequest.buscarPrecoAtivoEmTempoReal("BBDC4"));
+            repositorioAtivos.adicionarAtivo("ABEV3", APIrequest.buscarPrecoAtivoEmTempoReal("ABEV3"));
+            repositorioAtivos.adicionarAtivo("BBAS3", APIrequest.buscarPrecoAtivoEmTempoReal("BBAS3"));
+            repositorioAtivos.adicionarAtivo("WEGE3", APIrequest.buscarPrecoAtivoEmTempoReal("WEGE3"));
+            repositorioAtivos.adicionarAtivo("MGLU3", APIrequest.buscarPrecoAtivoEmTempoReal("MGLU3"));
+            repositorioAtivos.adicionarAtivo("PETR3", APIrequest.buscarPrecoAtivoEmTempoReal("PETR3"));
+            repositorioAtivos.adicionarAtivo("GGBR4", APIrequest.buscarPrecoAtivoEmTempoReal("GGBR4"));
+            repositorioAtivos.adicionarAtivo("LREN3", APIrequest.buscarPrecoAtivoEmTempoReal("LREN3"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Criar e armazenar carteiras
+        repositorioCarteira.adicionarCarteira(new Carteira("1001", "Investimentos Agressivos"));
+        repositorioCarteira.adicionarCarteira(new Carteira("1002", "Investimentos Conservadores"));
+
+        try {
+            // Adicionar ativos às carteiras
+            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("VALE3", 10);
+            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("ITUB4", 15);
+            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("BBDC4", 20);
+            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("ABEV3", 25);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         primaryStage.setTitle("Rentabilidade Geral");
 
         // Acessa o controlador global de carteiras (padrão singleton que ajuda na inserção das carteiras no banco de dados)
