@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.*;
+import java.time.LocalDate;
 import java.util.List;
 
 public class TelaVendaAtivos extends Application {
@@ -29,14 +30,12 @@ public class TelaVendaAtivos extends Application {
         lblTitulo.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         grid.add(lblTitulo, 0, 0, 5, 1);
 
-        // Cabeçalhos das colunas
         grid.add(new Label("Ativo"), 4, 1);
-        grid.add(new Label("Variação"), 3, 1);
-        grid.add(new Label("Valor de Compra"), 2, 1);
+        grid.add(new Label("Preço Compra"), 3, 1);
+        grid.add(new Label("Preço Atual"), 2, 1);
         grid.add(new Label("Quantidade"), 1, 1);
         grid.add(new Label("Ação"), 0, 1);
 
-        // Obtendo ativos da carteira
         List<Relatorio> ativos = carteira.repositorioRelatorio.getRelatorios();
         for (int i = 0; i < ativos.size(); i++) {
             Relatorio ativo = ativos.get(i);
@@ -49,8 +48,9 @@ public class TelaVendaAtivos extends Application {
             txtQuantidade.setMaxWidth(50);
             grid.add(txtQuantidade, 1, i + 2);
 
+            double precoCompra = HistoricoDosAtivos.obterPrecoDeCompra(ativo.getCodigo(), LocalDate.now().minusMonths(6));
+            grid.add(new Label("R$ " + String.format("%.2f", precoCompra)), 3, i + 2);
             grid.add(new Label("R$ " + String.format("%.2f", ativo.getValorCompra())), 2, i + 2);
-            grid.add(new Label("0.00%"), 3, i + 2); // Valor fictício até implementação real
             grid.add(new Label(ativo.getNomeAtivo()), 4, i + 2);
         }
 
@@ -84,4 +84,3 @@ public class TelaVendaAtivos extends Application {
         launch(args);
     }
 }
-

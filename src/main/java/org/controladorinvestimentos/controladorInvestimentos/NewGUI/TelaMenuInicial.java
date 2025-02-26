@@ -71,8 +71,8 @@ public class TelaMenuInicial extends Application {
 
         // Se não houver carteiras, cria as iniciais
         if (controladorCarteira.getCarteiras().isEmpty()) {
-            controladorCarteira.novaCarteira("900.185-400", "carteira1");
-            controladorCarteira.novaCarteira("900.185-401", "carteira2");
+            controladorCarteira.novaCarteira("900.185-400", "carteira1", (int)(Math.random() % 10));
+            controladorCarteira.novaCarteira("900.185-401", "carteira2", (int)(Math.random() % 10));
 
             try {
                 List<Carteira> listaCarteiras = controladorCarteira.getCarteiras();

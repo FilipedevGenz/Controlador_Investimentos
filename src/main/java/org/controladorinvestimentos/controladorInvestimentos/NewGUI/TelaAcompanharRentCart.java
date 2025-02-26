@@ -11,8 +11,9 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosA
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 public class TelaAcompanharRentCart extends Application {
     @Override
@@ -27,11 +28,12 @@ public class TelaAcompanharRentCart extends Application {
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("Evolução dos Ativos na Carteira");
 
-        String[] ativos = {"PETR4", "CSAN3", "HAPV3"}; // Ativos instanciados em MenuInicial
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+        String[] ativos = {"PETR4", "CSAN3", "HAPV3"};
+        LocalDate dataCompra = LocalDate.now().minusMonths(12);
+        Random random = new Random();
 
         for (String ativo : ativos) {
-            List<HistoricoAtivo> historico = HistoricoDosAtivos.retornaListaDadosDeHistorico(ativo);
+            List<HistoricoAtivo> historico = HistoricoDosAtivos.retornaListaDadosDeHistorico(ativo, dataCompra);
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
             series.setName(ativo);
 
@@ -40,6 +42,7 @@ public class TelaAcompanharRentCart extends Application {
                 series.getData().add(new XYChart.Data<>(mesIndex, dado.getPreco()));
                 mesIndex++;
             }
+
             lineChart.getData().add(series);
         }
 

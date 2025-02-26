@@ -1,3 +1,4 @@
+/*
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
 import javafx.application.Application;
@@ -51,3 +52,4 @@ public class InfoAtivo extends Application {
         launch(args);
     }
 }
+*/

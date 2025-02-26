@@ -1,3 +1,5 @@
+/*
+
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
 import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosAtivos;
@@ -59,3 +61,4 @@ public class GraficoAtivo {
         frame.setVisible(true);
     }
 }
+*/

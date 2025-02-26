@@ -22,8 +22,8 @@ public class ControladorCarteira {
         return instance;
     }
 
-    public void novaCarteira(String carteiraID, String nomeCarteira) {
-        Carteira novaCarteira = new Carteira(carteiraID, nomeCarteira);
+    public void novaCarteira(String carteiraID, String nomeCarteira, int periodoControlador) {
+        Carteira novaCarteira = new Carteira(carteiraID, nomeCarteira, periodoControlador);
         repositorioCarteira.adicionarCarteira(novaCarteira);
     }
 
