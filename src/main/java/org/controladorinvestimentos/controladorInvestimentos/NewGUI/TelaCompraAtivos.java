@@ -1,4 +1,4 @@
 package org.controladorinvestimentos.controladorInvestimentos.NewGUI;
 
-public class TelaCompraVendaAtivos {
+public class TelaCompraAtivos {
 }
