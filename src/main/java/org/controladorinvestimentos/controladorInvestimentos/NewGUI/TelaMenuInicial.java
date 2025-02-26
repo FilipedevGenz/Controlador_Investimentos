@@ -51,15 +51,15 @@ public class TelaMenuInicial extends Application {
         }
 
         // Criar e armazenar carteiras
-        repositorioCarteira.adicionarCarteira(new Carteira("1001", "Investimentos Agressivos"));
-        repositorioCarteira.adicionarCarteira(new Carteira("1002", "Investimentos Conservadores"));
+        repositorioCarteira.adicionarCarteira(new Carteira("1001", "Investimentos Agressivos", (int)(Math.random() % 10)));
+        repositorioCarteira.adicionarCarteira(new Carteira("1002", "Investimentos Conservadores", (int)(Math.random() % 10)));
 
         try {
             // Adicionar ativos às carteiras
-            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("VALE3", 10);
-            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("ITUB4", 15);
-            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("BBDC4", 20);
-            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("ABEV3", 25);
+            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("VALE3", 10, (int)(Math.random() % 10));
+            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("ITUB4", 15, (int)(Math.random() % 10));
+            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("BBDC4", 20, (int)(Math.random() % 10));
+            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("ABEV3", 25, (int)(Math.random() % 10));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,10 +77,10 @@ public class TelaMenuInicial extends Application {
             try {
                 List<Carteira> listaCarteiras = controladorCarteira.getCarteiras();
                 // Adiciona ativos à Carteira1
-                listaCarteiras.get(0).adicionarAtivoNaCarteira("PETR4", 5);
-                listaCarteiras.get(0).adicionarAtivoNaCarteira("CSAN3", 3);
+                listaCarteiras.get(0).adicionarAtivoNaCarteira("PETR4", 5, (int)(Math.random() % 10));
+                listaCarteiras.get(0).adicionarAtivoNaCarteira("CSAN3", 3, (int)(Math.random() % 10));
                 // Adiciona ativos à Carteira2
-                listaCarteiras.get(1).adicionarAtivoNaCarteira("HAPV3", 2);
+                listaCarteiras.get(1).adicionarAtivoNaCarteira("HAPV3", 2, (int)(Math.random() % 10));
             } catch (Exception e) {
                 e.printStackTrace();
             }

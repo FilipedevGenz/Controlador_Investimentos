@@ -8,16 +8,17 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-    public class HistoricoDosAtivos {
+public class HistoricoDosAtivos {
     private static final String API_URL = "https://brapi.dev/api/quote/";
     private static final String API_TOKEN = "7kfUNQUQm5GxWV6GXAf3ig";
     private static final OkHttpClient client = new OkHttpClient();
 
-    public static List<HistoricoAtivo> retornaListaDadosDeHistorico(String ativo) {
+    public static List<HistoricoAtivo> retornaListaDadosDeHistorico(String ativo, LocalDate dataCompra) {
         List<HistoricoAtivo> historicoFiltrado = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -37,7 +38,10 @@ import java.util.List;
                 JsonObject item = historico.get(i).getAsJsonObject();
                 LocalDate data = LocalDate.parse(item.get("date").getAsString(), formatter);
                 double preco = item.get("close").getAsDouble();
-                historicoFiltrado.add(new HistoricoAtivo(data, preco));
+
+                // Calcula o período associado ao ativo em meses desde a compra
+                int periodoAssociado = (int) ChronoUnit.MONTHS.between(dataCompra, data);
+                historicoFiltrado.add(new HistoricoAtivo(data, preco, periodoAssociado));
             }
         } catch (IOException e) {
             System.err.println("Erro ao obter dados da API: " + e.getMessage());
@@ -49,10 +53,12 @@ import java.util.List;
     public static class HistoricoAtivo {
         private LocalDate data;
         private double preco;
+        private int periodoAssociado;
 
-        public HistoricoAtivo(LocalDate data, double preco) {
+        public HistoricoAtivo(LocalDate data, double preco, int periodoAssociado) {
             this.data = data;
             this.preco = preco;
+            this.periodoAssociado = periodoAssociado;
         }
 
         public LocalDate getData() {
@@ -61,6 +67,10 @@ import java.util.List;
 
         public double getPreco() {
             return preco;
+        }
+
+        public int getPeriodoAssociado() {
+            return periodoAssociado;
         }
     }
 }

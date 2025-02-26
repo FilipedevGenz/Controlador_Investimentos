@@ -86,7 +86,7 @@ public class TelaCompraAtivos extends Application {
 
     private void comprarAtivo(Ativo ativo, int index) {
         try {
-            carteira.adicionarAtivoNaCarteira(ativo.getNome(), 1); // Compra 1 unidade por padrão
+            carteira.adicionarAtivoNaCarteira(ativo.getNome(), 1, (int) (Math.random() % 10)); // Compra 1 unidade por padrão
             mostrarAlerta("Sucesso", "Ativo comprado com sucesso!");
         } catch (Exception e) {
             mostrarAlerta("Erro", "Falha ao comprar ativo.");

@@ -14,6 +14,7 @@ public class Carteira {
     public final String IDcarteira;
     @Getter @Setter
     public final String nomeCarteira;
+    private final int periodoAssociadoIns;
     @Getter @Setter
     private double valorCarteira;
     public RepositorioMovimentacoes repositorioMovimentacoes;
@@ -22,15 +23,18 @@ public class Carteira {
     // RepositorioMovimentacoes é responsável pelas movimentações globais de todas as carteiras
 
 
-    public Carteira(String IDcarteira, String nomeCarteira) {
+    // O inteiro periodoAssociadoInstance é essencial na requisição do histórico de ativos.
+    // Por meio do inteiro incluido no construtor
+    public Carteira(String IDcarteira, String nomeCarteira, int peridoAssociadoIns) {
         this.valorCarteira = 0.0;
         this.repositorioRelatorio = new RepositorioRelatorio();
         this.nomeCarteira = nomeCarteira;
         this.IDcarteira = IDcarteira;
+        this.periodoAssociadoIns = peridoAssociadoIns;
     }
 
 
-    public void adicionarAtivoNaCarteira(String codeAtv, double quantidade) throws IOException {
+    public void adicionarAtivoNaCarteira(String codeAtv, double quantidade, int periodoAssociado) throws IOException {
         Relatorio relatorio = new Relatorio(codeAtv,quantidade);
         repositorioRelatorio.addRelatorio(relatorio);
         RepositorioMovimentacoes.getInstance().addRelatorio(relatorio, this);
