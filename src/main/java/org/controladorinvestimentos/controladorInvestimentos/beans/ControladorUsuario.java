@@ -1,10 +1,12 @@
+
+/*
 package org.controladorinvestimentos.controladorInvestimentos.beans;
 
 import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.emailStrategy;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.nomeStrategy;
+//import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.emailStrategy;
+//import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.nomeStrategy;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.senhaStrategy;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.updateStrategy;
 
@@ -58,3 +60,5 @@ public class ControladorUsuario {
         return IrepositorioUsuario.buscarCPFreturnConta(cpf);
     }
 }
+
+ */

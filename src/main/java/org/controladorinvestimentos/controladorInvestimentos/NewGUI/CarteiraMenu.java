@@ -11,8 +11,12 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
 
 public class CarteiraMenu extends Application {
 
-    public CarteiraMenu(Carteira carteira) {
+    private Carteira carteira;
 
+    public CarteiraMenu() {}
+
+    public void setCarteira(Carteira carteira) {
+        this.carteira = carteira;
     }
     @Override
     public void start(Stage primaryStage) {

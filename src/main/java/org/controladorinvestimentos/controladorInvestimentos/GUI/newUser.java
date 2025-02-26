@@ -1,3 +1,4 @@
+/*
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
 
@@ -146,3 +147,5 @@ public class newUser extends Application {
         launch(args);
     }
 }
+
+ */

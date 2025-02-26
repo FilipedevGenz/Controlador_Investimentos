@@ -14,6 +14,7 @@ public class Carteira {
     public final String IDcarteira;
     @Getter @Setter
     public final String nomeCarteira;
+    @Getter @Setter
     private double valorCarteira;
     public RepositorioMovimentacoes repositorioMovimentacoes;
     public IrepositorioRelatorio repositorioRelatorio;

@@ -26,6 +26,10 @@ public class TelaCarteiras extends Application {
     public void start(Stage primaryStage) {
 
         List<Carteira> ListaCarteiras = ControladorCarteira.getInstance().getCarteiras();
+        if (ListaCarteiras == null || ListaCarteiras.isEmpty()) {
+            System.out.println("Nenhuma carteira encontrada.");
+            return;
+        }
 
         primaryStage.setTitle("Menu de Carteiras");
 
@@ -39,7 +43,8 @@ public class TelaCarteiras extends Application {
             carteiraButton.setMinWidth(200);
             carteiraButton.setOnAction(e -> {
                 // Exemplo: abre o menu específico da carteira
-                CarteiraMenu carteiraMenu = new CarteiraMenu(carteira);
+                CarteiraMenu carteiraMenu = new CarteiraMenu();
+                carteiraMenu.setCarteira(carteira);
                 try {
                     carteiraMenu.start(primaryStage);
                 } catch (Exception ex) {

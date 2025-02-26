@@ -1,10 +1,11 @@
+/*
 package org.controladorinvestimentos.controladorInvestimentos.beans.Strategy;
 
 
 
 
 
-import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioUsers;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Usuario;
 
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class senhaStrategy implements updateStrategy{
 
-    private static IrepositorioUsers repositorioUsuario;
+    private static IrepositorioUsuario repositorioUsuario;
 
     @Override
     public void updateInfo(Usuario usuario) {
@@ -30,4 +31,6 @@ public class senhaStrategy implements updateStrategy{
         }
     }
 }
+
+ */
 

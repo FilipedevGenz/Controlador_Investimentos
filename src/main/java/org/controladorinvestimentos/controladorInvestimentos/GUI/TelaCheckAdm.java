@@ -1,3 +1,4 @@
+/*
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
 import javafx.geometry.Pos;
@@ -36,3 +37,5 @@ public class TelaCheckAdm {
         primaryStage.show();
     }
 }
+
+ */

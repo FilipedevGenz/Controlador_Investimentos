@@ -1,3 +1,4 @@
+/*
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
 import org.controladorinvestimentos.controladorInvestimentos.beans.ativo;
@@ -132,3 +133,5 @@ public class TelaAtivosCarteiras extends Application {
         launch(args);
     }
 }
+
+ */

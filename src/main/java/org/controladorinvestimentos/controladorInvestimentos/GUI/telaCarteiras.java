@@ -1,3 +1,4 @@
+/*
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
 import javafx.application.Application;
@@ -135,3 +136,4 @@ public class telaCarteiras extends Application {
         launch(args);
     }
 }
+*/

@@ -1,3 +1,5 @@
+/*
+
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
 import javafx.application.Application;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 
 public class menuUser extends Application {
 
-    conta user;
+    Conta user;
 
     menuUser(){
         this(null);
@@ -74,3 +76,4 @@ public class menuUser extends Application {
         launch(args);
     }
 }
+*/

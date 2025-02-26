@@ -7,6 +7,7 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.Ativo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 public class RepositorioAtivos implements IrepositorioAtivos {
 
         private static final ArrayList<Ativo> ATIVOS = new ArrayList<>();
@@ -28,9 +29,9 @@ public class RepositorioAtivos implements IrepositorioAtivos {
     }
 
 
-        public void adicionarAtivo(String code) throws IOException {
+        public void adicionarAtivo(String code, double preco) throws IOException {
             String name = APIrequest.buscarNomeAtivo(code);
-            Ativo newAtv = new Ativo(name,code);
+            Ativo newAtv = new Ativo(name,preco);
 
             ATIVOS.add(newAtv);
         }
@@ -48,8 +49,13 @@ public class RepositorioAtivos implements IrepositorioAtivos {
             throw new Exist("ativo nao encontrado");
         }
 
+    @Override
+    public void adicionarAtivo(String nome) throws IOException {
 
-        public ArrayList<Ativo> getAtivos() {
+    }
+
+
+    public ArrayList<Ativo> getAtivos() {
 
             return ATIVOS;
         }

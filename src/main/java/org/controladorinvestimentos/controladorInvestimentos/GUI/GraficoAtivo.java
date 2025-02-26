@@ -1,6 +1,6 @@
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
-import org.controladorinvestimentos.controladorInvestimentos.beans.AtivoNoPassado;
+import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosAtivos;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -14,11 +14,11 @@ import java.util.List;
 public class GraficoAtivo {
 
     // Novo método para gerar o conjunto de dados (dataset) para o gráfico
-    public static TimeSeriesCollection gerarDataset(String ativo, AtivoNoPassado api) {
-        List<AtivoNoPassado.HistoricoAtivo> dados = api.retornaListaDadosDeHistorico(ativo);
+    public static TimeSeriesCollection gerarDataset(String ativo, HistoricoDosAtivos api) {
+        List<HistoricoDosAtivos.HistoricoAtivo> dados = api.retornaListaDadosDeHistorico(ativo);
 
         TimeSeries series = new TimeSeries("Preço do Ativo");
-        for (AtivoNoPassado.HistoricoAtivo dado : dados) {
+        for (HistoricoDosAtivos.HistoricoAtivo dado : dados) {
             LocalDate data = dado.getData();
             Month mes = new Month(data.getMonthValue(), data.getYear());
             series.add(mes, dado.getPreco());
@@ -31,7 +31,7 @@ public class GraficoAtivo {
 
     public static JFreeChart criarGraficoSemMostrar(String ativo) {
         // Usa o novo método para gerar os dados
-        TimeSeriesCollection dataset = gerarDataset(ativo, new AtivoNoPassado());
+        TimeSeriesCollection dataset = gerarDataset(ativo, new HistoricoDosAtivos());
 
         // Cria e retorna o gráfico sem abrir a janela
         return ChartFactory.createTimeSeriesChart(
