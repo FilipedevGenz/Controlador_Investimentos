@@ -22,6 +22,7 @@ import static org.controladorinvestimentos.controladorInvestimentos.beans.APIreq
 
 public class TelaCarteiras extends Application {
 
+    public TelaCarteiras() {}
     @Override
     public void start(Stage primaryStage) {
 

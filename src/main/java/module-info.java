@@ -10,9 +10,10 @@ module org.controladorinvestimentos.controladorInvestimentos {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.net.http;
 
-    opens org.controladorinvestimentos.controladorInvestimentos.GUI to javafx.fxml;
     opens org.controladorinvestimentos.controladorInvestimentos.NewGUI to javafx.fxml;
+    opens org.controladorinvestimentos.controladorInvestimentos.beans to javafx.base;
 
     requires javafx.base;
     requires javafx.graphics;

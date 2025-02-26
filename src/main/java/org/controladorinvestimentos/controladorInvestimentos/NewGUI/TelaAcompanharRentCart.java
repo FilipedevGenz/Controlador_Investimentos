@@ -7,7 +7,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosAtivos;
-import org.controladorinvestimentos.controladorInvestimentos.beans.MenuInicial;
+import org.controladorinvestimentos.controladorInvestimentos.NewGUI.MenuInicial;
 import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosAtivos.HistoricoAtivo;
 
 import javafx.scene.control.Button;
