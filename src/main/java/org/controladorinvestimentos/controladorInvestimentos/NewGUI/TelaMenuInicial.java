@@ -16,10 +16,9 @@ import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
 
-import static org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest.buscarPrecoAtivoEmTempoReal;
 import java.util.List;
 
-public class MenuInicial extends Application {
+public class TelaMenuInicial extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Rentabilidade Geral");

@@ -7,7 +7,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosAtivos;
-import org.controladorinvestimentos.controladorInvestimentos.NewGUI.MenuInicial;
 import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosAtivos.HistoricoAtivo;
 
 import javafx.scene.control.Button;
@@ -46,7 +45,7 @@ public class TelaAcompanharRentCart extends Application {
 
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
-            MenuInicial menuInicial = new MenuInicial();
+            TelaMenuInicial menuInicial = new TelaMenuInicial();
             try {
                 menuInicial.start(primaryStage);
             } catch (Exception ex) {

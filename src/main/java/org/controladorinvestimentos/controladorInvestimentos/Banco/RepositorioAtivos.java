@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class RepositorioAtivos implements IrepositorioAtivos {
 
+        // RepositórioAtivos é um singleton, pois deve conter todos os ativos disponíveis para compra e venda de ativos
+        // instance vai armazenar um arrayList ATIVOS, que contem esse ativos disponiveis
         private static final ArrayList<Ativo> ATIVOS = new ArrayList<>();
 
         private static RepositorioAtivos instance;
@@ -29,6 +31,7 @@ public class RepositorioAtivos implements IrepositorioAtivos {
     }
 
 
+        // Operações como essa fazem com que essa quantidade de ativos aumentem
         public void adicionarAtivo(String code, double preco) throws IOException {
             String name = APIrequest.buscarNomeAtivo(code);
             Ativo newAtv = new Ativo(name,preco);
@@ -40,6 +43,7 @@ public class RepositorioAtivos implements IrepositorioAtivos {
             ATIVOS.remove(ativo);
         }
 
+        //Busca dentro do arrayList
         public Ativo buscarAtivo(String nome) throws Exist {
             for(Ativo u : ATIVOS){
                 if(u.getNome().equals(nome)){

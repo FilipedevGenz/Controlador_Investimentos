@@ -8,17 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
-import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorAtivos;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Ativo;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
-import org.controladorinvestimentos.controladorInvestimentos.NewGUI.MenuInicial;
 
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest.buscarPrecoAtivoEmTempoReal;
 
 public class TelaCarteiras extends Application {
 
@@ -44,7 +37,7 @@ public class TelaCarteiras extends Application {
             carteiraButton.setMinWidth(200);
             carteiraButton.setOnAction(e -> {
                 // Exemplo: abre o menu específico da carteira
-                CarteiraMenu carteiraMenu = new CarteiraMenu();
+                TelaCarteiraMenu carteiraMenu = new TelaCarteiraMenu();
                 carteiraMenu.setCarteira(carteira);
                 try {
                     carteiraMenu.start(primaryStage);
@@ -59,7 +52,7 @@ public class TelaCarteiras extends Application {
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setMinWidth(200);
         btnVoltar.setOnAction(e -> {
-            MenuInicial menuInicial = new MenuInicial();
+            TelaMenuInicial menuInicial = new TelaMenuInicial();
             try {
                 menuInicial.start(primaryStage);
             } catch (Exception ex) {
