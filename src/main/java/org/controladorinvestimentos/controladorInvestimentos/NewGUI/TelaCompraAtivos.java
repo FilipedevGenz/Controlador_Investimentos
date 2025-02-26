@@ -7,11 +7,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Ativo;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
-import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.*;
+
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+
+import static org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
 
 public class TelaCompraAtivos extends Application {
     private Carteira carteira;
@@ -39,6 +41,14 @@ public class TelaCompraAtivos extends Application {
         grid.add(new Label("Preço Atual"), 2, 1);
         grid.add(new Label("Quantidade"), 1, 1);
         grid.add(new Label("Ação"), 0, 1);
+
+        for (int i = 0; i < ATIVOS.size(); i++) {
+            Relatorio ativo = getATIVOS.size(i);
+            LocalDate dataCompra = LocalDate.now().minusMonths(6);
+            double variacao = HistoricoDosAtivos.calcularTaxaDeVariacao(ativo.getCodigo(), dataCompra);
+
+            grid.add(new Label(String.format("%.2f%%", variacao)), 3, i + 2);
+        }
 
         // Inicializando ativos no repositório
         RepositorioAtivos repositorioAtivos = RepositorioAtivos.getInstance();

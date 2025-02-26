@@ -18,6 +18,26 @@ public class HistoricoDosAtivos {
     private static final String API_TOKEN = "7kfUNQUQm5GxWV6GXAf3ig";
     private static final OkHttpClient client = new OkHttpClient();
 
+    public static double calcularTaxaDeVariacao(String ativo, LocalDate dataCompra) {
+        double precoCompra = obterPrecoDeCompra(ativo, dataCompra);
+        double precoAtual;
+        try {
+            precoAtual = APIrequest.buscarPrecoAtivoEmTempoReal(ativo);
+        } catch (IOException e) {
+            System.err.println("Erro ao obter preço atual do ativo: " + ativo);
+            return 0.0;
+        }
+
+        if (precoCompra == 0) return 0.0;
+
+        return ((precoAtual - precoCompra) / precoCompra) * 100;
+    }
+
+    public static double obterPrecoDeCompra(String ativo, LocalDate dataCompra) {
+        List<HistoricoAtivo> historico = retornaListaDadosDeHistorico(ativo, dataCompra);
+        return historico.isEmpty() ? 0.0 : historico.get(0).getPreco();
+    }
+
     public static List<HistoricoAtivo> retornaListaDadosDeHistorico(String ativo, LocalDate dataCompra) {
         List<HistoricoAtivo> historicoFiltrado = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -39,9 +59,7 @@ public class HistoricoDosAtivos {
                 LocalDate data = LocalDate.parse(item.get("date").getAsString(), formatter);
                 double preco = item.get("close").getAsDouble();
 
-                // Calcula o período associado ao ativo em meses desde a compra
-                int periodoAssociado = (int) ChronoUnit.MONTHS.between(dataCompra, data);
-                historicoFiltrado.add(new HistoricoAtivo(data, preco, periodoAssociado));
+                historicoFiltrado.add(new HistoricoAtivo(data, preco, (int) ChronoUnit.MONTHS.between(dataCompra, data)));
             }
         } catch (IOException e) {
             System.err.println("Erro ao obter dados da API: " + e.getMessage());
@@ -72,10 +90,5 @@ public class HistoricoDosAtivos {
         public int getPeriodoAssociado() {
             return periodoAssociado;
         }
-    }
-
-    public static double obterPrecoDeCompra(String ativo, LocalDate dataCompra) {
-        List<HistoricoAtivo> historico = retornaListaDadosDeHistorico(ativo, dataCompra);
-        return historico.isEmpty() ? 0.0 : historico.get(0).getPreco();
     }
 }
