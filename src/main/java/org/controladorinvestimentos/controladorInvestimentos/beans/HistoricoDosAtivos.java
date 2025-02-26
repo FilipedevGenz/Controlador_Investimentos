@@ -12,11 +12,49 @@ import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HistoricoDosAtivos {
     private static final String API_URL = "https://brapi.dev/api/quote/";
     private static final String API_TOKEN = "7kfUNQUQm5GxWV6GXAf3ig";
     private static final OkHttpClient client = new OkHttpClient();
+
+        public static double calcularTaxaParaCompra(String ativo) {
+            LocalDate dataInicio = LocalDate.now().minusMonths(6);
+            List<HistoricoAtivo> historico = retornaListaDadosDeHistorico(ativo, dataInicio);
+
+            if (historico.isEmpty()) {
+                return 0.0;
+            }
+
+            // Obtendo os preços dos últimos 6 meses
+            List<Double> precos = historico.stream()
+                    .map(HistoricoAtivo::getPreco)
+                    .sorted()
+                    .collect(Collectors.toList());
+
+            // Calculando a mediana
+            double mediana;
+            int size = precos.size();
+            if (size % 2 == 0) {
+                mediana = (precos.get(size / 2 - 1) + precos.get(size / 2)) / 2.0;
+            } else {
+                mediana = precos.get(size / 2);
+            }
+
+            // Obtendo o valor atual do ativo
+            double precoAtual;
+            try {
+                precoAtual = APIrequest.buscarPrecoAtivoEmTempoReal(ativo);
+            } catch (IOException e) {
+                System.err.println("Erro ao obter preço atual do ativo: " + ativo);
+                return 0.0;
+            }
+
+            return mediana - precoAtual;
+        }
+
+
 
     public static double calcularTaxaDeVariacao(String ativo, LocalDate dataCompra) {
         double precoCompra = obterPrecoDeCompra(ativo, dataCompra);

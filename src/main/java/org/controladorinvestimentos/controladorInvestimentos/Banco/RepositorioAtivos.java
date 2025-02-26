@@ -35,9 +35,10 @@ public class RepositorioAtivos implements IrepositorioAtivos {
 
         //CRUD de ativos
 
-        public void adicionarAtivo(String code, double preco) throws IOException {
+        @Override
+        public void adicionarAtivo(String code, double preco, int periodoAssociado) throws IOException {
             String name = APIrequest.buscarNomeAtivo(code);
-            Ativo newAtv = new Ativo(name,preco);
+            Ativo newAtv = new Ativo(name, preco, periodoAssociado);
 
             ATIVOS.add(newAtv);
         }
@@ -46,7 +47,13 @@ public class RepositorioAtivos implements IrepositorioAtivos {
             ATIVOS.remove(ativo);
         }
 
-        //Busca dentro do arrayList o ativo desejado. Essa operação garante que busquemos o ativo dentro do repositorio
+    @Override
+    public void adicionarAtivo(String code, double preco) throws IOException {
+
+    }
+
+
+    //Busca dentro do arrayList o ativo desejado. Essa operação garante que busquemos o ativo dentro do repositorio
         public Ativo buscarAtivo(String nome) throws Exist {
             for(Ativo u : ATIVOS){
                 if(u.getNome().equals(nome)){

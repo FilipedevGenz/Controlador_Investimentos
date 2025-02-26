@@ -10,6 +10,8 @@ public class Ativo {
 
     @NonNull public String nome;
     @NonNull public double preco;
+    @NonNull public double dataAtivo;
+
 
 }
 

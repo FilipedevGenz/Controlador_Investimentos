@@ -38,9 +38,9 @@ public class TelaCarteiraMenu extends Application {
 
         Button btnRentabilidade = new Button("Rentabilidade ou Acompanhamento");
         btnRentabilidade.setOnAction(e -> {
-            TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart();
+            //TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart();
             try {
-                telaRentabilidade.start(primaryStage);
+              //  telaRentabilidade.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

@@ -63,7 +63,7 @@ public class TelaAcompanharRentCart extends Application {
             lineChart.getData().add(series);
         }
 
-        double mediaPonderada = somaPesos > 0 ? (somaValores / somaPesos) : 0;
+        //double mediaPonderada = somaPesos > 0 ? (somaValores / somaPesos) : 0;
         primaryStage.setTitle("Rentabilidade - " + carteira.getNomeCarteira() + " (Variação: " + String.format("%.2f%%", mediaPonderada) + ")");
 
         VBox layout = new VBox(10, lineChart);

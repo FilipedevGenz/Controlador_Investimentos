@@ -51,8 +51,8 @@ public class TelaRelatorios extends Application {
 
         tabela.getColumns().addAll(colunaAtivo, colunaCodigo, colunaQuantidade, colunaValorCompra, colunaValorTotal);
 
-        List<Relatorio> relatorios = carteira.getRepositorioRelatorio().getRelatorios();
-        tabela.getItems().addAll(relatorios);
+        //List<Relatorio> relatorios = carteira.getRepositorioRelatorio().getRelatorios();
+        //tabela.getItems().addAll(relatorios);
 
         layout.getChildren().addAll(titulo, tabela);
         Scene scene = new Scene(layout, 800, 400);

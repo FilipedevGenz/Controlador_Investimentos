@@ -10,10 +10,7 @@ import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAt
 import org.controladorinvestimentos.controladorInvestimentos.beans.*;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
-
-import static org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
 
 public class TelaCompraAtivos extends Application {
     private Carteira carteira;
@@ -42,33 +39,10 @@ public class TelaCompraAtivos extends Application {
         grid.add(new Label("Quantidade"), 1, 1);
         grid.add(new Label("Ação"), 0, 1);
 
-        for (int i = 0; i < ATIVOS.size(); i++) {
-            Relatorio ativo = getATIVOS.size(i);
-            LocalDate dataCompra = LocalDate.now().minusMonths(6);
-            double variacao = HistoricoDosAtivos.calcularTaxaDeVariacao(ativo.getCodigo(), dataCompra);
-
-            grid.add(new Label(String.format("%.2f%%", variacao)), 3, i + 2);
-        }
-
-        // Inicializando ativos no repositório
-        RepositorioAtivos repositorioAtivos = RepositorioAtivos.getInstance();
-        try {
-            repositorioAtivos.adicionarAtivo("VALE3", 69.45);
-            repositorioAtivos.adicionarAtivo("ITUB4", 28.90);
-            repositorioAtivos.adicionarAtivo("BBDC4", 23.40);
-            repositorioAtivos.adicionarAtivo("BBAS3", 47.30);
-            repositorioAtivos.adicionarAtivo("ABEV3", 14.80);
-            repositorioAtivos.adicionarAtivo("MGLU3", 2.30);
-            repositorioAtivos.adicionarAtivo("PETR3", 30.50);
-            repositorioAtivos.adicionarAtivo("LREN3", 31.75);
-            repositorioAtivos.adicionarAtivo("HYPE3", 42.60);
-            repositorioAtivos.adicionarAtivo("GGBR4", 24.10);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         // Obtendo ativos disponíveis para compra
+        RepositorioAtivos repositorioAtivos = RepositorioAtivos.getInstance();
         List<Ativo> ativosDisponiveis = repositorioAtivos.getAtivos();
+
         for (int i = 0; i < ativosDisponiveis.size(); i++) {
             Ativo ativo = ativosDisponiveis.get(i);
             Button btnComprar = new Button("Comprar");
@@ -81,7 +55,11 @@ public class TelaCompraAtivos extends Application {
             grid.add(txtQuantidade, 1, i + 2);
 
             grid.add(new Label("R$ " + String.format("%.2f", ativo.getPreco())), 2, i + 2);
-            grid.add(new Label("0.00%"), 3, i + 2); // Valor fictício até implementação real
+
+            // Calculando a variação utilizando calcularTaxaParaCompra
+            double variacao = HistoricoDosAtivos.calcularTaxaParaCompra(ativo.getNome());
+            grid.add(new Label(String.format("%.2f%%", variacao)), 3, i + 2);
+
             grid.add(new Label(ativo.getNome()), 4, i + 2);
         }
 
