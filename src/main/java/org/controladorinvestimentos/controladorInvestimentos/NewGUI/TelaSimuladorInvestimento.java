@@ -11,14 +11,14 @@ import javafx.stage.Stage;
 
 public class TelaSimuladorInvestimento extends Application {
 
-    public static double calcularValorFuturo(double valorInicial, double taxaAnual, int anos) {
-        return valorInicial * Math.pow(1 + (taxaAnual / 100), anos);
+    public static double calcularValorFuturo(double valorInicial, double taxaAnual, int mes) {
+        return valorInicial * Math.pow(1 + (taxaAnual / 100), mes);
     }
 
-    public static double calcularValorFuturoComAportes(double valorInicial, double taxaAnual, double aporteMensal, int anos) {
+    public static double calcularValorFuturoComAportes(double valorInicial, double taxaAnual, double aporteMensal, int mes) {
         double montante = valorInicial;
         double taxaMensal = taxaAnual / 12 / 100;
-        int meses = anos * 12;
+        int meses = mes * 12;
 
         for (int i = 0; i < meses; i++) {
             montante += aporteMensal;
