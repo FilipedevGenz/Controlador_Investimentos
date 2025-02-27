@@ -6,6 +6,7 @@ import okhttp3.Response;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
 
 import java.io.IOException;
 import java.time.LocalDate;
