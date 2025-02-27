@@ -12,11 +12,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorAtivos;
-
+import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
 import java.io.IOException;
 
 public class AdicionarAtivo extends Application {
+
+    private RepositorioAtivos repositorioAtivos = RepositorioAtivos.getInstance();
 
     @Override
     public void start(Stage primaryStage) {
@@ -48,10 +50,11 @@ public class AdicionarAtivo extends Application {
                 return;
             }
             try {
-                ControladorAtivos.criarAtivo(nomeAtivo);
-                showAlert("Sucesso", "Ativo adicionado!", "O ativo foi adicionado com sucesso.");
+                double preco = APIrequest.buscarPrecoAtivoEmTempoReal(nomeAtivo);
+                repositorioAtivos.adicionarAtivo(nomeAtivo, preco);
+                showAlert("Sucesso", "Ativo adicionado!", "O ativo foi adicionado com sucesso ao repositório.");
             } catch (IOException ex) {
-                showAlert("Erro", "Ativo inválido", "O ativo inserido não é válido. Tente novamente.");
+                showAlert("Erro", "Ativo inválido", "O ativo inserido não é válido ou não foi encontrado. Tente novamente.");
             }
         });
 
@@ -61,15 +64,13 @@ public class AdicionarAtivo extends Application {
         voltarButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 15 30;");
         voltarButton.setOnAction(e -> primaryStage.close());
 
-        // Layout dos botões
         HBox buttonBox = new HBox(20, addButton, voltarButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // Adicionando elementos ao layout principal
         layoutPrincipal.getChildren().addAll(title, searchField, buttonBox);
         root.setCenter(layoutPrincipal);
 
-        // Configuração da cena
+
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();

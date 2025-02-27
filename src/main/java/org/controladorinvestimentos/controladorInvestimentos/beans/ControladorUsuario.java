@@ -9,18 +9,17 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.Emai
 import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.NomeStrategy;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.SenhaStrategy;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.updateStrategy;
-
 import java.util.Map;
-
 import static org.controladorinvestimentos.controladorInvestimentos.beans.UpdateOptions.Email;
 import static org.controladorinvestimentos.controladorInvestimentos.beans.UpdateOptions.Nome;
 
 public class ControladorUsuario {
 
+
     private static IrepositorioUsuario IrepositorioUsuario;
 
     public ControladorUsuario() {
-        RepositorioUsuario.getInstance();
+        this.IrepositorioUsuario = RepositorioUsuario.getInstance(); // Certifique-se de inicializar corretamente
     }
 
     public void cadastrarNovoUsuario(int cpf, String nome, String email, String senha) throws Exist {

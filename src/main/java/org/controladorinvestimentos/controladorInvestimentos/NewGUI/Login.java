@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -41,7 +42,17 @@ public class Login extends Application {
         // Botão de login
         Button loginButton = new Button("Entrar");
         loginButton.setFont(new Font("Arial", 18));
-        loginButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 15 30;");
+        loginButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 20;");
+
+        // Botão de registro
+        Button registerButton = new Button("Registrar");
+        registerButton.setFont(new Font("Arial", 18));
+        registerButton.setStyle("-fx-background-color: #007BFF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 20;");
+
+        // Layout para os botões
+        HBox buttonBox = new HBox(20);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.getChildren().addAll(loginButton, registerButton);
 
         // Ação do botão de login
         loginButton.setOnAction(e -> {
@@ -72,8 +83,15 @@ public class Login extends Application {
             }
         });
 
+        // Ação do botão de registro
+        registerButton.setOnAction(e -> {
+            TelaRegister telaRegister = new TelaRegister();
+            Stage registerStage = new Stage();
+            telaRegister.start(registerStage);
+        });
+
         // Adicionando os elementos ao layout
-        layoutPrincipal.getChildren().addAll(label, cpfField, senhaField, loginButton);
+        layoutPrincipal.getChildren().addAll(label, cpfField, senhaField, buttonBox);
         root.setCenter(layoutPrincipal);
 
         // Configuração da cena
