@@ -6,6 +6,7 @@ import okhttp3.Response;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -105,27 +106,46 @@ public class HistoricoDosAtivos {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
-            String url = API_URL + ativo + "?range=3mo&interval=1mo&token=" + API_TOKEN;
+            String url = "https://brapi.dev/api/quote/" + ativo + "?range=3mo&interval=1d&token=7kfUNQUQm5GxWV6GXAf3ig";
+
+            // DEBUG: Printando a URL usada na API
+            System.out.println("URL da API: " + url);
+
             Request request = new Request.Builder().url(url).build();
             Response response = client.newCall(request).execute();
 
-            // 2º erro
+            // Erro identificado
             if (!response.isSuccessful()) {
-                throw new IOException("Erro na conexão com a API: " + response.code());
+                System.err.println("Erro na conexão com a API: " + response.code() + " - " + response.message());
+                return historicoFiltrado;
             }
 
-            JsonObject jsonObject = JsonParser.parseString(response.body().string()).getAsJsonObject();
+            String responseBody = response.body().string();
+            System.out.println("Resposta da API: " + responseBody);
+
+            JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+            if (!jsonObject.has("results")) {
+                System.err.println("Erro: campo 'results' não encontrado na resposta da API.");
+                return historicoFiltrado;
+            }
+
             JsonArray historico = jsonObject.getAsJsonArray("results");
 
             for (int i = 0; i < historico.size(); i++) {
                 JsonObject item = historico.get(i).getAsJsonObject();
+
+                if (!item.has("date") || !item.has("close")) {
+                    continue;
+                }
+
                 LocalDate data = LocalDate.parse(item.get("date").getAsString(), formatter);
                 double preco = item.get("close").getAsDouble();
 
-                historicoFiltrado.add(new HistoricoAtivo(data, preco, (int) ChronoUnit.MONTHS.between(dataCompra, data)));
+                if (!data.isBefore(dataCompra)) {
+                    historicoFiltrado.add(new HistoricoAtivo(data, preco, (int) ChronoUnit.MONTHS.between(dataCompra, data)));
+                }
             }
         } catch (IOException e) {
-            // 1º erro
             System.err.println("Erro ao obter dados da API: " + e.getMessage());
         }
 
