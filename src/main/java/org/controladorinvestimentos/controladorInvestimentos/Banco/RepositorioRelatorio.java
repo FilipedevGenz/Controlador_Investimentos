@@ -69,7 +69,7 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
                 .sum();
     }
 
-    
+
     public Double calcularRentabilidadeCarteira() {
         Double valorDeCompra = retornaValorDeCompraCarteira();
         Double valorAtual = calcularValorAtual();

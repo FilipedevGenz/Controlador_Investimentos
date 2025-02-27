@@ -54,7 +54,7 @@ public class TelaCarteiraMenu extends Application {
 
         Button btnSimulacao = new Button("Simulação");
         btnSimulacao.setOnAction(e -> {
-            TelaSimuladorInvestimento telaSimuladorInvestimento = new TelaSimuladorInvestimento(usuarioLogado,carteira);
+            ProjecaoInvestimentos telaSimuladorInvestimento = new  ProjecaoInvestimentos(usuarioLogado,carteira);
             try {
                 telaSimuladorInvestimento.start(primaryStage);
             } catch (Exception ex) {
