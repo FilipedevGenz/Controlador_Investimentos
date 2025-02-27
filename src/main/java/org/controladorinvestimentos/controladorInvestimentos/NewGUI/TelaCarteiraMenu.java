@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.Simulador;
 
 public class TelaCarteiraMenu extends Application {
 
@@ -25,7 +26,7 @@ public class TelaCarteiraMenu extends Application {
         Text carteiraTitulo = new Text(carteira.getNomeCarteira());
         carteiraTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
-        // Botões de navegação
+        // Botões de navegação
         Button btnComprarAtivos = new Button("Comprar Ativos");
         btnComprarAtivos.setOnAction(e -> {
             TelaCompraAtivos telaCompraAtivos = new TelaCompraAtivos(carteira);
@@ -46,7 +47,7 @@ public class TelaCarteiraMenu extends Application {
             }
         });
 
-        Button btnSimulacao = new Button("Simulação");
+        Button btnSimulacao = new Button("Simulação");
         btnSimulacao.setOnAction(e -> {
             TelaSimuladorInvestimento telaSimuladorInvestimento = new TelaSimuladorInvestimento();
             try {
@@ -66,7 +67,7 @@ public class TelaCarteiraMenu extends Application {
             }
         });
 
-        Button btnProjecoes = new Button("Projeções");
+        Button btnProjecoes = new Button("Projeções");
         btnProjecoes.setOnAction(e -> {
             TelaProjecoes telaProjecoes = new TelaProjecoes();
             try {
@@ -76,7 +77,18 @@ public class TelaCarteiraMenu extends Application {
             }
         });
 
-        // Botão de Voltar para TelaCarteiras
+        Button btnCalcularValorCarteira = new Button("Calcular Valor da Carteira");
+        btnCalcularValorCarteira.setOnAction(e -> {
+            try {
+                double valorCarteira = Simulador.atualizarValorCarteira(carteira);
+                carteiraTitulo.setText("Valor da Carteira: R$ " + String.format("%.2f", valorCarteira));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                carteiraTitulo.setText("Erro ao calcular o valor da carteira.");
+            }
+        });
+
+        // Botão de Voltar para TelaCarteiras
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
             TelaCarteiras telaCarteiras = new TelaCarteiras();
@@ -88,7 +100,7 @@ public class TelaCarteiraMenu extends Application {
         });
 
         // Layout
-        VBox layout = new VBox(15, carteiraTitulo, btnComprarAtivos, btnVenderAtivos, btnRentabilidade, btnProjecoes, btnSimulacao, btnVoltar);
+        VBox layout = new VBox(15, carteiraTitulo, btnComprarAtivos, btnVenderAtivos, btnRentabilidade, btnProjecoes, btnSimulacao, btnCalcularValorCarteira, btnVoltar);
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-background-color: #F3F4F6; -fx-padding: 20px; -fx-border-radius: 10px;");
 
