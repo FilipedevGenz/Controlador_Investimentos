@@ -25,7 +25,7 @@ public class TelaCarteiraMenu extends Application {
         Text carteiraTitulo = new Text(carteira.getNomeCarteira());
         carteiraTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
-        // Botões de navegação
+        // Botão para comprar ativos
         Button btnComprarAtivos = new Button("Comprar Ativos");
         btnComprarAtivos.setOnAction(e -> {
             TelaCompraAtivos telaCompraAtivos = new TelaCompraAtivos(carteira);
@@ -36,21 +36,34 @@ public class TelaCarteiraMenu extends Application {
             }
         });
 
-        Button btnRentabilidade = new Button("Rentabilidade ou Acompanhamento");
-        btnRentabilidade.setOnAction(e -> {
-            TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart(carteira);
+        // Botão para vender ativos (Novo botão adicionado)
+        Button btnVenderAtivos = new Button("Venda de Ativos");
+        btnVenderAtivos.setOnAction(e -> {
+            TelaVendaAtivos telaVendaAtivos = new TelaVendaAtivos(carteira);
             try {
-               telaRentabilidade.start(primaryStage);
+                telaVendaAtivos.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
 
+        // Botão para acompanhar rentabilidade
+        Button btnRentabilidade = new Button("Rentabilidade ou Acompanhamento");
+        btnRentabilidade.setOnAction(e -> {
+            TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart(carteira);
+            try {
+                telaRentabilidade.start(primaryStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        // Botão para projeções
         Button btnProjecoes = new Button("Projeções");
         btnProjecoes.setOnAction(e -> {
             TelaProjecoes telaProjecoes = new TelaProjecoes();
             try {
-                //telaProjecoes.start(primaryStage);
+                // telaProjecoes.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -67,8 +80,8 @@ public class TelaCarteiraMenu extends Application {
             }
         });
 
-        // Layout
-        VBox layout = new VBox(15, carteiraTitulo, btnComprarAtivos, btnRentabilidade, btnProjecoes, btnVoltar);
+        // Layout atualizado com o novo botão de venda de ativos
+        VBox layout = new VBox(15, carteiraTitulo, btnComprarAtivos, btnVenderAtivos, btnRentabilidade, btnProjecoes, btnVoltar);
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-background-color: #F3F4F6; -fx-padding: 20px; -fx-border-radius: 10px;");
 
