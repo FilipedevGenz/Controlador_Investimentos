@@ -1,3 +1,4 @@
+
 /*
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
@@ -52,4 +53,5 @@ public class InfoAtivo extends Application {
         launch(args);
     }
 }
-*/
+
+ */

@@ -1,5 +1,5 @@
-/*
 
+/*
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
 import javafx.application.Application;
@@ -138,4 +138,5 @@ public class ComprarAtivos extends Application {
         launch(args);
     }
 }
-*/
+
+ */

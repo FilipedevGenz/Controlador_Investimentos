@@ -75,7 +75,6 @@ public class HistoricoDosAtivos {
     }
 
 
-
     public static double calcularTaxaDeVariacao(String ativo, LocalDate dataCompra) {
         double precoCompra = obterPrecoDeCompra(ativo, dataCompra);
         double precoAtual;

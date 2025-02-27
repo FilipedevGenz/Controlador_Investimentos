@@ -51,8 +51,8 @@ public class TelaMenuInicial extends Application {
         }
 
         // Criar e armazenar carteiras
-        repositorioCarteira.adicionarCarteira(new Carteira("1001", "Carteira 1 ", (int)(Math.random() % 10)));
-        repositorioCarteira.adicionarCarteira(new Carteira("1002", "Carteira 2", (int)(Math.random() % 10)));
+        repositorioCarteira.adicionarCarteira(new Carteira("1001", "Carteira 1 ", (int)(Math.random() % 13)));
+        repositorioCarteira.adicionarCarteira(new Carteira("1002", "Carteira 2", (int)(Math.random() % 13)));
 
         try {
             // Adicionar ativos às carteiras
@@ -103,7 +103,7 @@ public class TelaMenuInicial extends Application {
         menu.getChildren().addAll(title, btnProjecoes, btnCarteira, btnSimulacao, btnRelatorio);
 
         // Título principal com rentabilidade
-        Label lblTitulo = new Label("Rentabilidade geral (mensal):");
+        Label lblTitulo = new Label("Rentabilidade geral (trimestral):");
         lblTitulo.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
         double valorRentabilidade = -36712.47; // Valor de exemplo
