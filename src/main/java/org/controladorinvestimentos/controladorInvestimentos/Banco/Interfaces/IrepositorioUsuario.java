@@ -8,9 +8,9 @@ public interface IrepositorioUsuario {
     void adicionarUsuario(Usuario usuario);
     void removerUsuario(Usuario usuario) throws Exist;
     Usuario buscarUsuario(Usuario usuario) throws Exist;
-    void alterarEmail(String email, Usuario usuario) throws Exist;
-    void alterarSenha(String senha, Usuario usuario) throws Exist;
-    void alterarNome(String nome, Usuario usuario) throws Exist;
+    void AlterarEmail(String email, Usuario usuario) throws Exist;
+    void AlterarSenha(String senha, Usuario usuario) throws Exist;
+    void AlterarNome(String nome, Usuario usuario) throws Exist;
     boolean buscarCPF(int cpf);
     Usuario buscarCPFreturnUser(int cpf);
 }

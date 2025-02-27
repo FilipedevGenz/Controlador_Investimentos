@@ -61,19 +61,19 @@ public class RepositorioUsuario implements IrepositorioUsuario {
     }
 
     @Override
-    public void alterarEmail(String email, Usuario usuario) throws Exist {
+    public void AlterarEmail(String email, Usuario usuario) throws Exist {
         Usuario user = buscarUsuario(usuario);
         user.setEmail(email);
     }
 
     @Override
-    public void alterarSenha(String senha, Usuario usuario) throws Exist {
+    public void AlterarSenha(String senha, Usuario usuario) throws Exist {
         Usuario user = buscarUsuario(usuario);
         user.setSenha(senha);
     }
 
     @Override
-    public void alterarNome(String nome, Usuario usuario) throws Exist {
+    public void AlterarNome(String nome, Usuario usuario) throws Exist {
         Usuario user = buscarUsuario(usuario);
         user.setNome(nome);
     }
