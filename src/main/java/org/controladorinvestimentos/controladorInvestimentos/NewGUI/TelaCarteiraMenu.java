@@ -30,7 +30,7 @@ public class TelaCarteiraMenu extends Application {
         btnComprarAtivos.setOnAction(e -> {
             TelaCompraAtivos telaCompraAtivos = new TelaCompraAtivos(carteira);
             try {
-                //telaCompraAtivos.start(primaryStage);
+                telaCompraAtivos.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -38,9 +38,9 @@ public class TelaCarteiraMenu extends Application {
 
         Button btnRentabilidade = new Button("Rentabilidade ou Acompanhamento");
         btnRentabilidade.setOnAction(e -> {
-            //TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart();
+            TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart(carteira);
             try {
-              //  telaRentabilidade.start(primaryStage);
+               telaRentabilidade.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

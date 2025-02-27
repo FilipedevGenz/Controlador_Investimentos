@@ -19,7 +19,7 @@ public class APIrequest {
     // Preço máximo do dia (regularMarketDayHigh)
     // Preço mínimo do dia (regularMarketDayLow)
     // Volume negociado (regularMarketVolume)
-    private static JsonObject getAtivoData(String simbolo) throws IOException {
+    static JsonObject getAtivoData(String simbolo) throws IOException {
         String url = BASE_URL + simbolo + "?token=" + API_KEY;
 
         OkHttpClient client = new OkHttpClient();

@@ -51,8 +51,8 @@ public class TelaMenuInicial extends Application {
         }
 
         // Criar e armazenar carteiras
-        repositorioCarteira.adicionarCarteira(new Carteira("1001", "Investimentos Agressivos", (int)(Math.random() % 10)));
-        repositorioCarteira.adicionarCarteira(new Carteira("1002", "Investimentos Conservadores", (int)(Math.random() % 10)));
+        repositorioCarteira.adicionarCarteira(new Carteira("1001", "Carteira 1 ", (int)(Math.random() % 10)));
+        repositorioCarteira.adicionarCarteira(new Carteira("1002", "Carteira 2", (int)(Math.random() % 10)));
 
         try {
             // Adicionar ativos às carteiras

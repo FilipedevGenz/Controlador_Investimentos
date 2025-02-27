@@ -10,60 +10,47 @@ import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
 
-
 import java.util.List;
 
 public class TelaCarteiras extends Application {
 
-    public TelaCarteiras() {}
     @Override
     public void start(Stage primaryStage) {
-
-        List<Carteira> ListaCarteiras = ControladorCarteira.getInstance().getCarteiras();
-        if (ListaCarteiras == null || ListaCarteiras.isEmpty()) {
-            System.out.println("Nenhuma carteira encontrada.");
-            return;
-        }
-
-        primaryStage.setTitle("Menu de Carteiras");
+        primaryStage.setTitle("Escolha uma Carteira");
 
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(20));
         vbox.setAlignment(Pos.CENTER);
 
-        // Cria botões dinamicamente para cada carteira
-        for (Carteira carteira : ListaCarteiras) {
+        // Obtém carteiras do repositório
+        List<Carteira> listaCarteiras = ControladorCarteira.getInstance().getCarteiras();
+
+        for (Carteira carteira : listaCarteiras) {
             Button carteiraButton = new Button(carteira.getNomeCarteira());
             carteiraButton.setMinWidth(200);
-            carteiraButton.setOnAction(e -> {
-                // Exemplo: abre o menu específico da carteira
-                TelaCarteiraMenu carteiraMenu = new TelaCarteiraMenu();
-                carteiraMenu.setCarteira(carteira);
-                try {
-                    carteiraMenu.start(primaryStage);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            });
+            carteiraButton.setOnAction(e -> abrirCarteiraMenu(carteira, primaryStage));
             vbox.getChildren().add(carteiraButton);
         }
 
-        // Botão de Voltar (opcional: volta para o MenuInicial)
+        // Botão de Voltar
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setMinWidth(200);
-        btnVoltar.setOnAction(e -> {
-            TelaMenuInicial menuInicial = new TelaMenuInicial();
-            try {
-                menuInicial.start(primaryStage);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
+        btnVoltar.setOnAction(e -> primaryStage.close());
         vbox.getChildren().add(btnVoltar);
 
-        Scene scene = new Scene(vbox, 400, 300);
+        Scene scene = new Scene(vbox, 400, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void abrirCarteiraMenu(Carteira carteira, Stage primaryStage) {
+        TelaCarteiraMenu carteiraMenu = new TelaCarteiraMenu();
+        carteiraMenu.setCarteira(carteira);
+        try {
+            carteiraMenu.start(primaryStage);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

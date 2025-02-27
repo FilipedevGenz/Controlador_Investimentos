@@ -20,6 +20,7 @@ public class TelaAcompanharRentCart extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
         primaryStage.setTitle("Rentabilidade - " + carteira.getNomeCarteira());
 
         double somaPonderada = 0.0;

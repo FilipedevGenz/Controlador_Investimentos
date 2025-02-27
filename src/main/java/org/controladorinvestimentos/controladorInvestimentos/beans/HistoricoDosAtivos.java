@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest.getAtivoData;
+
 public class HistoricoDosAtivos {
     private static final String API_URL = "https://brapi.dev/api/quote/";
     private static final String API_TOKEN = "7kfUNQUQm5GxWV6GXAf3ig";
@@ -53,6 +55,24 @@ public class HistoricoDosAtivos {
 
             return mediana - precoAtual;
         }
+
+    public static double buscarPrecoAtivoEmTempoReal(String simbolo) {
+        try {
+            JsonObject results = getAtivoData(simbolo);
+            if (results.has("regularMarketPrice")) {
+                return results.get("regularMarketPrice").getAsDouble();
+            } else {
+                System.err.println("Erro: regularMarketPrice não encontrado para " + simbolo);
+                return 0.0;
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao buscar preço do ativo " + simbolo + ": " + e.getMessage());
+            return 0.0;
+        } catch (Exception e) {
+            System.err.println("Erro inesperado ao buscar preço do ativo " + simbolo);
+            return 0.0;
+        }
+    }
 
 
 
