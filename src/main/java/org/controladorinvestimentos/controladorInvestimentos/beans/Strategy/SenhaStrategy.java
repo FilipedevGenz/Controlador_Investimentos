@@ -7,7 +7,7 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstr
 
 import java.util.Scanner;
 
-public class senhaStrategy implements updateStrategy{
+public class SenhaStrategy implements updateStrategy{
 
     private static IrepositorioUsuario repositorioUsuario;
 

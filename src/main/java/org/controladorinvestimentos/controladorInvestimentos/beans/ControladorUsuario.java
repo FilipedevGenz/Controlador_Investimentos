@@ -1,13 +1,13 @@
 
-/*
 package org.controladorinvestimentos.controladorInvestimentos.beans;
 
 import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
-//import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.emailStrategy;
-//import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.nomeStrategy;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.senhaStrategy;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
+import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.EmailStrategy;
+import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.NomeStrategy;
+import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.SenhaStrategy;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.updateStrategy;
 
 import java.util.Map;
@@ -44,9 +44,9 @@ public class ControladorUsuario {
 
     public void alterarUsuario(Usuario usuario, UpdateOptions option) throws Exist {
         final Map<UpdateOptions, updateStrategy> mapStrategy = Map.of(
-                Nome, new nomeStrategy(),
-                UpdateOptions.Senha, new senhaStrategy(),
-                Email, new emailStrategy()
+                Nome, new NomeStrategy(),
+                UpdateOptions.Senha, new SenhaStrategy(),
+                Email, new EmailStrategy()
         );
         try {
             Usuario usuarioAtual = IrepositorioUsuario.buscarUsuario(usuario);
@@ -55,10 +55,4 @@ public class ControladorUsuario {
             throw new Exist("Usuario não existe no sistema");
         }
     }
-
-    public Usuario buscarUsuario(int cpf) {
-        return IrepositorioUsuario.buscarCPFreturnConta(cpf);
-    }
 }
-
- */
