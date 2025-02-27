@@ -6,7 +6,6 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionali
 import java.io.IOException;
 import java.time.LocalDate;
 @Getter
-
 public class Relatorio {
 
     private static int contadorId = 0;
@@ -29,5 +28,10 @@ public class Relatorio {
         public double getValorTotal() {
         return valorCompra * quantidade;
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
 }
 
