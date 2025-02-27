@@ -1,4 +1,3 @@
-
 package org.controladorinvestimentos.controladorInvestimentos.beans;
 
 import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioUsuario;
@@ -56,9 +55,5 @@ public class ControladorUsuario {
         } catch (Exception e) {
             throw new Exist("Usuario não existe no sistema");
         }
-    }
-
-    public Usuario buscarUsuario(int cpf) {
-        return IrepositorioUsuario.buscarCPFreturnConta(cpf);
     }
 }
