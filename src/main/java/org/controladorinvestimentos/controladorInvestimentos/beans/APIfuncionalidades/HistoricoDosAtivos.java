@@ -114,7 +114,7 @@ public class HistoricoDosAtivos {
             Request request = new Request.Builder().url(url).build();
             Response response = client.newCall(request).execute();
 
-            // Erro identificado
+            // Verificar se a resposta da API foi bem-sucedida
             if (!response.isSuccessful()) {
                 System.err.println("Erro na conexão com a API: " + response.code() + " - " + response.message());
                 return historicoFiltrado;
@@ -124,23 +124,44 @@ public class HistoricoDosAtivos {
             System.out.println("Resposta da API: " + responseBody);
 
             JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+
+            // Verificar se "results" contém dados
             if (!jsonObject.has("results")) {
                 System.err.println("Erro: campo 'results' não encontrado na resposta da API.");
                 return historicoFiltrado;
             }
 
-            JsonArray historico = jsonObject.getAsJsonArray("results");
+            JsonArray results = jsonObject.getAsJsonArray("results");
+            if (results.size() == 0) {
+                System.err.println("Erro: Nenhum resultado encontrado para o ativo.");
+                return historicoFiltrado;
+            }
+
+            // Pegar o primeiro objeto (correspondente ao ativo consultado)
+            JsonObject ativoData = results.get(0).getAsJsonObject();
+
+            // Verificar se "historicalDataPrice" está presente
+            if (!ativoData.has("historicalDataPrice")) {
+                System.err.println("Erro: campo 'historicalDataPrice' não encontrado na resposta da API.");
+                return historicoFiltrado;
+            }
+
+            JsonArray historico = ativoData.getAsJsonArray("historicalDataPrice");
 
             for (int i = 0; i < historico.size(); i++) {
                 JsonObject item = historico.get(i).getAsJsonObject();
 
                 if (!item.has("date") || !item.has("close")) {
-                    continue;
+                    continue; // Pular entradas inválidas
                 }
 
-                LocalDate data = LocalDate.parse(item.get("date").getAsString(), formatter);
+                // Convertendo timestamp UNIX (segundos) para LocalDate
+                long timestamp = item.get("date").getAsLong();
+                LocalDate data = LocalDate.ofEpochDay(timestamp / 86400);
+
                 double preco = item.get("close").getAsDouble();
 
+                // Apenas adicionar os dados que são posteriores à dataCompra
                 if (!data.isBefore(dataCompra)) {
                     historicoFiltrado.add(new HistoricoAtivo(data, preco, (int) ChronoUnit.MONTHS.between(dataCompra, data)));
                 }
