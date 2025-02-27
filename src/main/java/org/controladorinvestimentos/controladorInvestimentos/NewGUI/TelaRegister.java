@@ -69,14 +69,19 @@ public class TelaRegister extends Application {
             }
         });
 
-        // Botão Voltar
+        // Botão Voltar corrigido
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
-            Login telaLogin = new Login();
             try {
-                telaLogin.start(primaryStage);
+                Stage stageAtual = (Stage) btnVoltar.getScene().getWindow(); // Obtém a referência da janela atual
+                stageAtual.close(); // Fecha a tela de registro
+
+                Login telaLogin = new Login();
+                telaLogin.start(new Stage()); // Abre a tela de login corretamente
+
             } catch (Exception ex) {
                 ex.printStackTrace();
+                mostrarAlerta("Erro", "Não foi possível voltar para a tela de login.");
             }
         });
 
