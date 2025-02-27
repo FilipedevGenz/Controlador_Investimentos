@@ -51,15 +51,15 @@ public class TelaMenuInicial extends Application {
         }
 
         // Criar e armazenar carteiras
-        repositorioCarteira.adicionarCarteira(new Carteira("1001", "Carteira 1 ", (int)(Math.random() % 13)));
-        repositorioCarteira.adicionarCarteira(new Carteira("1002", "Carteira 2", (int)(Math.random() % 13)));
+        repositorioCarteira.adicionarCarteira(new Carteira("1001", "Carteira 1 ", (int)(Math.random() * 4)));
+        repositorioCarteira.adicionarCarteira(new Carteira("1002", "Carteira 2", (int)(Math.random() * 4)));
 
         try {
             // Adicionar ativos às carteiras
-            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("VALE3", 10, (int)(Math.random() % 10));
-            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("ITUB4", 15, (int)(Math.random() % 10));
-            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("BBDC4", 20, (int)(Math.random() % 10));
-            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("ABEV3", 25, (int)(Math.random() % 10));
+            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("VALE3", 10, (int)(Math.random() * 10));
+            repositorioCarteira.buscarCarteira(1001).adicionarAtivoNaCarteira("ITUB4", 15, (int)(Math.random() * 10));
+            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("BBDC4", 20, (int)(Math.random() * 10));
+            repositorioCarteira.buscarCarteira(1002).adicionarAtivoNaCarteira("ABEV3", 25, (int)(Math.random() * 10));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,16 +71,16 @@ public class TelaMenuInicial extends Application {
 
         // Se não houver carteiras, cria as iniciais
         if (controladorCarteira.getCarteiras().isEmpty()) {
-            controladorCarteira.novaCarteira("900.185-400", "carteira1", (int)(Math.random() % 10));
-            controladorCarteira.novaCarteira("900.185-401", "carteira2", (int)(Math.random() % 10));
+            controladorCarteira.novaCarteira("900.185-400", "carteira1", (int)(Math.random() * 10));
+            controladorCarteira.novaCarteira("900.185-401", "carteira2", (int)(Math.random() * 10));
 
             try {
                 List<Carteira> listaCarteiras = controladorCarteira.getCarteiras();
                 // Adiciona ativos à Carteira1
-                listaCarteiras.get(0).adicionarAtivoNaCarteira("PETR4", 5, (int)(Math.random() % 10));
-                listaCarteiras.get(0).adicionarAtivoNaCarteira("CSAN3", 3, (int)(Math.random() % 10));
+                listaCarteiras.get(0).adicionarAtivoNaCarteira("PETR4", 5, (int)(Math.random() * 10));
+                listaCarteiras.get(0).adicionarAtivoNaCarteira("CSAN3", 3, (int)(Math.random() * 10));
                 // Adiciona ativos à Carteira2
-                listaCarteiras.get(1).adicionarAtivoNaCarteira("HAPV3", 2, (int)(Math.random() % 10));
+                listaCarteiras.get(1).adicionarAtivoNaCarteira("HAPV3", 2, (int)(Math.random() * 10));
             } catch (Exception e) {
                 e.printStackTrace();
             }
