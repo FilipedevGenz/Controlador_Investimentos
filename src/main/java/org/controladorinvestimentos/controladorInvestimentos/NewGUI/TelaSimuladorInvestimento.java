@@ -9,6 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+
+
+//  IMPLEMENTAR COM A RENTABILIDADE DA CARTEIRA QUE ARTHUR VAI FAZER
+
+
+
 public class TelaSimuladorInvestimento extends Application {
 
     public static double calcularValorFuturo(double valorInicial, double taxaAnual, int mes) {
@@ -65,7 +71,17 @@ public class TelaSimuladorInvestimento extends Application {
 
         Label lblResultado = new Label("Resultado: ");
         GridPane.setConstraints(lblResultado, 1, 5);
+        // Botão de Voltar para TelaCarteiras
+        Button btnVoltar = new Button("Voltar");
 
+        btnVoltar.setOnAction(e -> {
+            TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu();
+            try {
+                telaCarteiraMenu.start(primaryStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
         btnCalcular.setOnAction(e -> {
             double valorInicial = Double.parseDouble(txtValorInicial.getText());
             double taxaAnual = Double.parseDouble(txtTaxa.getText());
@@ -81,7 +97,7 @@ public class TelaSimuladorInvestimento extends Application {
             lblResultado.setText("Resultado: R$ " + String.format("%.2f", resultado));
         });
 
-        grid.getChildren().addAll(lblValorInicial, txtValorInicial, lblTaxa, txtTaxa, lblAnos, txtAnos, lblAporte, txtAporte, btnCalcular, lblResultado);
+        grid.getChildren().addAll(lblValorInicial,btnVoltar, txtValorInicial, lblTaxa, txtTaxa, lblAnos, txtAnos, lblAporte, txtAporte, btnCalcular, lblResultado);
 
         Scene scene = new Scene(grid, 400, 250);
         primaryStage.setScene(scene);
