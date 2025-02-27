@@ -1,5 +1,4 @@
 
-/*
 package org.controladorinvestimentos.controladorInvestimentos.beans.Strategy;
 
 
@@ -28,4 +27,4 @@ public class nomeStrategy implements updateStrategy{
     }
 }
 
- */
+

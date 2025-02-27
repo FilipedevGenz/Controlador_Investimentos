@@ -1,10 +1,5 @@
-/*
+
 package org.controladorinvestimentos.controladorInvestimentos.beans.Strategy;
-
-
-
-
-
 import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
@@ -31,6 +26,4 @@ public class senhaStrategy implements updateStrategy{
         }
     }
 }
-
- */
 

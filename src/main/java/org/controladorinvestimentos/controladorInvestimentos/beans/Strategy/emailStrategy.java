@@ -1,4 +1,3 @@
-/*
 
 package org.controladorinvestimentos.controladorInvestimentos.beans.Strategy;
 
@@ -26,4 +25,3 @@ public class emailStrategy implements updateStrategy {
 
         }
     }
-*/

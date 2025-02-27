@@ -1,5 +1,5 @@
-/*
-package org.controladorinvestimentos.controladorInvestimentos.GUI;
+
+package org.controladorinvestimentos.controladorInvestimentos.NewGUI;
 
 
 import javafx.application.Application;
@@ -16,14 +16,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
-import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioUsers;
-import org.controladorinvestimentos.controladorInvestimentos.Banco.repositorioUsers;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioUsuario;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controladorInvestimentos.beans.controladorUsers;
+import org.controladorinvestimentos.controladorInvestimentos.NewGUI.Login;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorUsuario;
 
 public class newUser extends Application {
 
-    private static IrepositorioUsers repositorio;
+    private static IrepositorioUsuario repositorio;
 
     @Override
     public void start(Stage primaryStage) {
@@ -57,16 +58,9 @@ public class newUser extends Application {
 
             try {
                 Integer cpf = Integer.parseInt(userCPF);
-                controladorUsers controlador = new controladorUsers(); // Criando o controlador
+                ControladorUsuario controlador = new ControladorUsuario(); // Criando o controlador
 
-                //add saldo para o user
-
-                repositorioUsers.getInstance();
-
-                //controlador.cadastrarNovoUsuario(cpf, nomeCarteira, email, password);
-                //controladorUsers controlador2 = new controladorUsers();
-                //conta toAddsaldo = controlador2.buscarUsuario(cpf);
-                //toAddsaldo.creditar(100000.00);
+                RepositorioUsuario.getInstance();
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Cadastro realizado");
@@ -148,4 +142,3 @@ public class newUser extends Application {
     }
 }
 
- */

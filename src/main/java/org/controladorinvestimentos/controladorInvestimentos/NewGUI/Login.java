@@ -1,44 +1,59 @@
 package org.controladorinvestimentos.controladorInvestimentos.NewGUI;
 
+import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.Parent;
 import javafx.scene.text.Font;
-import org.controladorinvestimentos.controladorInvestimentos.GUI.MainApp;
+import javafx.stage.Stage;
+import org.controladorinvestimentos.controladorInvestimentos.NewGUI.AdicionarAtivo;
 
-public class Login {
+public class Login extends Application {
 
-    private MainApp mainApp;
-    private VBox container;
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Tela de Login");
 
-    public Login(MainApp mainApp) {
-        this.mainApp = mainApp;
-        createView();
-    }
+        BorderPane root = new BorderPane();
+        VBox layoutPrincipal = new VBox(20);
+        layoutPrincipal.setPadding(new Insets(50));
+        layoutPrincipal.setAlignment(Pos.CENTER);
 
-    private void createView() {
-        container = new VBox(20);
-        container.setPadding(new Insets(50));
-        container.setAlignment(Pos.CENTER);
-
+        // Título
         Label label = new Label("Tela de Login");
         label.setFont(new Font("Arial", 28));
 
+        // Botão de login
         Button loginButton = new Button("Entrar");
         loginButton.setFont(new Font("Arial", 18));
         loginButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 15 30;");
-        loginButton.setOnAction(e -> {
 
-            mainApp.showAdicionarAtivoScene();
+        loginButton.setOnAction(e -> {
+            AdicionarAtivo adicionarAtivo = new AdicionarAtivo();
+            Stage adicionarAtivoStage = new Stage();
+            try {
+                adicionarAtivo.start(adicionarAtivoStage);
+                primaryStage.close(); // Fecha a tela de login ao abrir a próxima
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
 
-        container.getChildren().addAll(label, loginButton);
+        // Adicionando os elementos ao layout
+        layoutPrincipal.getChildren().addAll(label, loginButton);
+        root.setCenter(layoutPrincipal);
+
+        // Configuração da cena
+        Scene scene = new Scene(root, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
-    public Parent getView() {
-        return container;
+    public static void main(String[] args) {
+        launch(args);
     }
 }
