@@ -69,6 +69,20 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
                 .sum();
     }
 
+    
+    public Double calcularRentabilidadeCarteira() {
+        Double valorDeCompra = retornaValorDeCompraCarteira();
+        Double valorAtual = calcularValorAtual();
+
+        if (valorDeCompra == 0) return 0.0; // Evita divisão por zero
+
+        BigDecimal rentabilidade = BigDecimal.valueOf(((valorAtual - valorDeCompra) / valorDeCompra) * 100)
+                .setScale(2, RoundingMode.HALF_UP);
+
+        return rentabilidade.doubleValue();
+    }
+
+
     public void removerRelatorio(Relatorio relatorio){
         relatorios.remove(relatorio);
     }
