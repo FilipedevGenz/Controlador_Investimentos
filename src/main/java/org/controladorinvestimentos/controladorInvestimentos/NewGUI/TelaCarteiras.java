@@ -16,28 +16,25 @@ public class TelaCarteiras extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
-
-
         primaryStage.setTitle("Escolha uma Carteira");
 
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
-            TelaMenuInicial telaMenuInicial = new TelaMenuInicial();
             try {
-                telaMenuInicial.start(primaryStage);
+                new TelaMenuInicial().start(new Stage());
+                primaryStage.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
+
         VBox layout = new VBox(15, btnVoltar);
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-background-color: #F3F4F6; -fx-padding: 20px; -fx-border-radius: 10px;");
         VBox vbox = new VBox(10);
-        vbox.setPadding(new Insets(20));
         vbox.setAlignment(Pos.CENTER);
 
-        // Obtém carteiras do repositório
+        // Obtém carteiras do repositório
         List<Carteira> listaCarteiras = ControladorCarteira.getInstance().getCarteiras();
 
         for (Carteira carteira : listaCarteiras) {
@@ -47,7 +44,7 @@ public class TelaCarteiras extends Application {
             vbox.getChildren().add(carteiraButton);
         }
 
-
+        vbox.getChildren().add(btnVoltar);
         Scene scene = new Scene(vbox, 400, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
