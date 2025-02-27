@@ -101,7 +101,7 @@ public class HistoricoDosAtivos {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
-            String url = API_URL + ativo + "?range=12mo&interval=1mo&token=" + API_TOKEN;
+            String url = API_URL + ativo + "?range=3mo&interval=1mo&token=" + API_TOKEN;
             Request request = new Request.Builder().url(url).build();
             Response response = client.newCall(request).execute();
 
