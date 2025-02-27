@@ -107,7 +107,7 @@ public class TelaMenuInicial extends Application {
         lblTitulo.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
         double valorRentabilidade = -36712.47; // Valor de exemplo
-        Label lblValor = new Label(String.format("%.2f R$", valorRentabilidade));
+        Label lblValor = new Label(String.format("2000 R$"));
         String styleValor = "-fx-font-size: 20px; -fx-font-weight: bold; " +
                 (valorRentabilidade < 0 ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
         lblValor.setStyle(styleValor);
