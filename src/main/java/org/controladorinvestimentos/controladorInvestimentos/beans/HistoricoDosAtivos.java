@@ -22,7 +22,7 @@ public class HistoricoDosAtivos {
     private static final OkHttpClient client = new OkHttpClient();
 
         public static double calcularTaxaParaCompra(String ativo) {
-            LocalDate dataInicio = LocalDate.now().minusMonths(6);
+            LocalDate dataInicio = LocalDate.now().minusMonths(3);
             List<HistoricoAtivo> historico = retornaListaDadosDeHistorico(ativo, dataInicio);
 
             if (historico.isEmpty()) {
@@ -100,7 +100,7 @@ public class HistoricoDosAtivos {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
-            String url = API_URL + ativo + "?range=12mo&interval=1mo&token=" + API_TOKEN;
+            String url = API_URL + ativo + "?range=3mo&interval=1mo&token=" + API_TOKEN;
             Request request = new Request.Builder().url(url).build();
             Response response = client.newCall(request).execute();
 
