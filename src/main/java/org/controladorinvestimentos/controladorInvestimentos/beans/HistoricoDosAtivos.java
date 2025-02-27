@@ -22,7 +22,7 @@ public class HistoricoDosAtivos {
     private static final OkHttpClient client = new OkHttpClient();
 
         public static double calcularTaxaParaCompra(String ativo) {
-            LocalDate dataInicio = LocalDate.now().minusMonths(6);
+            LocalDate dataInicio = LocalDate.now().minusMonths(3);
             List<HistoricoAtivo> historico = retornaListaDadosDeHistorico(ativo, dataInicio);
 
             if (historico.isEmpty()) {
