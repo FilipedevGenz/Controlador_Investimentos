@@ -91,6 +91,10 @@ public class HistoricoDosAtivos {
         return ((precoAtual - precoCompra) / precoCompra) * 100;
     }
 
+    public static double atribuirVariacaoPreco(Relatorio ativo, LocalDate dataCompra) {
+        return calcularTaxaDeVariacao(ativo.getCodigo(), dataCompra);
+    }
+
     public static double obterPrecoDeCompra(String ativo, LocalDate dataCompra) {
         List<HistoricoAtivo> historico = retornaListaDadosDeHistorico(ativo, dataCompra);
         return historico.isEmpty() ? 0.0 : historico.get(0).getPreco();

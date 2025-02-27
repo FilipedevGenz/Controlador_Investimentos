@@ -56,7 +56,8 @@ public class TelaAcompanharRentCart extends Application {
         for (Relatorio ativo : ativos) {
             String nomeAtivo = ativo.getCodigo();
             LocalDate dataInicio = LocalDate.now().minusMonths(3); // Últimos 3 meses
-            double variacao = HistoricoDosAtivos.calcularTaxaDeVariacao(nomeAtivo, dataInicio);
+
+            double variacao = HistoricoDosAtivos.atribuirVariacaoPreco(ativo, dataInicio);
             rentabilidadeTotal += variacao;
 
             Label lblVariacao = new Label(nomeAtivo + ": " + String.format("%.1f", variacao) + "%");
