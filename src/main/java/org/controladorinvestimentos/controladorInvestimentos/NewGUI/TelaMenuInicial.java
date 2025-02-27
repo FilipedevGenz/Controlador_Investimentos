@@ -97,10 +97,10 @@ public class TelaMenuInicial extends Application {
 
         Button btnProjecoes = new Button("Projeções");
         Button btnCarteira = new Button("Carteira");
-        Button btnSimulacao = new Button("Simulação");
+
         Button btnRelatorio = new Button("Relatório");
 
-        menu.getChildren().addAll(title, btnProjecoes, btnCarteira, btnSimulacao, btnRelatorio);
+        menu.getChildren().addAll(title, btnProjecoes, btnCarteira, btnRelatorio);
 
         // Título principal com rentabilidade
         Label lblTitulo = new Label("Rentabilidade geral (trimestral):");
