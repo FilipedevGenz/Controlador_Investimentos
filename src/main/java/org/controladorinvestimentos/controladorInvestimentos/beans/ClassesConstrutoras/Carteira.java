@@ -1,8 +1,8 @@
-package org.controladorinvestimentos.controladorInvestimentos.beans;
+package org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioRelatorio;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioRelatorio;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioMovimentacoes;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioRelatorio;
 

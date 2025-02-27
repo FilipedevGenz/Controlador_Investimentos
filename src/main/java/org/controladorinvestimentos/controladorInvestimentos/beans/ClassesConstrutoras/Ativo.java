@@ -1,4 +1,4 @@
-package org.controladorinvestimentos.controladorInvestimentos.beans;
+package org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

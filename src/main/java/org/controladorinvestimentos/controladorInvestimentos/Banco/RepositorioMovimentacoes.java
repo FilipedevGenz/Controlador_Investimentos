@@ -2,8 +2,8 @@ package org.controladorinvestimentos.controladorInvestimentos.Banco;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Relatorio;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 
 import java.util.ArrayList;
 import java.util.HashMap;

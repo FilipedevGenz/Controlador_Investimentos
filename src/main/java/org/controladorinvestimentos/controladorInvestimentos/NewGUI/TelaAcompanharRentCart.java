@@ -12,10 +12,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioMovimentacoes;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Relatorio;
-import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosAtivos;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.HistoricoDosAtivos;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -53,6 +52,7 @@ public class TelaAcompanharRentCart extends Application {
         Random random = new Random();
         double rentabilidadeTotal = 0.0;
 
+        // O erro está aqui !!
         for (Relatorio ativo : ativos) {
             String nomeAtivo = ativo.getCodigo();
             LocalDate dataInicio = LocalDate.now().minusMonths(3); // Últimos 3 meses

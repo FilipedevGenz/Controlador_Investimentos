@@ -1,7 +1,9 @@
 package org.controladorinvestimentos.controladorInvestimentos.beans;
-import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioAtivos;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Ativo;
 
 import java.io.IOException;
 

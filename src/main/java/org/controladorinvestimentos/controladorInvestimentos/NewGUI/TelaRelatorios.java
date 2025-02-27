@@ -9,10 +9,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Relatorio;
-import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioRelatorio;
-import java.util.List;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
 
 public class TelaRelatorios extends Application {
     private Carteira carteira;

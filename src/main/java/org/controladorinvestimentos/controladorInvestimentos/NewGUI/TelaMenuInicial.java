@@ -15,8 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioCarteira;
-import org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
 
 

@@ -8,29 +8,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 
+ class TelaSimuladorInvestimento extends Application {
 
+    private Carteira carteira; // Armazena a carteira para repassar ao voltar
 
-//  IMPLEMENTAR COM A RENTABILIDADE DA CARTEIRA QUE ARTHUR VAI FAZER
-
-
-
-public class TelaSimuladorInvestimento extends Application {
-
-    public static double calcularValorFuturo(double valorInicial, double taxaAnual, int mes) {
-        return valorInicial * Math.pow(1 + (taxaAnual / 100), mes);
-    }
-
-    public static double calcularValorFuturoComAportes(double valorInicial, double taxaAnual, double aporteMensal, int mes) {
-        double montante = valorInicial;
-        double taxaMensal = taxaAnual / 12 / 100;
-        int meses = mes * 12;
-
-        for (int i = 0; i < meses; i++) {
-            montante += aporteMensal;
-            montante *= (1 + taxaMensal);
-        }
-        return montante;
+    public void setCarteira(Carteira carteira) {
+        this.carteira = carteira;
     }
 
     @Override
@@ -71,33 +56,25 @@ public class TelaSimuladorInvestimento extends Application {
 
         Label lblResultado = new Label("Resultado: ");
         GridPane.setConstraints(lblResultado, 1, 5);
-        // Botão de Voltar para TelaCarteiras
+
         Button btnVoltar = new Button("Voltar");
-
         btnVoltar.setOnAction(e -> {
-            TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu();
-            try {
-                telaCarteiraMenu.start(primaryStage);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
-        btnCalcular.setOnAction(e -> {
-            double valorInicial = Double.parseDouble(txtValorInicial.getText());
-            double taxaAnual = Double.parseDouble(txtTaxa.getText());
-            int anos = Integer.parseInt(txtAnos.getText());
-            double aporteMensal = txtAporte.getText().isEmpty() ? 0 : Double.parseDouble(txtAporte.getText());
-
-            double resultado;
-            if (aporteMensal > 0) {
-                resultado = calcularValorFuturoComAportes(valorInicial, taxaAnual, aporteMensal, anos);
+            if (carteira != null) {
+                TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu();
+                telaCarteiraMenu.setCarteira(carteira); // Passa a carteira corretamente
+                try {
+                    telaCarteiraMenu.start(primaryStage);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             } else {
-                resultado = calcularValorFuturo(valorInicial, taxaAnual, anos);
+                System.out.println("Erro: Nenhuma carteira foi definida antes de voltar.");
             }
-            lblResultado.setText("Resultado: R$ " + String.format("%.2f", resultado));
         });
 
-        grid.getChildren().addAll(lblValorInicial,btnVoltar, txtValorInicial, lblTaxa, txtTaxa, lblAnos, txtAnos, lblAporte, txtAporte, btnCalcular, lblResultado);
+        GridPane.setConstraints(btnVoltar, 1, 6);
+
+        grid.getChildren().addAll(lblValorInicial, txtValorInicial, lblTaxa, txtTaxa, lblAnos, txtAnos, lblAporte, txtAporte, btnCalcular, lblResultado, btnVoltar);
 
         Scene scene = new Scene(grid, 400, 250);
         primaryStage.setScene(scene);

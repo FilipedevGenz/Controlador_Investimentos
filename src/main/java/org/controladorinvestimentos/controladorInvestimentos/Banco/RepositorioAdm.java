@@ -1,7 +1,8 @@
 package org.controladorinvestimentos.controladorInvestimentos.Banco;
 
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioAdm;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Adm;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Adm;
 
 import java.util.ArrayList;
 

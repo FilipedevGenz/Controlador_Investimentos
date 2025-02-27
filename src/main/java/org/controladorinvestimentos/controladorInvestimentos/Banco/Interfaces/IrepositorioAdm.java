@@ -1,7 +1,7 @@
-package org.controladorinvestimentos.controladorInvestimentos.Banco;
+package org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces;
 
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Adm;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Adm;
 
 public interface IrepositorioAdm {
     Adm buscarAdm(int cpf) throws Exist;

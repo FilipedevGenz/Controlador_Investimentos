@@ -1,6 +1,6 @@
-package org.controladorinvestimentos.controladorInvestimentos.Banco;
+package org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces;
 
-import org.controladorinvestimentos.controladorInvestimentos.beans.Relatorio;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
 
 import java.util.ArrayList;
 

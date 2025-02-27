@@ -1,4 +1,4 @@
-package org.controladorinvestimentos.controladorInvestimentos.beans;
+package org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -6,6 +6,7 @@ import okhttp3.Response;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest.getAtivoData;
+import static org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest.getAtivoData;
 
 public class HistoricoDosAtivos {
     private static final String API_URL = "https://brapi.dev/api/quote/";
@@ -104,6 +105,7 @@ public class HistoricoDosAtivos {
             Request request = new Request.Builder().url(url).build();
             Response response = client.newCall(request).execute();
 
+            // 2º erro
             if (!response.isSuccessful()) {
                 throw new IOException("Erro na conexão com a API: " + response.code());
             }
@@ -119,6 +121,7 @@ public class HistoricoDosAtivos {
                 historicoFiltrado.add(new HistoricoAtivo(data, preco, (int) ChronoUnit.MONTHS.between(dataCompra, data)));
             }
         } catch (IOException e) {
+            // 1º erro
             System.err.println("Erro ao obter dados da API: " + e.getMessage());
         }
 

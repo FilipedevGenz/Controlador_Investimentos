@@ -1,9 +1,9 @@
-package org.controladorinvestimentos.controladorInvestimentos.beans;
+package org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras;
 
 
 import lombok.Getter;
 import lombok.Setter;
-import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioCarteira;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioCarteira;
 @Getter
 @Setter
 public class Usuario {

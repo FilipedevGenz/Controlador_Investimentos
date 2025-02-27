@@ -2,7 +2,7 @@
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
 import org.controladorinvestimentos.controladorInvestimentos.beans.ativo;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

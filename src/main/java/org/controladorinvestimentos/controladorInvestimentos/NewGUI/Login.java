@@ -31,7 +31,7 @@ public class Login {
         loginButton.setFont(new Font("Arial", 18));
         loginButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 15 30;");
         loginButton.setOnAction(e -> {
-            // Após efetuar o login, navega para a tela de Adicionar Ativo.
+
             mainApp.showAdicionarAtivoScene();
         });
 

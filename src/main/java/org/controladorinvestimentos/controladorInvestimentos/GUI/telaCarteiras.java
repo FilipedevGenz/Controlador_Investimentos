@@ -17,7 +17,7 @@ import javafx.scene.text.Font;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioCarteira;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.repositorioUsers;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 
 public class telaCarteiras extends Application {
 

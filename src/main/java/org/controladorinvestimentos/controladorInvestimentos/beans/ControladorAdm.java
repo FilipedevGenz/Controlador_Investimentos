@@ -1,8 +1,9 @@
 package org.controladorinvestimentos.controladorInvestimentos.beans;
 
-import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioAdm;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioAdm;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAdm;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Adm;
 
 public class ControladorAdm {
 

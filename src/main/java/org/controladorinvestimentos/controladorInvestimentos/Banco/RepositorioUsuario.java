@@ -1,6 +1,7 @@
 package org.controladorinvestimentos.controladorInvestimentos.Banco;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Usuario;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 
 import java.util.ArrayList;
 

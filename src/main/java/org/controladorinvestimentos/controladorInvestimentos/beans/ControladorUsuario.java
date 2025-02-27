@@ -2,7 +2,7 @@
 /*
 package org.controladorinvestimentos.controladorInvestimentos.beans;
 
-import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioUsuario;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioUsuario;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
 //import org.controladorinvestimentos.controladorInvestimentos.beans.Strategy.emailStrategy;

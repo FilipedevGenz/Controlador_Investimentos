@@ -1,6 +1,6 @@
-package org.controladorinvestimentos.controladorInvestimentos.Banco;
+package org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces;
 
-import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
 import java.util.List;
 

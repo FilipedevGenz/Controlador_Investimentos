@@ -1,5 +1,9 @@
 package org.controladorinvestimentos.controladorInvestimentos.beans;
 
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;

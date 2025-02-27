@@ -1,8 +1,9 @@
 package org.controladorinvestimentos.controladorInvestimentos.Banco;
 
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Ativo;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Ativo;
 import lombok.Getter;
 import lombok.Setter;
 

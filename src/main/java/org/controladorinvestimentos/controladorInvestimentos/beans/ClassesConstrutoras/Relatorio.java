@@ -1,6 +1,7 @@
-package org.controladorinvestimentos.controladorInvestimentos.beans;
+package org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras;
 import lombok.Getter;
 import lombok.Setter;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
 
 import java.io.IOException;
 import java.time.LocalDate;

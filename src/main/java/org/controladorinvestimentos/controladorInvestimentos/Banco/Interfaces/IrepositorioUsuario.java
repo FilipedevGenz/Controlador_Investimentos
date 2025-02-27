@@ -1,7 +1,7 @@
-package org.controladorinvestimentos.controladorInvestimentos.Banco;
+package org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces;
 
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Usuario;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 
 public interface IrepositorioUsuario {
     void construtorUsuario(int cpf, String nome, String email, String senha);

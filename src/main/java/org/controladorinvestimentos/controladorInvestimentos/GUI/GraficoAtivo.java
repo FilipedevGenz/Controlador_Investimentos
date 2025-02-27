@@ -1,7 +1,7 @@
 /*
 package org.controladorinvestimentos.controladorInvestimentos.GUI;
 
-import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosAtivos;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.HistoricoDosAtivos;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

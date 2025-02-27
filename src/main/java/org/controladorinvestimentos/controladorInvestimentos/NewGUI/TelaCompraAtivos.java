@@ -7,9 +7,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
-import org.controladorinvestimentos.controladorInvestimentos.beans.*;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.HistoricoDosAtivos;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Ativo;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 
-import java.io.IOException;
 import java.util.List;
 
 public class TelaCompraAtivos extends Application {

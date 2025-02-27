@@ -1,4 +1,4 @@
-package org.controladorinvestimentos.controladorInvestimentos.beans;
+package org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

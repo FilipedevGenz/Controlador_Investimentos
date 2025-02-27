@@ -2,9 +2,10 @@ package org.controladorinvestimentos.controladorInvestimentos.Banco;
 import java.io.IOException;
 import java.util.ArrayList;
 import lombok.Data;
-import org.controladorinvestimentos.controladorInvestimentos.beans.APIrequest;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
-import org.controladorinvestimentos.controladorInvestimentos.beans.Relatorio;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioRelatorio;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -36,7 +37,7 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
 
      public Double retornaValorDeCompraCarteira(){
          //sera usado para comparar com o valor atual e obter a valorizacao
-         return relatorios.stream().mapToDouble(org.controladorinvestimentos.controladorInvestimentos.beans.Relatorio::getValorTotal).sum();
+         return relatorios.stream().mapToDouble(Relatorio::getValorTotal).sum();
          }
 
     public Double retornaValorMedioDeCompra(String codigo){

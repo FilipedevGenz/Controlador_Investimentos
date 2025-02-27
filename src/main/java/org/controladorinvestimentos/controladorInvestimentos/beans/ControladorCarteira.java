@@ -1,8 +1,10 @@
 package org.controladorinvestimentos.controladorInvestimentos.beans;
 
-import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioCarteira;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioCarteira;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioCarteira;
 import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+
 import java.util.List;
 
 public class ControladorCarteira {

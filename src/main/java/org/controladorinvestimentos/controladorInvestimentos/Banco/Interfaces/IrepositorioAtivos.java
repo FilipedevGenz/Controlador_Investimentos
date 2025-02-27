@@ -1,6 +1,6 @@
-package org.controladorinvestimentos.controladorInvestimentos.Banco;
+package org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces;
 
-import org.controladorinvestimentos.controladorInvestimentos.beans.Ativo;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Ativo;
 
 import java.io.IOException;
 

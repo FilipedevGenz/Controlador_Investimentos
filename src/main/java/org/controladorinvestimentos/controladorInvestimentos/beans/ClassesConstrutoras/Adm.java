@@ -1,12 +1,9 @@
-package org.controladorinvestimentos.controladorInvestimentos.beans;
+package org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras;
 
-import org.controladorinvestimentos.controladorInvestimentos.Banco.IrepositorioAtivos;
-import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAdm;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.Interfaces.IrepositorioAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
-import org.controladorinvestimentos.controladorInvestimentos.Exceptions.Exist;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorAtivos;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.io.IOException;
 
