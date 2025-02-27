@@ -62,6 +62,14 @@ public class Carteira {
     public void atualizarValorCarteira() {
         valorCarteira = repositorioRelatorio.calcularValorAtual();
     }
+
+    public IrepositorioRelatorio getRepositorioRelatorio() {
+        return repositorioRelatorio;
+    }
+
+    public void setRepositorioRelatorio(IrepositorioRelatorio repositorioRelatorio) {
+        this.repositorioRelatorio = repositorioRelatorio;
+    }
 }
 
 

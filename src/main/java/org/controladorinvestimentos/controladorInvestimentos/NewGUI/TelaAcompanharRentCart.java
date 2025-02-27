@@ -1,15 +1,25 @@
 package org.controladorinvestimentos.controladorInvestimentos.NewGUI;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controladorinvestimentos.controladorInvestimentos.beans.*;
+import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioMovimentacoes;
+import org.controladorinvestimentos.controladorInvestimentos.beans.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.Relatorio;
+import org.controladorinvestimentos.controladorInvestimentos.beans.HistoricoDosAtivos;
+
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 public class TelaAcompanharRentCart extends Application {
     private Carteira carteira;
@@ -20,56 +30,83 @@ public class TelaAcompanharRentCart extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        primaryStage.setTitle("Acompanhamento da Taxa de Variação dos Ativos");
 
-        primaryStage.setTitle("Rentabilidade - " + carteira.getNomeCarteira());
+        BorderPane root = new BorderPane();
+        VBox layoutPrincipal = new VBox(10);
+        layoutPrincipal.setPadding(new Insets(15));
 
-        double somaPonderada = 0.0;
-        double somaQuantidades = 0.0;
+        // Título
+        Label lblTitulo = new Label("Carteira de Ativos");
+        lblTitulo.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
-        for (Relatorio ativo : carteira.repositorioRelatorio.getRelatorios()) {
-            LocalDate dataCompra = LocalDate.now().minusMonths(6);
-            double variacao = HistoricoDosAtivos.calcularTaxaDeVariacao(ativo.getCodigo(), dataCompra);
+        // Obtém os ativos da carteira
+        List<Relatorio> ativos = carteira.getRepositorioRelatorio().getRelatorios();
+        VBox indicadoresVariação = new VBox(5);
 
-            somaPonderada += variacao * ativo.getQuantidade();
-            somaQuantidades += ativo.getQuantidade();
-        }
+        XYChart.Series<Number, Number> seriesAtivoA = new XYChart.Series<>();
+        XYChart.Series<Number, Number> seriesAtivoB = new XYChart.Series<>();
 
-        double mediaPonderada = (somaQuantidades == 0) ? 0.0 : somaPonderada / somaQuantidades;
-        primaryStage.setTitle(carteira.getNomeCarteira() + " - Rentabilidade: " + String.format("%.2f%%", mediaPonderada));
+        seriesAtivoA.setName("Ativo A");
+        seriesAtivoB.setName("Ativo B");
 
+        Random random = new Random();
+        double rentabilidadeTotal = 0.0;
 
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-        lineChart.setTitle("Evolução dos Ativos");
+        for (Relatorio ativo : ativos) {
+            String nomeAtivo = ativo.getCodigo();
+            LocalDate dataInicio = LocalDate.now().minusMonths(3); // Últimos 3 meses
+            double variacao = HistoricoDosAtivos.calcularTaxaDeVariacao(nomeAtivo, dataInicio);
+            rentabilidadeTotal += variacao;
 
-        List<Relatorio> ativos = carteira.repositorioRelatorio.getRelatorios();
-        double somaPesos = 0, somaValores = 0;
+            Label lblVariacao = new Label(nomeAtivo + ": " + String.format("%.1f", variacao) + "%");
+            lblVariacao.setStyle("-fx-font-size: 16px; " + (variacao >= 0 ? "-fx-text-fill: green;" : "-fx-text-fill: red;"));
+            indicadoresVariação.getChildren().add(lblVariacao);
 
-        for (Relatorio rel : ativos) {
-            List<HistoricoDosAtivos.HistoricoAtivo> historico = HistoricoDosAtivos.retornaListaDadosDeHistorico(rel.getCodigo(), LocalDate.now().minusMonths(6));
-            double precoCompra = historico.isEmpty() ? rel.getValorCompra() : historico.get(0).getPreco();
-            double taxaVariacao = ((rel.getValorCompra() - precoCompra) / precoCompra) * 100;
-            somaValores += taxaVariacao * rel.getQuantidade();
-            somaPesos += rel.getQuantidade();
-
-            XYChart.Series<Number, Number> series = new XYChart.Series<>();
-            series.setName(rel.getCodigo());
-
-            int mesIndex = 1;
-            for (HistoricoDosAtivos.HistoricoAtivo dado : historico) {
-                series.getData().add(new XYChart.Data<>(mesIndex, dado.getPreco()));
-                mesIndex++;
+            // Simula dados para o gráfico
+            for (int i = 1; i <= 3; i++) {
+                double precoSimulado = 90 + random.nextDouble() * 20; // Preço aleatório entre 90 e 110
+                if (nomeAtivo.equals("Ativo A")) {
+                    seriesAtivoA.getData().add(new XYChart.Data<>(i, precoSimulado));
+                } else {
+                    seriesAtivoB.getData().add(new XYChart.Data<>(i, precoSimulado));
+                }
             }
-            lineChart.getData().add(series);
         }
 
-        //double mediaPonderada = somaPesos > 0 ? (somaValores / somaPesos) : 0;
-        primaryStage.setTitle("Rentabilidade - " + carteira.getNomeCarteira() + " (Variação: " + String.format("%.2f%%", mediaPonderada) + ")");
+        // Rentabilidade total da carteira
+        Label lblRentabilidade = new Label("Rentabilidade da Carteira: " + String.format("%.1f", rentabilidadeTotal) + "%");
+        lblRentabilidade.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: green;");
 
-        VBox layout = new VBox(10, lineChart);
-        Scene scene = new Scene(layout, 800, 600);
+        // Criando o gráfico
+        NumberAxis xAxis = new NumberAxis(0, 3, 1);
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Mês");
+        yAxis.setLabel("Preço (R$)");
+
+        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        lineChart.getData().addAll(seriesAtivoA, seriesAtivoB);
+        lineChart.setTitle("Evolução dos Ativos na Carteira");
+
+        // Botão de voltar
+        Button btnVoltar = new Button("Voltar");
+        btnVoltar.setStyle("-fx-background-color: lightblue;");
+        btnVoltar.setOnAction(e -> primaryStage.close());
+
+        HBox boxVoltar = new HBox(btnVoltar);
+        boxVoltar.setPadding(new Insets(10));
+
+        // Adicionando elementos à interface
+        layoutPrincipal.getChildren().addAll(lblTitulo, indicadoresVariação, lblRentabilidade, lineChart);
+        root.setTop(layoutPrincipal);
+        root.setBottom(boxVoltar);
+
+        Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
