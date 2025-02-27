@@ -9,10 +9,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 
- class TelaSimuladorInvestimento extends Application {
+class TelaSimuladorInvestimento extends Application {
 
-    private Carteira carteira; // Armazena a carteira para repassar ao voltar
+     private Carteira carteira;
+     private Usuario usuarioLogado; // Adicionado para manter o usuário logado
+
+     // Novo construtor para receber o usuário logado e a carteira
+     public TelaSimuladorInvestimento(Usuario usuario, Carteira carteira) {
+         this.usuarioLogado = usuario;
+         this.carteira = carteira;
+     }
 
     public void setCarteira(Carteira carteira) {
         this.carteira = carteira;
@@ -60,7 +68,7 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstr
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
             if (carteira != null) {
-                TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu();
+                TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu(usuarioLogado,carteira);
                 telaCarteiraMenu.setCarteira(carteira); // Passa a carteira corretamente
                 try {
                     telaCarteiraMenu.start(primaryStage);

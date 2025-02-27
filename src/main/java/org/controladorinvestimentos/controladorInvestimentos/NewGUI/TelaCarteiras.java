@@ -7,11 +7,18 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
 
 import java.util.List;
 
 public class TelaCarteiras extends Application {
+
+    private Usuario usuarioLogado; // Usuário logado
+
+    public TelaCarteiras(Usuario usuario) {
+        this.usuarioLogado = usuario;
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -20,7 +27,7 @@ public class TelaCarteiras extends Application {
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
             try {
-                new TelaMenuInicial().start(new Stage());
+                new TelaMenuInicial(usuarioLogado).start(new Stage());
                 primaryStage.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -50,7 +57,7 @@ public class TelaCarteiras extends Application {
     }
 
     private void abrirCarteiraMenu(Carteira carteira, Stage primaryStage) {
-        TelaCarteiraMenu carteiraMenu = new TelaCarteiraMenu();
+        TelaCarteiraMenu carteiraMenu = new TelaCarteiraMenu(usuarioLogado,carteira);
         carteiraMenu.setCarteira(carteira);
         try {
             carteiraMenu.start(primaryStage);

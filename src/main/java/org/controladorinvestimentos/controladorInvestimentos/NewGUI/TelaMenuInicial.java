@@ -17,6 +17,7 @@ import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAt
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioCarteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCarteira;
 
 
@@ -27,7 +28,11 @@ public class TelaMenuInicial extends Application {
 
     private RepositorioAtivos repositorioAtivos;
     private RepositorioCarteira repositorioCarteira;
+    private Usuario usuarioLogado; // Armazena o usuário logado
 
+    public TelaMenuInicial(Usuario usuario) {
+        this.usuarioLogado = usuario;
+    }
     @Override
     public void start(Stage primaryStage) {
 
@@ -145,7 +150,7 @@ public class TelaMenuInicial extends Application {
         content.setPadding(new Insets(10));
 
         btnCarteira.setOnAction(e -> {
-            TelaCarteiras telaCarteiras = new TelaCarteiras();
+            TelaCarteiras telaCarteiras = new TelaCarteiras(usuarioLogado);
             try {
                 telaCarteiras.start(primaryStage);
             } catch (Exception ex) {

@@ -9,14 +9,17 @@ import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.HistoricoDosAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class TelaVendaAtivos extends Application {
+    private Usuario usuarioLogado;
     private Carteira carteira;
 
-    public TelaVendaAtivos(Carteira carteira) {
+    public TelaVendaAtivos(Usuario usuarioLogado, Carteira carteira) {
+        this.usuarioLogado = usuarioLogado;
         this.carteira = carteira;
     }
 
@@ -59,7 +62,7 @@ public class TelaVendaAtivos extends Application {
 
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
-            TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu();
+            TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu(usuarioLogado,carteira);
             telaCarteiraMenu.setCarteira(carteira);
             try {
                 telaCarteiraMenu.start(primaryStage);

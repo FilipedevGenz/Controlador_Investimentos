@@ -8,14 +8,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 import org.controladorinvestimentos.controladorInvestimentos.beans.Simulador;
 
 public class TelaCarteiraMenu extends Application {
 
     private Carteira carteira;
+    private Usuario usuarioLogado;
 
-    public TelaCarteiraMenu() {}
+    public TelaCarteiraMenu(Usuario usuario, Carteira carteira) {
+        this.usuarioLogado = usuario;
+        this.carteira = carteira;
 
+    }
     public void setCarteira(Carteira carteira) {
         this.carteira = carteira;
     }
@@ -39,7 +44,7 @@ public class TelaCarteiraMenu extends Application {
 
         Button btnVenderAtivos = new Button("Vender Ativos");
         btnVenderAtivos.setOnAction(e -> {
-            TelaVendaAtivos telaVendaAtivos = new TelaVendaAtivos(carteira);
+            TelaVendaAtivos telaVendaAtivos = new TelaVendaAtivos(usuarioLogado, carteira);
             try {
                 telaVendaAtivos.start(primaryStage);
             } catch (Exception ex) {
@@ -49,7 +54,7 @@ public class TelaCarteiraMenu extends Application {
 
         Button btnSimulacao = new Button("Simulação");
         btnSimulacao.setOnAction(e -> {
-            TelaSimuladorInvestimento telaSimuladorInvestimento = new TelaSimuladorInvestimento();
+            TelaSimuladorInvestimento telaSimuladorInvestimento = new TelaSimuladorInvestimento(usuarioLogado,carteira);
             try {
                 telaSimuladorInvestimento.start(primaryStage);
             } catch (Exception ex) {
@@ -59,7 +64,7 @@ public class TelaCarteiraMenu extends Application {
 
         Button btnRentabilidade = new Button("Rentabilidade ou Acompanhamento");
         btnRentabilidade.setOnAction(e -> {
-            TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart(carteira);
+            TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart(usuarioLogado,carteira);
             try {
                 telaRentabilidade.start(primaryStage);
             } catch (Exception ex) {
@@ -91,7 +96,7 @@ public class TelaCarteiraMenu extends Application {
         // Botão de Voltar para TelaCarteiras
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
-            TelaCarteiras telaCarteiras = new TelaCarteiras();
+            TelaCarteiras telaCarteiras = new TelaCarteiras(usuarioLogado);
             try {
                 telaCarteiras.start(primaryStage);
             } catch (Exception ex) {

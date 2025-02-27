@@ -16,16 +16,20 @@ import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.HistoricoDosAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Relatorio;
-
+import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 import java.time.LocalDate;
 import java.util.List;
 
 public class TelaAcompanharRentCart extends Application {
-    private Carteira carteira;
 
-    public TelaAcompanharRentCart(Carteira carteira) {
+    private Carteira carteira;
+    private Usuario usuarioLogado; // Adicionado para manter o usuário logado
+
+    public TelaAcompanharRentCart(Usuario usuario, Carteira carteira) {
+        this.usuarioLogado = usuario;
         this.carteira = carteira;
     }
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -86,7 +90,7 @@ public class TelaAcompanharRentCart extends Application {
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setStyle("-fx-background-color: lightblue;");
         btnVoltar.setOnAction(e -> {
-            TelaCarteiras telaCarteiras = new TelaCarteiras();
+            TelaCarteiras telaCarteiras = new TelaCarteiras(usuarioLogado);
             Stage stage = (Stage) btnVoltar.getScene().getWindow();
             telaCarteiras.start(stage);
         });
