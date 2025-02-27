@@ -36,6 +36,16 @@ public class TelaCarteiraMenu extends Application {
             }
         });
 
+        Button btnVenderAtivos = new Button("Vender Ativos");
+        btnVenderAtivos.setOnAction(e -> {
+            TelaVendaAtivos telaVendaAtivos = new TelaVendaAtivos(carteira);
+            try {
+                telaVendaAtivos.start(primaryStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
         Button btnSimulacao = new Button("Simulação");
         btnSimulacao.setOnAction(e -> {
             TelaSimuladorInvestimento telaSimuladorInvestimento = new TelaSimuladorInvestimento();
@@ -45,11 +55,12 @@ public class TelaCarteiraMenu extends Application {
                 ex.printStackTrace();
             }
         });
+
         Button btnRentabilidade = new Button("Rentabilidade ou Acompanhamento");
         btnRentabilidade.setOnAction(e -> {
             TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart(carteira);
             try {
-               telaRentabilidade.start(primaryStage);
+                telaRentabilidade.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -59,7 +70,7 @@ public class TelaCarteiraMenu extends Application {
         btnProjecoes.setOnAction(e -> {
             TelaProjecoes telaProjecoes = new TelaProjecoes();
             try {
-                //telaProjecoes.start(primaryStage);
+                // telaProjecoes.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -77,7 +88,7 @@ public class TelaCarteiraMenu extends Application {
         });
 
         // Layout
-        VBox layout = new VBox(15,btnSimulacao, carteiraTitulo, btnComprarAtivos, btnRentabilidade, btnProjecoes, btnVoltar);
+        VBox layout = new VBox(15, carteiraTitulo, btnComprarAtivos, btnVenderAtivos, btnRentabilidade, btnProjecoes, btnSimulacao, btnVoltar);
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-background-color: #F3F4F6; -fx-padding: 20px; -fx-border-radius: 10px;");
 

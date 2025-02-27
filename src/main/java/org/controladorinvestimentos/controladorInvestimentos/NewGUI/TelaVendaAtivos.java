@@ -58,7 +58,15 @@ public class TelaVendaAtivos extends Application {
         }
 
         Button btnVoltar = new Button("Voltar");
-        btnVoltar.setOnAction(e -> primaryStage.close());
+        btnVoltar.setOnAction(e -> {
+            TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu();
+            telaCarteiraMenu.setCarteira(carteira);
+            try {
+                telaCarteiraMenu.start(primaryStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
         grid.add(btnVoltar, 0, ativos.size() + 3);
 
         Scene scene = new Scene(grid, 600, 350);
