@@ -1,12 +1,10 @@
 package org.controladorinvestimentos.controladorInvestimentos.NewGUI;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -14,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
+
 import java.io.IOException;
 
 public class AdicionarAtivo extends Application {
@@ -46,30 +45,56 @@ public class AdicionarAtivo extends Application {
         addButton.setOnAction(e -> {
             String nomeAtivo = searchField.getText().trim();
             if (nomeAtivo.isEmpty()) {
-                showAlert("Campo vazio", "Nenhum ativo inserido", "Por favor, digite o nome de um ativo antes de adicionar.");
+                showAlert("Campo vazio", "Nenhum ativo inserido", "Digite o nome de um ativo antes de adicionar.");
                 return;
             }
+
             try {
+                // Verifica se o ativo já existe no repositório
+                try {
+                    repositorioAtivos.buscarAtivo(nomeAtivo);
+                    showAlert("Erro", "Ativo duplicado", "Este ativo já está cadastrado no sistema.");
+                    return;
+                } catch (Exception ignored) {
+                    // Se lançar exceção, significa que o ativo não existe e pode ser adicionado.
+                }
+
                 double preco = APIrequest.buscarPrecoAtivoEmTempoReal(nomeAtivo);
+
+                if (preco <= 0) {
+                    showAlert("Erro", "Preço inválido", "O preço do ativo não pode ser zero ou negativo.");
+                    return;
+                }
+
                 repositorioAtivos.adicionarAtivo(nomeAtivo, preco);
-                showAlert("Sucesso", "Ativo adicionado!", "O ativo foi adicionado com sucesso ao repositório.");
+                showAlert("Sucesso", "Ativo adicionado!", "O ativo foi adicionado com sucesso.");
             } catch (IOException ex) {
-                showAlert("Erro", "Ativo inválido", "O ativo inserido não é válido ou não foi encontrado. Tente novamente.");
+                showAlert("Erro", "Erro na API", "Falha ao obter informações do ativo. Verifique se o nome está correto.");
+            } catch (Exception ex) {
+                showAlert("Erro", "Erro inesperado", "Houve um erro ao adicionar o ativo. Verifique sua conexão.");
             }
         });
 
         // Botão Voltar
-        Button voltarButton = new Button("Voltar");
-        voltarButton.setFont(new Font("Arial", 18));
-        voltarButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 15 30;");
-        voltarButton.setOnAction(e -> primaryStage.close());
+        Button backButton = new Button("Voltar");
+        backButton.setFont(new Font("Arial", 18));
+        backButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 15 30;");
 
-        HBox buttonBox = new HBox(20, addButton, voltarButton);
+        backButton.setOnAction(e -> {
+            try {
+                new TelaInicial().start(primaryStage); // Reutiliza a mesma janela
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showAlert("Erro", "Erro ao voltar", "Não foi possível voltar para a tela inicial.");
+            }
+        });
+
+        // Layout para os botões
+        HBox buttonBox = new HBox(20, addButton, backButton);
         buttonBox.setAlignment(Pos.CENTER);
 
         layoutPrincipal.getChildren().addAll(title, searchField, buttonBox);
         root.setCenter(layoutPrincipal);
-
 
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);

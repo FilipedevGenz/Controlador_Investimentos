@@ -49,10 +49,15 @@ public class Login extends Application {
         registerButton.setFont(new Font("Arial", 18));
         registerButton.setStyle("-fx-background-color: #007BFF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 20;");
 
+        // Botão Voltar
+        Button backButton = new Button("Voltar");
+        backButton.setFont(new Font("Arial", 18));
+        backButton.setStyle("-fx-background-color: #FF5733; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 20;");
+
         // Layout para os botões
         HBox buttonBox = new HBox(20);
         buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.getChildren().addAll(loginButton, registerButton);
+        buttonBox.getChildren().addAll(loginButton, registerButton, backButton);
 
         // Ação do botão de login
         loginButton.setOnAction(e -> {
@@ -85,9 +90,28 @@ public class Login extends Application {
 
         // Ação do botão de registro
         registerButton.setOnAction(e -> {
-            TelaRegister telaRegister = new TelaRegister();
-            Stage registerStage = new Stage();
-            telaRegister.start(registerStage);
+            try {
+                TelaRegister telaRegister = new TelaRegister();
+                Stage registerStage = new Stage();
+                telaRegister.start(registerStage);
+                primaryStage.close(); // Fecha a tela de login ao abrir a de registro
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                mostrarAlerta("Erro", "Não foi possível abrir a tela de registro.");
+            }
+        });
+
+        // Ação do botão Voltar
+        backButton.setOnAction(e -> {
+            try {
+                TelaInicial telaInicial = new TelaInicial();
+                Stage telaInicialStage = new Stage();
+                telaInicial.start(telaInicialStage);
+                primaryStage.close(); // Fecha a tela de login
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                mostrarAlerta("Erro", "Não foi possível voltar para a tela inicial.");
+            }
         });
 
         // Adicionando os elementos ao layout

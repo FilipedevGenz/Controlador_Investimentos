@@ -37,9 +37,9 @@ public class RepositorioAtivos implements IrepositorioAtivos {
         //CRUD de ativos
 
         @Override
-        public void adicionarAtivo(String code, double preco, int periodoAssociado) throws IOException {
+        public void adicionarAtivo(String code, double preco) throws IOException {
             String name = APIrequest.buscarNomeAtivo(code);
-            Ativo newAtv = new Ativo(name, preco, periodoAssociado);
+            Ativo newAtv = new Ativo(name, preco);
 
             ATIVOS.add(newAtv);
         }
@@ -47,11 +47,6 @@ public class RepositorioAtivos implements IrepositorioAtivos {
         public void removerAtivo(Ativo ativo){
             ATIVOS.remove(ativo);
         }
-
-    @Override
-    public void adicionarAtivo(String code, double preco) throws IOException {
-
-    }
 
 
     //Busca dentro do arrayList o ativo desejado. Essa operação garante que busquemos o ativo dentro do repositorio
@@ -63,12 +58,6 @@ public class RepositorioAtivos implements IrepositorioAtivos {
             }
             throw new Exist("ativo nao encontrado");
         }
-
-        // Não entendi esse override
-    @Override
-    public void adicionarAtivo(String nome) throws IOException {
-
-    }
 
 
     public ArrayList<Ativo> getAtivos() {

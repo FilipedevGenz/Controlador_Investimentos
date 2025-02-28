@@ -10,21 +10,11 @@ import java.util.ArrayList;
 
 public class RepositorioCarteira implements IrepositorioCarteira {
 
-    private static RepositorioCarteira instance;
     private final Map<Integer, Carteira> carteiras = new HashMap<>();
 
-    private RepositorioCarteira() {}
-
-    // Carteira é uma classe "dependente". O singleton aqui armazena as carteiras presentes no sistema
-    public static synchronized RepositorioCarteira getInstance() {
-        if (instance == null) {
-            instance = new RepositorioCarteira();
-        }
-        return instance;
-    }
+    // Removido o Singleton: Agora cada instância do repositório será associada a um usuário específico.
 
     // CRUD de carteiras
-
     @Override
     public void adicionarCarteira(Carteira carteira) {
         carteiras.put(Integer.valueOf(carteira.getIDcarteira()), carteira);
@@ -51,4 +41,3 @@ public class RepositorioCarteira implements IrepositorioCarteira {
         return new ArrayList<>(carteiras.values());
     }
 }
-

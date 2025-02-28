@@ -17,6 +17,7 @@ import java.util.List;
 public class TelaVendaAtivos extends Application {
     private Usuario usuarioLogado;
     private Carteira carteira;
+    private GridPane grid;
 
     public TelaVendaAtivos(Usuario usuarioLogado, Carteira carteira) {
         this.usuarioLogado = usuarioLogado;
@@ -27,7 +28,7 @@ public class TelaVendaAtivos extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle(carteira.getNomeCarteira());
 
-        GridPane grid = new GridPane();
+        grid = new GridPane();
         grid.setPadding(new Insets(20));
         grid.setHgap(10);
         grid.setVgap(10);
@@ -42,7 +43,7 @@ public class TelaVendaAtivos extends Application {
         grid.add(new Label("Quantidade"), 1, 1);
         grid.add(new Label("Ação"), 0, 1);
 
-        List<Relatorio> ativos = carteira.repositorioRelatorio.getRelatorios();
+        List<Relatorio> ativos = carteira.getRepositorioRelatorio().getRelatorios();
         for (int i = 0; i < ativos.size(); i++) {
             Relatorio ativo = ativos.get(i);
             Button btnVender = new Button("Vender");
@@ -57,15 +58,16 @@ public class TelaVendaAtivos extends Application {
             double precoCompra = HistoricoDosAtivos.obterPrecoDeCompra(ativo.getCodigo(), LocalDate.now().minusMonths(6));
             grid.add(new Label("R$ " + String.format("%.2f", precoCompra)), 3, i + 2);
             grid.add(new Label("R$ " + String.format("%.2f", ativo.getValorCompra())), 2, i + 2);
-            grid.add(new Label(ativo.getNomeAtivo()), 4, i + 2);
+            grid.add(new Label(ativo.getCodigo()), 4, i + 2);
         }
 
         Button btnVoltar = new Button("Voltar");
         btnVoltar.setOnAction(e -> {
-            TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu(usuarioLogado,carteira);
-            telaCarteiraMenu.setCarteira(carteira);
             try {
-                telaCarteiraMenu.start(primaryStage);
+                Stage novaStage = new Stage();
+                TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu(usuarioLogado, carteira);
+                telaCarteiraMenu.start(novaStage);
+                primaryStage.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -79,8 +81,18 @@ public class TelaVendaAtivos extends Application {
 
     private void venderAtivo(Relatorio ativo, int index) {
         try {
-            carteira.removerAtivo(ativo.getCodigo(), ativo.getQuantidade());
+            TextField txtQuantidade = (TextField) grid.getChildren().get(index * 6 + 1);
+            int quantidadeVenda = Integer.parseInt(txtQuantidade.getText());
+
+            if (quantidadeVenda <= 0 || quantidadeVenda > ativo.getQuantidade()) {
+                mostrarAlerta("Erro", "Quantidade inválida para venda.");
+                return;
+            }
+
+            carteira.removerAtivo(ativo.getCodigo(), quantidadeVenda);
             mostrarAlerta("Sucesso", "Ativo vendido com sucesso!");
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Erro", "Digite um número válido.");
         } catch (Exception e) {
             mostrarAlerta("Erro", "Falha ao vender ativo.");
         }

@@ -83,8 +83,8 @@ public class TelaMenuInicial extends Application {
     }
 
     private double calcularRentabilidadeCarteiras() {
-        ControladorCarteira controladorCarteira = ControladorCarteira.getInstance();
-        List<Carteira> carteiras = controladorCarteira.getCarteiras();
+        ControladorCarteira controladorCarteira = new ControladorCarteira();
+        List<Carteira> carteiras = controladorCarteira.getCarteiras(usuarioLogado);
         double rentabilidadeTotal = 0.0;
 
         for (Carteira carteira : carteiras) {
@@ -113,8 +113,8 @@ public class TelaMenuInicial extends Application {
         xAxis.setLabel("Data");
         yAxis.setLabel("Variação (%)");
 
-        ControladorCarteira controladorCarteira = ControladorCarteira.getInstance();
-        List<Carteira> carteiras = controladorCarteira.getCarteiras();
+        ControladorCarteira controladorCarteira = new ControladorCarteira();
+        List<Carteira> carteiras = controladorCarteira.getCarteiras(usuarioLogado);
 
         XYChart.Series<String, Number> seriesRentabilidade = new XYChart.Series<>();
         seriesRentabilidade.setName("Rentabilidade");

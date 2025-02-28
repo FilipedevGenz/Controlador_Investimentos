@@ -1,4 +1,6 @@
+
 package org.controladorinvestimentos.controladorInvestimentos.beans;
+
 
 import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
@@ -12,13 +14,13 @@ public class Simulador {
 
     //passar o codigo do ativo como parametro
     public static Double simularVariacao(Carteira carteira,String ativo) throws IOException {
-        Double valorMedioCompra = carteira.repositorioRelatorio.retornaValorMedioDeCompra(ativo);
+        Double valorMedioCompra = carteira.getRepositorioRelatorio().retornaValorMedioDeCompra(ativo);
         Double valorAtual = APIrequest.buscarPrecoAtivoEmTempoReal(ativo);
         return valorMedioCompra - valorAtual;
     }
 
     public static Double influenciaNaCarteira(Carteira carteira, String ativo) throws IOException {
-        Double quantidade = carteira.repositorioRelatorio.getQuantidadeAtivo(ativo);
+        Double quantidade = carteira.getRepositorioRelatorio().getQuantidadeAtivo(ativo);
 
         if (quantidade == 0) {
             return 0.0;
@@ -44,7 +46,7 @@ public class Simulador {
     public static Double atualizarValorCarteira(Carteira carteira) throws IOException {
 
         // Agrupa os relatórios pelo código do ativo e soma as quantidades de cada grupo
-        Map<String, Double> totalPorAtivo = carteira.repositorioRelatorio.getRelatorios().stream()
+        Map<String, Double> totalPorAtivo = carteira.getRepositorioRelatorio().getRelatorios().stream()
                 .collect(Collectors.groupingBy(Relatorio::getCodigo, Collectors.summingDouble(Relatorio::getQuantidade)));
 
         Double valorAtualizado = 0.0;

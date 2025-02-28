@@ -53,7 +53,6 @@ public class TelaRegister extends Application {
                 String email = txtEmail.getText().trim();
                 String senha = txtSenha.getText().trim();
 
-                // Chama o método de cadastro
                 controladorUsuario.cadastrarNovoUsuario(cpf, nome, email, senha);
 
                 mostrarAlerta("Sucesso", "Usuário registrado com sucesso!");
@@ -103,7 +102,6 @@ public class TelaRegister extends Application {
         primaryStage.show();
     }
 
-    // Método para exibir alertas
     private void mostrarAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);

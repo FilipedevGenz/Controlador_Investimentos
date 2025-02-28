@@ -33,10 +33,11 @@ public class TelaCarteiraMenu extends Application {
 
         // Botões de navegação
         Button btnComprarAtivos = new Button("Comprar Ativos");
+
         btnComprarAtivos.setOnAction(e -> {
-            TelaCompraAtivos telaCompraAtivos = new TelaCompraAtivos(carteira);
             try {
-                telaCompraAtivos.start(primaryStage);
+                TelaCompraAtivos telaCompraAtivos = new TelaCompraAtivos(usuarioLogado, carteira);
+                telaCompraAtivos.start(new Stage());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -72,15 +73,6 @@ public class TelaCarteiraMenu extends Application {
             }
         });
 
-        Button btnProjecoes = new Button("Projeções");
-        btnProjecoes.setOnAction(e -> {
-            TelaProjecoes telaProjecoes = new TelaProjecoes();
-            try {
-                // telaProjecoes.start(primaryStage);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
 
         Button btnCalcularValorCarteira = new Button("Calcular Valor da Carteira");
         btnCalcularValorCarteira.setOnAction(e -> {
@@ -105,7 +97,7 @@ public class TelaCarteiraMenu extends Application {
         });
 
         // Layout
-        VBox layout = new VBox(15, carteiraTitulo, btnComprarAtivos, btnVenderAtivos, btnRentabilidade, btnProjecoes, btnSimulacao, btnCalcularValorCarteira, btnVoltar);
+        VBox layout = new VBox(15, carteiraTitulo, btnComprarAtivos, btnVenderAtivos, btnRentabilidade, btnSimulacao, btnCalcularValorCarteira, btnVoltar);
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-background-color: #F3F4F6; -fx-padding: 20px; -fx-border-radius: 10px;");
 

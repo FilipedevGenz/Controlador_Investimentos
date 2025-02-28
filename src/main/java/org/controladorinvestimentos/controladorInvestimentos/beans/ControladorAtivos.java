@@ -11,12 +11,11 @@ public class ControladorAtivos {
 
     private static IrepositorioAtivos repositorioAtivos;
 
-    // ao criar o ativo aqui, ele é adicionado no repositório !!
     public static void criarAtivo(String nome) throws IOException {
         repositorioAtivos = RepositorioAtivos.getInstance();
 
         if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("O nome do ativo não pode ser vazio.");
+            throw new IllegalArgumentException("O code do ativo não pode ser vazio.");
         }
 
         try {
@@ -30,7 +29,9 @@ public class ControladorAtivos {
             System.out.println("Buscando preço do ativo: " + nome);
             double valorAtualAtivo = APIrequest.buscarPrecoAtivoEmTempoReal(nome);
             System.out.println("Valor atual do ativo: " + valorAtualAtivo);
-            repositorioAtivos.adicionarAtivo(nome);
+
+            // Agora chamamos o método correto para adicionar o ativo
+            repositorioAtivos.adicionarAtivo(nome, valorAtualAtivo);
         }
     }
 

@@ -54,12 +54,12 @@ public class TelaCarteiras extends Application {
     }
 
     private void carregarCarteiras() {
-        ControladorCarteira controladorCarteira = ControladorCarteira.getInstance();
-        List<Carteira> listaCarteiras = controladorCarteira.getCarteiras();
+        ControladorCarteira controladorCarteira = new ControladorCarteira();
+        List<Carteira> listaCarteiras = controladorCarteira.getCarteiras(usuarioLogado);
 
         if (listaCarteiras.isEmpty()) {
-            controladorCarteira.novaCarteira("001", "Carteira Padrão", 5);
-            listaCarteiras = controladorCarteira.getCarteiras();
+            controladorCarteira.novaCarteira(usuarioLogado, "001", "Carteira Padrão", 5);
+            listaCarteiras = controladorCarteira.getCarteiras(usuarioLogado);
         }
 
         for (Carteira carteira : listaCarteiras) {
@@ -78,9 +78,9 @@ public class TelaCarteiras extends Application {
 
         dialog.showAndWait().ifPresent(nomeCarteira -> {
             if (!nomeCarteira.trim().isEmpty()) {
-                ControladorCarteira controladorCarteira = ControladorCarteira.getInstance();
+                ControladorCarteira controladorCarteira = new ControladorCarteira();
                 String novaID = String.valueOf(System.currentTimeMillis() % 100000);
-                controladorCarteira.novaCarteira(novaID, nomeCarteira, 5);
+                controladorCarteira.novaCarteira(usuarioLogado, novaID, nomeCarteira, 5);
 
                 vbox.getChildren().clear();
                 start(primaryStage);
