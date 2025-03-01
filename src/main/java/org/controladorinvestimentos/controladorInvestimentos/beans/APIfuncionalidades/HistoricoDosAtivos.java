@@ -31,7 +31,7 @@ public class HistoricoDosAtivos {
             return 0.0;
         }
 
-        // Obtendo os preços dos últimos 6 meses
+        // Obtendo os preços dos últimos 3 meses
         List<Double> precos = historico.stream()
                 .map(HistoricoAtivo::getPreco)
                 .sorted()
@@ -125,7 +125,6 @@ public class HistoricoDosAtivos {
 
             JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
 
-            // Verificar se "results" contém dados
             if (!jsonObject.has("results")) {
                 System.err.println("Erro: campo 'results' não encontrado na resposta da API.");
                 return historicoFiltrado;
@@ -137,7 +136,6 @@ public class HistoricoDosAtivos {
                 return historicoFiltrado;
             }
 
-            // Pegar o primeiro objeto (correspondente ao ativo consultado)
             JsonObject ativoData = results.get(0).getAsJsonObject();
 
             // Verificar se "historicalDataPrice" está presente
@@ -155,13 +153,11 @@ public class HistoricoDosAtivos {
                     continue; // Pular entradas inválidas
                 }
 
-                // Convertendo timestamp UNIX (segundos) para LocalDate
                 long timestamp = item.get("date").getAsLong();
                 LocalDate data = LocalDate.ofEpochDay(timestamp / 86400);
 
                 double preco = item.get("close").getAsDouble();
 
-                // Apenas adicionar os dados que são posteriores à dataCompra
                 if (!data.isBefore(dataCompra)) {
                     historicoFiltrado.add(new HistoricoAtivo(data, preco, (int) ChronoUnit.MONTHS.between(dataCompra, data)));
                 }

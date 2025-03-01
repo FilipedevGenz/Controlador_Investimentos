@@ -24,7 +24,7 @@ public class CalcularRentabilidade {
             List<Relatorio> ativos = carteira.getRepositorioRelatorio().getRelatorios();
 
             if (ativos.isEmpty()) {
-                continue; // Ignora carteiras vazias
+                continue;
             }
 
             double rentabilidadeCarteira = 0.0;
@@ -37,10 +37,9 @@ public class CalcularRentabilidade {
             }
 
             rentabilidadeTotal += rentabilidadeCarteira;
-            carteirasComAtivos++; // Contabiliza apenas carteiras que possuem ativos
+            carteirasComAtivos++;
         }
 
-        // Criando o mapa de retorno
         Map<String, Double> resultado = new HashMap<>();
         resultado.put("rentabilidadeTotal", rentabilidadeTotal);
         resultado.put("carteirasComAtivos", carteirasComAtivos);
