@@ -12,9 +12,6 @@ public class RepositorioCarteira implements IrepositorioCarteira {
 
     private final Map<Integer, Carteira> carteiras = new HashMap<>();
 
-    // Removido o Singleton: Agora cada instância do repositório será associada a um usuário específico.
-
-    // CRUD de carteiras
     @Override
     public void adicionarCarteira(Carteira carteira) {
         carteiras.put(Integer.valueOf(carteira.getIDcarteira()), carteira);

@@ -21,6 +21,7 @@ public class TelaCarteiraMenu extends Application {
         this.carteira = carteira;
 
     }
+
     public void setCarteira(Carteira carteira) {
         this.carteira = carteira;
     }
@@ -31,11 +32,22 @@ public class TelaCarteiraMenu extends Application {
         Text carteiraTitulo = new Text(carteira.getNomeCarteira());
         carteiraTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
+        try {
+            double valorCarteira = Simulador.atualizarValorCarteira(carteira);
+            carteiraTitulo.setText("Valor da Carteira: R$ " + String.format("%.2f", valorCarteira));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            carteiraTitulo.setText("Erro ao calcular o valor da carteira.");
+        }
+
+
+
         // Botões de navegação
         Button btnComprarAtivos = new Button("Comprar Ativos");
 
         btnComprarAtivos.setOnAction(e -> {
             try {
+                primaryStage.close();
                 TelaCompraAtivos telaCompraAtivos = new TelaCompraAtivos(usuarioLogado, carteira);
                 telaCompraAtivos.start(new Stage());
             } catch (Exception ex) {
@@ -45,18 +57,21 @@ public class TelaCarteiraMenu extends Application {
 
         Button btnVenderAtivos = new Button("Vender Ativos");
         btnVenderAtivos.setOnAction(e -> {
-            TelaVendaAtivos telaVendaAtivos = new TelaVendaAtivos(usuarioLogado, carteira);
             try {
+                primaryStage.close();
+                TelaVendaAtivos telaVendaAtivos = new TelaVendaAtivos(usuarioLogado, carteira);
                 telaVendaAtivos.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
 
-        Button btnSimulacao = new Button("Simulação");
+        Button btnSimulacao = new Button("Projeção");
         btnSimulacao.setOnAction(e -> {
-            ProjecaoInvestimentos telaSimuladorInvestimento = new  ProjecaoInvestimentos(usuarioLogado,carteira);
             try {
+                primaryStage.close();
+                //trocar
+                ProjecaoInvestimentosCarteira telaSimuladorInvestimento = new ProjecaoInvestimentosCarteira(usuarioLogado,carteira);
                 telaSimuladorInvestimento.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -65,25 +80,16 @@ public class TelaCarteiraMenu extends Application {
 
         Button btnRentabilidade = new Button("Rentabilidade ou Acompanhamento");
         btnRentabilidade.setOnAction(e -> {
-            TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart(usuarioLogado,carteira);
+
             try {
+                primaryStage.close();
+                TelaAcompanharRentCart telaRentabilidade = new TelaAcompanharRentCart(usuarioLogado,carteira);
                 telaRentabilidade.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
 
-
-        Button btnCalcularValorCarteira = new Button("Calcular Valor da Carteira");
-        btnCalcularValorCarteira.setOnAction(e -> {
-            try {
-                double valorCarteira = Simulador.atualizarValorCarteira(carteira);
-                carteiraTitulo.setText("Valor da Carteira: R$ " + String.format("%.2f", valorCarteira));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                carteiraTitulo.setText("Erro ao calcular o valor da carteira.");
-            }
-        });
 
         // Botão de Voltar para TelaCarteiras
         Button btnVoltar = new Button("Voltar");
@@ -97,7 +103,7 @@ public class TelaCarteiraMenu extends Application {
         });
 
         // Layout
-        VBox layout = new VBox(15, carteiraTitulo, btnComprarAtivos, btnVenderAtivos, btnRentabilidade, btnSimulacao, btnCalcularValorCarteira, btnVoltar);
+        VBox layout = new VBox(15, carteiraTitulo, btnComprarAtivos, btnVenderAtivos, btnRentabilidade, btnSimulacao, btnVoltar);
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-background-color: #F3F4F6; -fx-padding: 20px; -fx-border-radius: 10px;");
 

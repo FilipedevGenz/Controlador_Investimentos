@@ -20,14 +20,18 @@ public class APIrequest {
     // Preço mínimo do dia (regularMarketDayLow)
     // Volume negociado (regularMarketVolume)
     static JsonObject getAtivoData(String simbolo) throws IOException {
+
+        simbolo = simbolo.trim().toUpperCase();
         String url = BASE_URL + simbolo + "?token=" + API_KEY;
+        System.out.println("URL gerada para a API: " + url);
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
 
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Erro na requisição: " + response.code());
+                System.out.println("Erro ao buscar ativo (" + simbolo + "): " + response.code() + " - " + response.message());
+                return null; // Retorna null ao invés de lançar exceção
             }
 
             String jsonResponse = response.body().string();
@@ -40,6 +44,7 @@ public class APIrequest {
         JsonObject results = getAtivoData(simbolo);
         return results.get("regularMarketPrice").getAsDouble();
     }
+
 
     public static String buscarNomeAtivo(String simbolo) throws IOException {
         JsonObject results = getAtivoData(simbolo);

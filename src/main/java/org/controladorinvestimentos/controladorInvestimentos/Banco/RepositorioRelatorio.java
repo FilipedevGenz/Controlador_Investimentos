@@ -82,8 +82,38 @@ public class RepositorioRelatorio implements IrepositorioRelatorio {
         return rentabilidade.doubleValue();
     }
 
-
-    public void removerRelatorio(Relatorio relatorio){
-        relatorios.remove(relatorio);
+    public Relatorio buscarRelatorio(String codigo) {
+        for (Relatorio rel : relatorios) {
+            if (rel.getCodigo().equalsIgnoreCase(codigo)) {
+                return rel;
+            }
+        }
+        return null; // Retorna null se o ativo não for encontrado
     }
+
+
+    public void removerRelatorio(String codigo, double quantidade) {
+        Relatorio relatorioParaAtualizar = buscarRelatorio(codigo);
+
+        if (relatorioParaAtualizar == null) {
+            return;
+        }
+
+        if (relatorioParaAtualizar.getQuantidade() > quantidade) {
+            try {
+                double novaQuantidade = relatorioParaAtualizar.getQuantidade() - quantidade;
+                Relatorio novoRelatorio = new Relatorio(relatorioParaAtualizar.getCodigo(), novaQuantidade);
+                relatorios.remove(relatorioParaAtualizar);
+                relatorios.add(novoRelatorio);
+                System.out.println("Quantidade do ativo " + codigo + " reduzida para " + novaQuantidade);
+            } catch (IOException e) {
+                System.out.println("Erro ao criar novo relatório: " + e.getMessage());
+            }
+        } else {
+            // Remove completamente se a quantidade for igual à vendida
+            relatorios.remove(relatorioParaAtualizar);
+            System.out.println("Ativo " + codigo + " removido da carteira.");
+        }
+    }
+
 }

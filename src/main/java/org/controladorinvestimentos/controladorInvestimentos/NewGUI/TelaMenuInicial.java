@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -21,7 +20,6 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.ControladorCa
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public class TelaMenuInicial extends Application {
 
@@ -47,14 +45,16 @@ public class TelaMenuInicial extends Application {
         Button btnCarteira = criarBotaoMenu("Carteira");
         Button btnRelatorio = criarBotaoMenu("Relatório");
 
+        btnProjecoes.setOnAction(e -> abrirTela(new ProjecaoInvestimentosGeral(usuarioLogado, null), primaryStage));
+        btnCarteira.setOnAction(e -> abrirTela(new TelaCarteiras(usuarioLogado), primaryStage));
+
         menu.getChildren().addAll(title, btnProjecoes, btnCarteira, btnRelatorio);
 
         Label lblTitulo = new Label("BEM VINDO, " + usuarioLogado.getNome().toUpperCase());
         lblTitulo.setStyle("-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333;");
 
         double rentabilidadeCarteira = calcularRentabilidadeCarteiras();
-
-        Label lblRentabilidade = new Label("Rentabilidade da Carteira: " + String.format("%.1f", rentabilidadeCarteira) + "%");
+        Label lblRentabilidade = new Label("Rentabilidade das Carteiras: " + String.format("%.1f", rentabilidadeCarteira) + "%");
         lblRentabilidade.setStyle("-fx-font-size: 14px; -fx-text-fill: " + (rentabilidadeCarteira >= 0 ? "#28a745;" : "#ff4d4d;"));
 
         HBox header = new HBox(lblTitulo, lblRentabilidade);
@@ -70,11 +70,22 @@ public class TelaMenuInicial extends Application {
         VBox content = new VBox(10, header, lblResultado, barChart);
         content.setPadding(new Insets(15));
 
-        btnCarteira.setOnAction(e -> abrirTela(new TelaCarteiras(usuarioLogado), primaryStage));
+        Button btnVoltar = new Button("Voltar");
+        btnVoltar.setStyle("-fx-background-color: lightblue;");
+        btnVoltar.setOnAction(e -> {
+            TelaInicial TelaInicial = new TelaInicial();
+            Stage stage = (Stage) btnVoltar.getScene().getWindow();
+            TelaInicial.start(stage);
+        });
+
+        HBox footer = new HBox(btnVoltar);
+        footer.setAlignment(Pos.CENTER);
+        footer.setPadding(new Insets(10));
 
         BorderPane root = new BorderPane();
         root.setLeft(menu);
         root.setCenter(content);
+        root.setBottom(footer);
         root.setBackground(new Background(new BackgroundFill(Color.web("#ffffff"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         Scene scene = new Scene(root, 1100, 650);
@@ -86,21 +97,23 @@ public class TelaMenuInicial extends Application {
         ControladorCarteira controladorCarteira = new ControladorCarteira();
         List<Carteira> carteiras = controladorCarteira.getCarteiras(usuarioLogado);
         double rentabilidadeTotal = 0.0;
+        int carteirasComAtivos = 0;
 
         for (Carteira carteira : carteiras) {
             List<Relatorio> ativos = carteira.getRepositorioRelatorio().getRelatorios();
-            double rentabilidadeCarteira = 0.0;
+            if (ativos.isEmpty()) continue;
 
+            double rentabilidadeCarteira = 0.0;
             for (Relatorio ativo : ativos) {
-                String nomeAtivo = ativo.getCodigo();
-                LocalDate dataInicio = LocalDate.now().minusMonths(3); // Últimos 3 meses
-                rentabilidadeCarteira += HistoricoDosAtivos.calcularTaxaDeVariacao(nomeAtivo, dataInicio);
+                LocalDate dataInicio = LocalDate.now().minusMonths(3);
+                double variacao = HistoricoDosAtivos.calcularTaxaDeVariacao(ativo.getCodigo(), dataInicio);
+                rentabilidadeTotal += variacao;
             }
 
             rentabilidadeTotal += rentabilidadeCarteira;
+            carteirasComAtivos++;
         }
-
-        return rentabilidadeTotal / (carteiras.isEmpty() ? 1 : carteiras.size());
+        return carteirasComAtivos == 0 ? 0.0 : rentabilidadeTotal / carteirasComAtivos;
     }
 
     private StackedBarChart<String, Number> criarGraficoRentabilidade() {
@@ -109,54 +122,15 @@ public class TelaMenuInicial extends Application {
         StackedBarChart<String, Number> barChart = new StackedBarChart<>(xAxis, yAxis);
         barChart.setMinHeight(350);
         barChart.setStyle("-fx-background-color: #ffffff; -fx-padding: 15px; -fx-border-radius: 10px; -fx-border-color: #ddd;");
-
         xAxis.setLabel("Data");
         yAxis.setLabel("Variação (%)");
-
-        ControladorCarteira controladorCarteira = new ControladorCarteira();
-        List<Carteira> carteiras = controladorCarteira.getCarteiras(usuarioLogado);
-
-        XYChart.Series<String, Number> seriesRentabilidade = new XYChart.Series<>();
-        seriesRentabilidade.setName("Rentabilidade");
-
-        LocalDate dataInicio = LocalDate.now().minusMonths(3);
-        LocalDate dataAtual = LocalDate.now();
-
-        while (!dataInicio.isAfter(dataAtual)) {
-            double rentabilidadeTotal = 0.0;
-            int countAtivos = 0;
-
-            for (Carteira carteira : carteiras) {
-                List<Relatorio> ativos = carteira.getRepositorioRelatorio().getRelatorios();
-                for (Relatorio ativo : ativos) {
-                    String nomeAtivo = ativo.getCodigo();
-                    double variacao = HistoricoDosAtivos.calcularTaxaDeVariacao(nomeAtivo, dataInicio);
-                    rentabilidadeTotal += variacao;
-                    countAtivos++;
-                }
-            }
-
-            double rentabilidadeMedia = (countAtivos == 0) ? 0 : rentabilidadeTotal / countAtivos;
-            seriesRentabilidade.getData().add(new XYChart.Data<>(dataInicio.toString(), rentabilidadeMedia));
-
-            dataInicio = dataInicio.plusWeeks(1); // Incremento semanal
-        }
-
-        barChart.getData().add(seriesRentabilidade);
         return barChart;
     }
 
     private Button criarBotaoMenu(String texto) {
         Button botao = new Button(texto);
         botao.setPrefWidth(180);
-        botao.setStyle(
-                "-fx-font-size: 16px; " +
-                        "-fx-background-color: #ffffff; " +
-                        "-fx-border-color: #ccc; " +
-                        "-fx-border-radius: 8px; " +
-                        "-fx-padding: 10px; " +
-                        "-fx-cursor: hand;"
-        );
+        botao.setStyle("-fx-font-size: 16px; -fx-background-color: #ffffff; -fx-border-color: #ccc; -fx-border-radius: 8px; -fx-padding: 10px; -fx-cursor: hand;");
         return botao;
     }
 

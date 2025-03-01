@@ -38,9 +38,8 @@ public class RepositorioAtivos implements IrepositorioAtivos {
 
         @Override
         public void adicionarAtivo(String code, double preco) throws IOException {
-            String name = APIrequest.buscarNomeAtivo(code);
-            Ativo newAtv = new Ativo(name, preco);
-
+            String formattedCode = code.trim().replaceAll("\\s+", "").toUpperCase();
+            Ativo newAtv = new Ativo(formattedCode, preco);
             ATIVOS.add(newAtv);
         }
 
@@ -51,8 +50,10 @@ public class RepositorioAtivos implements IrepositorioAtivos {
 
     //Busca dentro do arrayList o ativo desejado. Essa operação garante que busquemos o ativo dentro do repositorio
         public Ativo buscarAtivo(String nome) throws Exist {
+
+            String formattedName = nome.trim().replaceAll("\\s+", "").toUpperCase();
             for(Ativo u : ATIVOS){
-                if(u.getNome().equals(nome)){
+                if(u.getNome().equals(formattedName)){
                     return u;
                 }
             }

@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-@AllArgsConstructor
 public class Ativo {
 
     @NonNull public String nome;
     @NonNull public double preco;
 
-
+    public Ativo(String nome, double preco) {
+        this.nome = nome.trim().toUpperCase();
+        this.preco = preco;
+    }
 }
 

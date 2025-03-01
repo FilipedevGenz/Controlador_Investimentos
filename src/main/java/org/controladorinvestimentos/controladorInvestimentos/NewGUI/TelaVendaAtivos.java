@@ -12,12 +12,15 @@ import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstr
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TelaVendaAtivos extends Application {
     private Usuario usuarioLogado;
     private Carteira carteira;
     private GridPane grid;
+    private Map<Relatorio, TextField> quantidadeInputs = new HashMap<>();
 
     public TelaVendaAtivos(Usuario usuarioLogado, Carteira carteira) {
         this.usuarioLogado = usuarioLogado;
@@ -26,7 +29,7 @@ public class TelaVendaAtivos extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle(carteira.getNomeCarteira());
+        primaryStage.setTitle("Venda de Ativos - " + carteira.getNomeCarteira());
 
         grid = new GridPane();
         grid.setPadding(new Insets(20));
@@ -44,34 +47,33 @@ public class TelaVendaAtivos extends Application {
         grid.add(new Label("Ação"), 0, 1);
 
         List<Relatorio> ativos = carteira.getRepositorioRelatorio().getRelatorios();
-        for (int i = 0; i < ativos.size(); i++) {
-            Relatorio ativo = ativos.get(i);
-            Button btnVender = new Button("Vender");
-            int index = i;
-            btnVender.setOnAction(e -> venderAtivo(ativo, index));
-            grid.add(btnVender, 0, i + 2);
 
-            TextField txtQuantidade = new TextField(String.valueOf((int) ativo.getQuantidade()));
-            txtQuantidade.setMaxWidth(50);
-            grid.add(txtQuantidade, 1, i + 2);
+        if (ativos.isEmpty()) {
+            Label lblAviso = new Label("Nenhum ativo disponível para venda.");
+            lblAviso.setStyle("-fx-font-size: 16px; -fx-text-fill: red;");
+            grid.add(lblAviso, 0, 2, 5, 1);
+        } else {
+            for (int i = 0; i < ativos.size(); i++) {
+                Relatorio ativo = ativos.get(i);
+                Button btnVender = new Button("Vender");
+                btnVender.setOnAction(e -> venderAtivo(ativo));
 
-            double precoCompra = HistoricoDosAtivos.obterPrecoDeCompra(ativo.getCodigo(), LocalDate.now().minusMonths(6));
-            grid.add(new Label("R$ " + String.format("%.2f", precoCompra)), 3, i + 2);
-            grid.add(new Label("R$ " + String.format("%.2f", ativo.getValorCompra())), 2, i + 2);
-            grid.add(new Label(ativo.getCodigo()), 4, i + 2);
+                TextField txtQuantidade = new TextField(String.valueOf((int) ativo.getQuantidade()));
+                txtQuantidade.setMaxWidth(50);
+                quantidadeInputs.put(ativo, txtQuantidade);
+
+                double precoCompra = HistoricoDosAtivos.obterPrecoDeCompra(ativo.getCodigo(), LocalDate.now().minusMonths(6));
+
+                grid.add(btnVender, 0, i + 2);
+                grid.add(txtQuantidade, 1, i + 2);
+                grid.add(new Label("R$ " + String.format("%.2f", ativo.getValorCompra())), 2, i + 2);
+                grid.add(new Label("R$ " + String.format("%.2f", precoCompra)), 3, i + 2);
+                grid.add(new Label(ativo.getCodigo()), 4, i + 2);
+            }
         }
 
         Button btnVoltar = new Button("Voltar");
-        btnVoltar.setOnAction(e -> {
-            try {
-                Stage novaStage = new Stage();
-                TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu(usuarioLogado, carteira);
-                telaCarteiraMenu.start(novaStage);
-                primaryStage.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
+        btnVoltar.setOnAction(e -> voltarParaMenu(primaryStage));
         grid.add(btnVoltar, 0, ativos.size() + 3);
 
         Scene scene = new Scene(grid, 600, 350);
@@ -79,22 +81,54 @@ public class TelaVendaAtivos extends Application {
         primaryStage.show();
     }
 
-    private void venderAtivo(Relatorio ativo, int index) {
+    private void venderAtivo(Relatorio ativo) {
         try {
-            TextField txtQuantidade = (TextField) grid.getChildren().get(index * 6 + 1);
-            int quantidadeVenda = Integer.parseInt(txtQuantidade.getText());
+            TextField txtQuantidade = quantidadeInputs.get(ativo);
+            if (txtQuantidade == null) {
+                mostrarAlerta("Erro", "Erro interno: Campo de quantidade não encontrado.");
+                return;
+            }
 
-            if (quantidadeVenda <= 0 || quantidadeVenda > ativo.getQuantidade()) {
-                mostrarAlerta("Erro", "Quantidade inválida para venda.");
+            String quantidadeTexto = txtQuantidade.getText().trim();
+            if (quantidadeTexto.isEmpty() || !quantidadeTexto.matches("\\d+")) {
+                mostrarAlerta("Erro", "Digite um número válido para a quantidade.");
+                return;
+            }
+
+            int quantidadeVenda = Integer.parseInt(quantidadeTexto);
+
+            if (quantidadeVenda <= 0) {
+                mostrarAlerta("Erro", "A quantidade de venda deve ser maior que zero.");
+                return;
+            }
+
+            if (quantidadeVenda > ativo.getQuantidade()) {
+                mostrarAlerta("Erro", "Quantidade inválida! Você não possui ativos suficientes.");
                 return;
             }
 
             carteira.removerAtivo(ativo.getCodigo(), quantidadeVenda);
             mostrarAlerta("Sucesso", "Ativo vendido com sucesso!");
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Erro", "Digite um número válido.");
+
+            // Atualiza a interface removendo o ativo se necessário
+            if (ativo.getQuantidade() == 0) {
+                grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == quantidadeInputs.size() + 2);
+                quantidadeInputs.remove(ativo);
+            }
+
         } catch (Exception e) {
             mostrarAlerta("Erro", "Falha ao vender ativo.");
+        }
+    }
+
+    private void voltarParaMenu(Stage primaryStage) {
+        try {
+            Stage novaStage = new Stage();
+            TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu(usuarioLogado, carteira);
+            telaCarteiraMenu.start(novaStage);
+            primaryStage.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

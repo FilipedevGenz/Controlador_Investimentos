@@ -11,11 +11,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioRelatorio;
+import org.controladorinvestimentos.controladorInvestimentos.beans.CalcularRentabilidade;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Map;
 
-public class ProjecaoInvestimentos extends Application {
+public class ProjecaoInvestimentosGeral extends Application {
     private TextField aporteField;
     private TextField mesesField;
     private Label rentabilidadeLabel;
@@ -24,9 +28,8 @@ public class ProjecaoInvestimentos extends Application {
     private Usuario usuarioLogado;
     private Carteira carteira;
 
-    public ProjecaoInvestimentos(Usuario usuario, Carteira carteira) {
+    public ProjecaoInvestimentosGeral(Usuario usuario, Carteira carteira) {
         this.usuarioLogado = usuario;
-        this.carteira = carteira;
     }
 
     @Override
@@ -58,10 +61,9 @@ public class ProjecaoInvestimentos extends Application {
         Button btnVoltar = new Button("Voltar");
         GridPane.setConstraints(btnVoltar, 1, 4);
         btnVoltar.setOnAction(e -> {
-            TelaCarteiraMenu telaCarteiraMenu = new TelaCarteiraMenu(usuarioLogado, carteira);
-            telaCarteiraMenu.setCarteira(carteira);
+            TelaMenuInicial TelaMenuInicial = new TelaMenuInicial(usuarioLogado);
             try {
-                telaCarteiraMenu.start(primaryStage);
+                TelaMenuInicial.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -73,7 +75,7 @@ public class ProjecaoInvestimentos extends Application {
         yAxis.setLabel("Valor Projetado");
 
         grafico = new LineChart<>(xAxis, yAxis);
-        grafico.setTitle("Projeção do Valor da Carteira");
+        grafico.setTitle("Projeção do Valor das Carteiras");
 
         grid.getChildren().addAll(aporteLabel, aporteField, mesesLabel, mesesField, calcularButton, rentabilidadeLabel, btnVoltar);
 
@@ -87,21 +89,33 @@ public class ProjecaoInvestimentos extends Application {
 
     private void calcularRentabilidade() {
         try {
-            double aporteMensal = Double.parseDouble(aporteField.getText());
+            BigDecimal aporteMensal = new BigDecimal(aporteField.getText());
             int meses = Integer.parseInt(mesesField.getText());
 
-            double rentabilidade = repositorioRelatorio.calcularRentabilidadeCarteira() / 100;
-            double valorProjetado = 0;
+            Map<String, Double> rentabilidadeDados = CalcularRentabilidade.calcularRentabilidadeCarteiras(usuarioLogado);
+            BigDecimal rentabilidadeTotal = BigDecimal.valueOf(rentabilidadeDados.get("rentabilidadeTotal"));
+            BigDecimal carteirasComAtivos = BigDecimal.valueOf(rentabilidadeDados.get("carteirasComAtivos"));
 
+            // Evita divisão por zero
+            BigDecimal rentabilidadeMedia = (carteirasComAtivos.compareTo(BigDecimal.ZERO) == 0)
+                    ? BigDecimal.ZERO
+                    : rentabilidadeTotal.divide(carteirasComAtivos, 8, RoundingMode.HALF_UP);
+
+            rentabilidadeMedia = rentabilidadeMedia.divide(BigDecimal.valueOf(100), 8, RoundingMode.HALF_UP);
+
+            BigDecimal valorProjetado = BigDecimal.ZERO;
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
             series.setName("Projeção da Carteira");
 
             for (int i = 1; i <= meses; i++) {
-                valorProjetado = (valorProjetado + aporteMensal) * (1 + rentabilidade);
+                valorProjetado = valorProjetado.add(aporteMensal)
+                        .multiply(BigDecimal.ONE.add(rentabilidadeMedia))
+                        .setScale(2, RoundingMode.HALF_UP);
+
                 series.getData().add(new XYChart.Data<>(i, valorProjetado));
             }
 
-            rentabilidadeLabel.setText("Valor Projetado: " + String.format("%.2f", valorProjetado));
+            rentabilidadeLabel.setText("Valor Projetado: R$ " + valorProjetado.toPlainString());
             grafico.getData().clear();
             grafico.getData().add(series);
         } catch (NumberFormatException ex) {

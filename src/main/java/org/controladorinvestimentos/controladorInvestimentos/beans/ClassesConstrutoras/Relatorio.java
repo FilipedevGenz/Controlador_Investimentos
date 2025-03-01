@@ -11,9 +11,11 @@ public class Relatorio {
     private static int contadorId = 0;
 
             final String nomeAtivo;
+            @Getter
             final String codigo;
     @Setter double valorCompra;
             final LocalDate data = LocalDate.now();
+            @Getter
             final double quantidade;
             final int id;
 
@@ -29,9 +31,6 @@ public class Relatorio {
         return valorCompra * quantidade;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
 
 }
 

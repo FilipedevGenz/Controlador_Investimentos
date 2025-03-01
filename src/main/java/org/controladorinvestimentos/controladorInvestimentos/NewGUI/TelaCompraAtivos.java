@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
+import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
 import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.HistoricoDosAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Ativo;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
@@ -93,6 +94,12 @@ public class TelaCompraAtivos extends Application {
 
     private void comprarAtivo(Ativo ativo, int index) {
         try {
+
+            String formattedCode = ativo.getNome().trim().replaceAll("\\s+", "").toUpperCase();
+            System.out.println("Código formatado: " + formattedCode); // Debug
+
+            double actualPrice = APIrequest.buscarPrecoAtivoEmTempoReal(formattedCode);
+
             if (carteira == null) {
                 mostrarAlerta("Erro", "Nenhuma carteira foi associada a este usuário.");
                 return;
@@ -109,18 +116,18 @@ public class TelaCompraAtivos extends Application {
                 return;
             }
 
-            int quantidade = Integer.parseInt(quantidadeTexto);
+            Double quantidade = Double.parseDouble(quantidadeTexto);
             if (quantidade <= 0) {
                 mostrarAlerta("Erro", "A quantidade deve ser maior que zero.");
                 return;
             }
 
-            if (ativo.getPreco() <= 0) {
+            if (actualPrice <= 0) {
                 mostrarAlerta("Erro", "Preço do ativo inválido. Tente novamente.");
                 return;
             }
 
-            carteira.adicionarAtivoNaCarteira(ativo.getNome(), quantidade, (int) ativo.getPreco());
+            carteira.adicionarAtivoNaCarteira(ativo.getNome(), quantidade, actualPrice);
 
             mostrarAlerta("Sucesso", "Ativo comprado com sucesso!");
 
@@ -135,7 +142,7 @@ public class TelaCompraAtivos extends Application {
 
     private void voltarParaCarteiras(Stage primaryStage) {
         try {
-            new TelaCarteiras(usuarioLogado).start(primaryStage);
+            new TelaCarteiraMenu(usuarioLogado,carteira).start(primaryStage);
         } catch (Exception ex) {
             ex.printStackTrace();
             mostrarAlerta("Erro", "Não foi possível voltar para a tela de carteiras.");

@@ -10,5 +10,6 @@ public interface IrepositorioRelatorio {
     public ArrayList<Relatorio> getRelatorios();
     public Double retornaValorMedioDeCompra(String codigo);
     public Double calcularValorAtual();
-    public void removerRelatorio(Relatorio relatorio);
+    public void removerRelatorio(String codigo, double quantidade);
+    Relatorio buscarRelatorio(String codeAtv);
 }

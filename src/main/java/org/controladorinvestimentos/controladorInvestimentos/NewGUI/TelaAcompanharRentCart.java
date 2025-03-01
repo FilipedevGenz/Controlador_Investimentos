@@ -23,7 +23,7 @@ import java.util.List;
 public class TelaAcompanharRentCart extends Application {
 
     private Carteira carteira;
-    private Usuario usuarioLogado; // Adicionado para manter o usuário logado
+    private Usuario usuarioLogado;
 
     public TelaAcompanharRentCart(Usuario usuario, Carteira carteira) {
         this.usuarioLogado = usuario;
@@ -60,7 +60,7 @@ public class TelaAcompanharRentCart extends Application {
 
         for (Relatorio ativo : ativos) {
             String nomeAtivo = ativo.getCodigo();
-            LocalDate dataInicio = LocalDate.now().minusMonths(3); // Últimos 3 meses
+            LocalDate dataInicio = LocalDate.now().minusMonths(3);
             double variacao = HistoricoDosAtivos.calcularTaxaDeVariacao(nomeAtivo, dataInicio);
             rentabilidadeTotal += variacao;
 
