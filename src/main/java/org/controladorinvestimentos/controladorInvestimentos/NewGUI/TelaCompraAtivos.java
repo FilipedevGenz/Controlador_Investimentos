@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controladorinvestimentos.controladorInvestimentos.Banco.RepositorioAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.APIrequest;
-import org.controladorinvestimentos.controladorInvestimentos.beans.APIfuncionalidades.HistoricoDosAtivos;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Ativo;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Carteira;
 import org.controladorinvestimentos.controladorInvestimentos.beans.ClassesConstrutoras.Usuario;
@@ -46,11 +45,10 @@ public class TelaCompraAtivos extends Application {
         grid.setHgap(10);
         grid.setVgap(10);
 
-        grid.add(new Label("Ativo"), 4, 1);
-        grid.add(new Label("Variação"), 3, 1);
-        grid.add(new Label("Preço Atual"), 2, 1);
-        grid.add(new Label("Quantidade"), 1, 1);
         grid.add(new Label("Ação"), 0, 1);
+        grid.add(new Label("Quantidade"), 1, 1);
+        grid.add(new Label("Preço Atual"), 2, 1);
+        grid.add(new Label("Ativo"), 4, 0); // Label no topo
 
         RepositorioAtivos repositorioAtivos = RepositorioAtivos.getInstance();
         List<Ativo> ativosDisponiveis = repositorioAtivos.getAtivos();
@@ -71,13 +69,13 @@ public class TelaCompraAtivos extends Application {
 
                 btnComprar.setOnAction(e -> comprarAtivo(ativoFinal, indexFinal));
 
+                grid.add(new Label(ativoFinal.getNome()), 4, i + 2); // Nome do ativo abaixo do rótulo "Ativo"
                 grid.add(btnComprar, 0, i + 2);
                 grid.add(txtQuantidade, 1, i + 2);
                 grid.add(new Label("R$ " + String.format("%.2f", ativoFinal.getPreco())), 2, i + 2);
             }
         }
 
-        // Botão de voltar para a tela de carteiras
         Button btnVoltarParaCarteiras = new Button("Voltar para Carteiras");
         btnVoltarParaCarteiras.setStyle("-fx-font-size: 14px; -fx-padding: 10px;");
         btnVoltarParaCarteiras.setOnAction(e -> voltarParaCarteiras(primaryStage));
@@ -94,9 +92,8 @@ public class TelaCompraAtivos extends Application {
 
     private void comprarAtivo(Ativo ativo, int index) {
         try {
-
             String formattedCode = ativo.getNome().trim().replaceAll("\\s+", "").toUpperCase();
-            System.out.println("Código formatado: " + formattedCode); // Debug
+            System.out.println("Código formatado: " + formattedCode);
 
             double actualPrice = APIrequest.buscarPrecoAtivoEmTempoReal(formattedCode);
 
@@ -137,12 +134,11 @@ public class TelaCompraAtivos extends Application {
             e.printStackTrace();
             mostrarAlerta("Erro", "Erro ao comprar ativo: " + e.getMessage());
         }
-
     }
 
     private void voltarParaCarteiras(Stage primaryStage) {
         try {
-            new TelaCarteiraMenu(usuarioLogado,carteira).start(primaryStage);
+            new TelaCarteiraMenu(usuarioLogado, carteira).start(primaryStage);
         } catch (Exception ex) {
             ex.printStackTrace();
             mostrarAlerta("Erro", "Não foi possível voltar para a tela de carteiras.");

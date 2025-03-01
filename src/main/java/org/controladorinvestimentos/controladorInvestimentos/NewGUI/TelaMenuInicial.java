@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -43,12 +44,11 @@ public class TelaMenuInicial extends Application {
 
         Button btnProjecoes = criarBotaoMenu("Projeções");
         Button btnCarteira = criarBotaoMenu("Carteira");
-        Button btnRelatorio = criarBotaoMenu("Relatório");
 
         btnProjecoes.setOnAction(e -> abrirTela(new ProjecaoInvestimentosGeral(usuarioLogado, null), primaryStage));
         btnCarteira.setOnAction(e -> abrirTela(new TelaCarteiras(usuarioLogado), primaryStage));
 
-        menu.getChildren().addAll(title, btnProjecoes, btnCarteira, btnRelatorio);
+        menu.getChildren().addAll(title, btnProjecoes, btnCarteira);
 
         Label lblTitulo = new Label("BEM VINDO, " + usuarioLogado.getNome().toUpperCase());
         lblTitulo.setStyle("-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333;");
@@ -122,10 +122,48 @@ public class TelaMenuInicial extends Application {
         StackedBarChart<String, Number> barChart = new StackedBarChart<>(xAxis, yAxis);
         barChart.setMinHeight(350);
         barChart.setStyle("-fx-background-color: #ffffff; -fx-padding: 15px; -fx-border-radius: 10px; -fx-border-color: #ddd;");
+
         xAxis.setLabel("Data");
         yAxis.setLabel("Variação (%)");
+
+        ControladorCarteira controladorCarteira = new ControladorCarteira();
+        List<Carteira> carteiras = controladorCarteira.getCarteiras(usuarioLogado);
+
+        XYChart.Series<String, Number> seriesRentabilidade = new XYChart.Series<>();
+        seriesRentabilidade.setName("Rentabilidade");
+
+        LocalDate dataInicio = LocalDate.now().minusMonths(3);
+        LocalDate dataAtual = LocalDate.now();
+
+        while (!dataInicio.isAfter(dataAtual)) {
+            double rentabilidadeTotal = 0.0;
+            int countAtivos = 0;
+
+            for (Carteira carteira : carteiras) {
+                List<Relatorio> ativos = carteira.getRepositorioRelatorio().getRelatorios();
+                for (Relatorio ativo : ativos) {
+                    String nomeAtivo = ativo.getCodigo();
+                    double variacao = HistoricoDosAtivos.calcularTaxaDeVariacao(nomeAtivo, dataInicio);
+                    rentabilidadeTotal += variacao;
+                    countAtivos++;
+                }
+            }
+
+            double rentabilidadeMedia = (countAtivos == 0) ? 0 : rentabilidadeTotal / countAtivos;
+            seriesRentabilidade.getData().add(new XYChart.Data<>(dataInicio.toString(), rentabilidadeMedia));
+
+            dataInicio = dataInicio.plusWeeks(1);
+        }
+
+        if (!seriesRentabilidade.getData().isEmpty()) {
+            barChart.getData().add(seriesRentabilidade);
+        } else {
+            System.out.println("Nenhum dado disponível para exibir no gráfico.");
+        }
+
         return barChart;
     }
+
 
     private Button criarBotaoMenu(String texto) {
         Button botao = new Button(texto);
